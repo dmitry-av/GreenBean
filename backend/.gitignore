@@ -1,0 +1,9 @@
+*.pyc
+*.log
+db.sqlite3
+*.env
+README_DRAFT.md
+/.vscode
+/media
+test.py
+.cache
