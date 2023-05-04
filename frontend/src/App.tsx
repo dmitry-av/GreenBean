@@ -4,8 +4,11 @@ import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ProtectedRoute from "./routes/ProtectedRoute";
-import Albums from './components/Albums';
 import { AlbumsList } from "./pages/AlbumsList";
+import { AlbumDetailPage } from "./pages/AlbumDetail";
+import { ReviewDetailPage } from "./pages/ReviewDetail";
+import Header from "./pages/Header";
+import SearchResults from "./pages/SearchResults";
 
 function App() {
 
@@ -14,9 +17,13 @@ function App() {
       <PersistGate persistor={persistor} loading={null}>
         <Router>
           <div className='App'>
+            <Header />
             <Routes>
               <Route path="/login" element={<Login />} />
               <Route path="/albums" element={<AlbumsList />} />
+              <Route path="/albums/search/:term" element={<SearchResults />} />
+              <Route path="/albums/:disc_id" element={<AlbumDetailPage />} />
+              <Route path="/reviews/:id" element={<ReviewDetailPage />} />
               <Route path="/" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
             </Routes>
           </div>

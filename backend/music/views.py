@@ -27,7 +27,7 @@ class AlbumViewSet(viewsets.ModelViewSet):
     lookup_field = 'disc_id'
 
     def get_serializer_class(self):
-        if self.action in ["list", "create"]:
+        if self.action in ["list"]:
             return AlbumSerializer
         return AlbumDetailSerializer
 
@@ -108,6 +108,11 @@ class ReviewViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated | IsCreatorPermission]
     serializer_class = ReviewSerializer
     queryset = Review.objects.all()
+
+    def get_serializer_class(self):
+        if self.action in ["list", "create"]:
+            return ReviewSerializer
+        return ReviewDetailSerializer
 
     def perform_create(self, serializer):
         serializer.save(creator=self.request.user)

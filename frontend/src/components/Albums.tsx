@@ -13,7 +13,7 @@ function Albums() {
     }, []);
 
     const loadAlbums = async () => {
-        const albums = await musicService.getAlbums();
+        const albums = await musicService.getAlbums(1);
         setAlbums(albums);
     };
 

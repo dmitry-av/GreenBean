@@ -1,13 +1,15 @@
-import { useGetAlbumsQuery } from "../services/albumsApi";
+import { Link, useParams } from "react-router-dom";
+import { useSearchAlbumsQuery } from "../services/albumsApi";
 import { Album } from "../models/album";
 import { useState } from "react";
-import { Link } from 'react-router-dom';
 
 const PAGE_SIZE = 100;
 
-export const AlbumsList = () => {
+
+function SearchResults() {
+    const { term } = useParams();
     const [page, setPage] = useState<number>(1);
-    const { data, error, isLoading } = useGetAlbumsQuery(page);
+    const { data, error, isLoading } = useSearchAlbumsQuery(term);
 
     if (isLoading) {
         return <div>Loading...</div>;
@@ -58,6 +60,7 @@ export const AlbumsList = () => {
 
     return (
         <section className="posts-list">
+            <h2>Albums</h2>
             <div className="pagination">
                 <button onClick={handlePreviousPage} disabled={previous === null}>
                     Previous
@@ -69,7 +72,6 @@ export const AlbumsList = () => {
                     Next
                 </button>
             </div>
-            <h2>Albums</h2>
             {renderedAlbums}
             <div className="pagination">
                 <button onClick={handlePreviousPage} disabled={previous === null}>
@@ -85,3 +87,5 @@ export const AlbumsList = () => {
         </section>
     );
 };
+
+export default SearchResults;

@@ -47,7 +47,7 @@ class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
         fields = ["id", "creator", "album", "disc_id",
-                  "album_title", "rating", "modified_at", "created_at"]
+                  "album_title", "rating", "modified_at", "created_at", "text"]
         read_only_fields = ["modified_at", "created_at"]
 
 
@@ -65,16 +65,6 @@ class AlbumSerializer(serializers.ModelSerializer):
             "get_avg_rating",
             "is_full_record"
         ]
-
-
-class ReviewDetailSerializer(serializers.ModelSerializer):
-    creator = UserSerializer(read_only=True)
-    album = AlbumSerializer()
-
-    class Meta:
-        model = Review
-        fields = "__all__"
-        read_only_fields = ("created_at", "modified_at", "album")
 
 
 class AlbumDetailSerializer(serializers.ModelSerializer):
@@ -97,6 +87,16 @@ class AlbumDetailSerializer(serializers.ModelSerializer):
             "get_avg_rating",
             "is_full_record"
         ]
+
+
+class ReviewDetailSerializer(serializers.ModelSerializer):
+    creator = UserSerializer(read_only=True)
+    album = AlbumDetailSerializer()
+
+    class Meta:
+        model = Review
+        fields = "__all__"
+        read_only_fields = ("created_at", "modified_at", "album")
 
 
 class AlbumTitleAndUrlSerializer(serializers.ModelSerializer):

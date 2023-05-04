@@ -1,0 +1,10 @@
+.form-control {
+    padding-right: 40px;
+  }
+  
+  .icon-inside-input {
+    position: relative;
+    top: 25px;
+    right: 25px;
+    transform: translateY(-50%);
+  }

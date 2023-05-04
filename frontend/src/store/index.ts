@@ -12,11 +12,12 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import authSlice from "./slices/authSlice";
-import albumsSlice from "./slices/albumsSlice";
+import { albumsApi } from '../services/albumsApi';
+
 
 const rootReducer = combineReducers({
   auth: authSlice.reducer,
-  albums: albumsSlice.reducer
+  [albumsApi.reducerPath]: albumsApi.reducer
 });
 
 const persistedReducer = persistReducer(
@@ -30,11 +31,12 @@ const persistedReducer = persistReducer(
 
 const store = configureStore({
   reducer: persistedReducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware({
-    serializableCheck: {
-      ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-    },
-  }),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }).concat(albumsApi.middleware),
 });
 
 export const persistor = persistStore(store);
