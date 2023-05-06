@@ -1,4 +1,4 @@
-import { Login, Profile } from "./pages";
+import { Login, Profile, RegisterPage } from "./pages";
 import store, { persistor } from "./store";
 import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from "react-redux";
@@ -19,6 +19,7 @@ function App() {
           <div className='App'>
             <Header />
             <Routes>
+              <Route path="/register" element={<RegisterPage />} />
               <Route path="/login" element={<Login />} />
               <Route path="/albums" element={<AlbumsList />} />
               <Route path="/albums/search/:term" element={<SearchResults />} />

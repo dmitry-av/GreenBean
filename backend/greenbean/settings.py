@@ -28,8 +28,9 @@ class Dev(Configuration):
         "django.contrib.staticfiles",
         "rest_framework",
         "rest_framework.authtoken",
-        'rest_framework_simplejwt.token_blacklist',
-        'corsheaders',
+        "rest_framework_simplejwt.token_blacklist",
+        "corsheaders",
+        "rest_registration",
         "green_auth",
         "music"
     ]
@@ -49,6 +50,12 @@ class Dev(Configuration):
         'green_auth.backend.EmailOrUsernameModelBackend',
     ]
 
+    REST_REGISTRATION = {
+        'REGISTER_VERIFICATION_URL': 'https://frontend-host/verify-user/',
+        'RESET_PASSWORD_VERIFICATION_URL': 'https://frontend-host/reset-password/',
+        'REGISTER_EMAIL_VERIFICATION_URL': 'https://frontend-host/verify-email/',
+        'VERIFICATION_FROM_EMAIL': os.environ.get("EMAIL_HOST_USER")
+    }
     ROOT_URLCONF = "greenbean.urls"
 
     TEMPLATES = [
@@ -128,6 +135,14 @@ class Dev(Configuration):
     # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
     DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+    DEFAULT_FROM_EMAIL = os.environ.get("EMAIL_HOST_USER")
+    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+    EMAIL_PORT = os.environ.get("EMAIL_PORT")
+    EMAIL_USE_TLS = True
+    EMAIL_HOST = os.environ.get("EMAIL_HOST")
+    EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
+    EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
 
     REST_FRAMEWORK = {
         "DEFAULT_AUTHENTICATION_CLASSES": [

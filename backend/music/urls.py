@@ -18,7 +18,8 @@ router.register(r'jwt/refresh', views.RefreshViewSet, basename='jwt_refresh')
 urlpatterns = [
     path('get-details', views.UserDetailAPI.as_view()),
     path('register', views.RegisterUserAPIView.as_view()),
-    path("", include(router.urls))
+    path("", include(router.urls)),
+    path('accounts/', include('rest_registration.api.urls'))
 ]
 
 # urlpatterns += [path('api-token-auth', obtain_auth_token),

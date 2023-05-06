@@ -14,6 +14,7 @@ pyjwt = "==1.7.1"
 spotipy = "*"
 python3-discogs-client = "*"
 openai = "*"
+django-rest-registration = "*"
 
 [dev-packages]
 
