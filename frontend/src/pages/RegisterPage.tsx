@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRegisterMutation } from '../services/authApi';
 import { useNavigate } from 'react-router-dom';
 import { Formik, Field, Form, ErrorMessage, useFormik } from "formik";
@@ -51,7 +51,6 @@ const RegisterPage = () => {
 
     const [register, { isLoading, isError, isSuccess, error, status }] = useRegisterMutation();
 
-
     const formik = useFormik({
         initialValues: {
             username: '',
@@ -62,34 +61,30 @@ const RegisterPage = () => {
             password_confirm: '',
         },
         onSubmit: async (values) => {
-            try {
-                await register(values);
-                if (isSuccess) {
-                    navigate('/', { replace: true });
+            await register(values);
+            if (error) {
+                if ('status' in error) {
+                    // you can access all properties of `FetchBaseQueryError` here
+                    const errMsg = 'error' in error ? error.error : JSON.stringify(error.data);
+
+                    return (
+                        <div>
+                            <div>An error has occurred:</div>
+                            <div>{errMsg}</div>
+                        </div>
+                    );
+                } else {
+                    // you can access all properties of `SerializedError` here
+                    return <div>{error.message}</div>;
                 }
-            } catch (err) {
-                console.log(err);
             }
+            else {
+                navigate('/verify-notify', { replace: true });
+            }
+
         },
         validationSchema: validationSchema
     });
-
-    if (error) {
-        if ('status' in error) {
-            // you can access all properties of `FetchBaseQueryError` here
-            const errMsg = 'error' in error ? error.error : JSON.stringify(error.data);
-
-            return (
-                <div>
-                    <div>An error has occurred:</div>
-                    <div>{errMsg}</div>
-                </div>
-            );
-        } else {
-            // you can access all properties of `SerializedError` here
-            return <div>{error.message}</div>;
-        }
-    }
 
     return (
         <div className="d-flex align-items-center justify-content-center vh-100">

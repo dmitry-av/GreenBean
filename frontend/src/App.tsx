@@ -7,6 +7,9 @@ import ProtectedRoute from "./routes/ProtectedRoute";
 import { AlbumsList } from "./pages/AlbumsList";
 import { AlbumDetailPage } from "./pages/AlbumDetail";
 import { ReviewDetailPage } from "./pages/ReviewDetail";
+import VerificationEmailSent from "./pages/VerificationEmailSent";
+import VerifyUser from "./pages/VerifyUser";
+import VerifySuccess from "./pages/VerifySuccess";
 import Header from "./pages/Header";
 import SearchResults from "./pages/SearchResults";
 
@@ -20,6 +23,9 @@ function App() {
             <Header />
             <Routes>
               <Route path="/register" element={<RegisterPage />} />
+              <Route path="/verify-notify" element={<VerificationEmailSent />} />
+              <Route path="/verify-user/" element={<VerifyUser />} />
+              <Route path="/verify-successful" element={<VerifySuccess />} />
               <Route path="/login" element={<Login />} />
               <Route path="/albums" element={<AlbumsList />} />
               <Route path="/albums/search/:term" element={<SearchResults />} />

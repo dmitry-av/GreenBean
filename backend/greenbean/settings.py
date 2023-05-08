@@ -51,9 +51,9 @@ class Dev(Configuration):
     ]
 
     REST_REGISTRATION = {
-        'REGISTER_VERIFICATION_URL': 'https://frontend-host/verify-user/',
-        'RESET_PASSWORD_VERIFICATION_URL': 'https://frontend-host/reset-password/',
-        'REGISTER_EMAIL_VERIFICATION_URL': 'https://frontend-host/verify-email/',
+        'REGISTER_VERIFICATION_URL': f'{os.environ.get("FRONTEND_HOST")}/verify-user/',
+        'RESET_PASSWORD_VERIFICATION_URL': f'{os.environ.get("FRONTEND_HOST")}/reset-password/',
+        'REGISTER_EMAIL_VERIFICATION_URL': f'{os.environ.get("FRONTEND_HOST")}/verify-email/',
         'VERIFICATION_FROM_EMAIL': os.environ.get("EMAIL_HOST_USER")
     }
     ROOT_URLCONF = "greenbean.urls"
