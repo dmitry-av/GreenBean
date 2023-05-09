@@ -2,13 +2,15 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 //import { AccountResponse } from "../../types";
 import { UserResponse } from "../../models/user";
 
+
 type State = {
     token: string | null;
     refreshToken: string | null;
     account: UserResponse | null;
+    verifyMailSent: boolean;
 };
 
-const initialState: State = { token: null, refreshToken: null, account: null };
+const initialState: State = { token: null, refreshToken: null, account: null, verifyMailSent: false };
 
 const authSlice = createSlice({
     name: "auth",
@@ -29,7 +31,10 @@ const authSlice = createSlice({
             state.refreshToken = null;
             state.token = null;
         },
-    },
+        setIsMailSent(state: State, action: PayloadAction<boolean>) {
+            state.verifyMailSent = action.payload;
+        },
+    }
 });
 
 export default authSlice;

@@ -1,20 +1,14 @@
-import { useState, useEffect } from 'react';
 import { useRegisterMutation } from '../services/authApi';
 import { useNavigate } from 'react-router-dom';
-import { Formik, Field, Form, ErrorMessage, useFormik } from "formik";
+import { useFormik } from "formik";
+import authSlice from "../store/slices/authSlice";
+import { useDispatch } from "react-redux";
 import * as Yup from "yup";
 
-interface RegisterFormValues {
-    username: string;
-    first_name: string;
-    last_name: string;
-    email: string;
-    password: string;
-    password_confirm: string;
-}
 
 const RegisterPage = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const validationSchema = () => {
         return Yup.object().shape({
@@ -79,6 +73,7 @@ const RegisterPage = () => {
                 }
             }
             else {
+                dispatch(authSlice.actions.setIsMailSent(true));
                 navigate('/verify-notify', { replace: true });
             }
 
