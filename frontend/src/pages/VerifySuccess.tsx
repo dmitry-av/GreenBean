@@ -1,4 +1,3 @@
-
 const VerifySuccess = () => {
     return (
         <div>

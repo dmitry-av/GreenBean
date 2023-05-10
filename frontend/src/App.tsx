@@ -1,15 +1,12 @@
-import { Login, Profile, RegisterPage } from "./pages";
+import { Login, Profile, RegisterPage, VerifyUser, VerifySuccess, VerificationEmailSent } from "./pages";
 import store, { persistor } from "./store";
 import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import ProtectedRoute from "./routes/ProtectedRoute";
+import { ProtectedRoute, SuccessVerification, VerifyMail } from "./routes";
 import { AlbumsList } from "./pages/AlbumsList";
 import { AlbumDetailPage } from "./pages/AlbumDetail";
 import { ReviewDetailPage } from "./pages/ReviewDetail";
-import VerificationEmailSent from "./pages/VerificationEmailSent";
-import VerifyUser from "./pages/VerifyUser";
-import VerifySuccess from "./pages/VerifySuccess";
 import Header from "./pages/Header";
 import SearchResults from "./pages/SearchResults";
 
@@ -23,9 +20,9 @@ function App() {
             <Header />
             <Routes>
               <Route path="/register" element={<RegisterPage />} />
-              <Route path="/verify-notify" element={<VerificationEmailSent />} />
+              <Route path="/verify-successful" element={<SuccessVerification><VerifySuccess /></SuccessVerification>} />
+              <Route path="/verify-notify" element={<VerifyMail><VerificationEmailSent /></VerifyMail>} />
               <Route path="/verify-user/" element={<VerifyUser />} />
-              <Route path="/verify-successful" element={<VerifySuccess />} />
               <Route path="/login" element={<Login />} />
               <Route path="/albums" element={<AlbumsList />} />
               <Route path="/albums/search/:term" element={<SearchResults />} />

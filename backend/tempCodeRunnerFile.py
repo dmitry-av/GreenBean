@@ -1,2 +1,2 @@
-artist = dclient.artist(18839)
-# print(dir(artist))
+results = dclient.master(6495)
+print(results.fetch('notes'))

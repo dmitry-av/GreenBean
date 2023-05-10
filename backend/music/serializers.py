@@ -53,10 +53,11 @@ class ReviewSerializer(serializers.ModelSerializer):
 
 class AlbumSerializer(serializers.ModelSerializer):
     avg_rating = serializers.ReadOnlyField(source='get_avg_rating')
+    artists = ArtistSerializer(many=True)
 
     class Meta:
         model = Album
-        fields = ('disc_id', 'title', 'year',
+        fields = ('disc_id', 'title', 'artists', 'year',
                   'avg_rating', 'reviews', 'is_full_record')
         read_only_fields = [
             "title",

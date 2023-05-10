@@ -74,6 +74,7 @@ const RegisterPage = () => {
             }
             else {
                 dispatch(authSlice.actions.setIsMailSent(true));
+                dispatch(authSlice.actions.setVerificationComplete(false));
                 navigate('/verify-notify', { replace: true });
             }
 
@@ -92,6 +93,7 @@ const RegisterPage = () => {
                             className="form-control"
                             id="username"
                             type="text"
+                            autoComplete="off"
                             placeholder="Enter your username"
                             name="username"
                             value={formik.values.username}
@@ -147,6 +149,7 @@ const RegisterPage = () => {
                         <input
                             className="form-control"
                             id="password"
+                            autoComplete="new-password"
                             type="password"
                             placeholder="Enter your password"
                             name="password"
@@ -162,6 +165,7 @@ const RegisterPage = () => {
                             className="form-control"
                             id="password_confirm"
                             type="password"
+                            autoComplete="new-password"
                             placeholder="Reenter your password"
                             name="password_confirm"
                             value={formik.values.password_confirm}

@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-//import { AccountResponse } from "../../types";
 import { UserResponse } from "../../models/user";
 
 
@@ -8,9 +7,10 @@ type State = {
     refreshToken: string | null;
     account: UserResponse | null;
     verifyMailSent: boolean;
+    verificationComplete: boolean;
 };
 
-const initialState: State = { token: null, refreshToken: null, account: null, verifyMailSent: false };
+const initialState: State = { token: null, refreshToken: null, account: null, verifyMailSent: false, verificationComplete: false };
 
 const authSlice = createSlice({
     name: "auth",
@@ -33,6 +33,9 @@ const authSlice = createSlice({
         },
         setIsMailSent(state: State, action: PayloadAction<boolean>) {
             state.verifyMailSent = action.payload;
+        },
+        setVerificationComplete(state: State, action: PayloadAction<boolean>) {
+            state.verificationComplete = action.payload;
         },
     }
 });

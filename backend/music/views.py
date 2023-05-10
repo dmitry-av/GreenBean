@@ -6,6 +6,7 @@ from rest_framework.exceptions import PermissionDenied, NotFound
 from rest_framework.authentication import TokenAuthentication
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from urllib.parse import unquote
+from django.db.models import Q
 
 from django.contrib.auth.models import User
 
@@ -45,9 +46,10 @@ class AlbumViewSet(viewsets.ModelViewSet):
 
         term = unquote(search_serializer.data["term"])
 
-        album_search_and_save(term)
+        album_search_and_save(term.lower())
 
-        albums = self.get_queryset().filter(title__icontains=term)
+        albums = self.get_queryset().filter(Q(title__icontains=term)
+                                            | Q(artists__name__icontains=term))
 
         page = self.paginate_queryset(albums)
 
@@ -87,7 +89,7 @@ class ArtistViewSet(viewsets.ModelViewSet):
 
         term = search_serializer.data["term"]
 
-        artist_search_and_save(term)
+        artist_search_and_save(term.lower())
 
         artists = self.get_queryset().filter(name__icontains=term)
 

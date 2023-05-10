@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useVerificationMutation } from "../services/authApi";
 import authSlice from "../store/slices/authSlice";
@@ -24,6 +23,7 @@ function VerifyUser() {
     useEffect(() => {
         if (isSuccess) {
             dispatch(authSlice.actions.setIsMailSent(false));
+            dispatch(authSlice.actions.setVerificationComplete(true));
             navigate("/verify-successful");
         }
     }, [isSuccess, isError]);
