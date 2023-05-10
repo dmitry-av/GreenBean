@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import { useSearchAlbumsQuery } from "../services/albumsApi";
 import { Album } from "../models/album";
 import { useState } from "react";
+import { toast } from 'react-toastify';
 
 const PAGE_SIZE = 100;
 
@@ -17,19 +18,12 @@ function SearchResults() {
 
     if (error) {
         if ('status' in error) {
-            // you can access all properties of `FetchBaseQueryError` here
             const errMsg = 'error' in error ? error.error : JSON.stringify(error.data);
 
-            return (
-                <div>
-                    <div>An error has occurred:</div>
-                    <div>{errMsg}</div>
-                </div>
-            );
+            toast.error(errMsg);
         }
         else {
-            // you can access all properties of `SerializedError` here
-            return <div>{error.message}</div>;
+            toast.error(error.message);
         }
     }
 

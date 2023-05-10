@@ -4,6 +4,8 @@ import { useFormik } from "formik";
 import authSlice from "../store/slices/authSlice";
 import { useDispatch } from "react-redux";
 import * as Yup from "yup";
+import { useEffect } from "react";
+import { toast } from 'react-toastify';
 
 
 const RegisterPage = () => {
@@ -43,7 +45,27 @@ const RegisterPage = () => {
         });
     };
 
-    const [register, { isLoading, isError, isSuccess, error, status }] = useRegisterMutation();
+    const [register, { isLoading, isSuccess, error }] = useRegisterMutation();
+
+    useEffect(() => {
+        if (isSuccess) {
+            dispatch(authSlice.actions.setIsMailSent(true));
+            dispatch(authSlice.actions.setVerificationComplete(false));
+            navigate('/verify-notify', { replace: true });
+        }
+        if (error) {
+            if ('status' in error) {
+                // you can access all properties of `FetchBaseQueryError` here
+                const errMsg = 'error' in error ? error.error : JSON.stringify(error.data);
+
+                toast.error(errMsg);
+            }
+            else {
+                // you can access all properties of `SerializedError` here
+                toast.error(error.message);
+            }
+        }
+    }, [isLoading]);
 
     const formik = useFormik({
         initialValues: {
@@ -55,29 +77,7 @@ const RegisterPage = () => {
             password_confirm: '',
         },
         onSubmit: async (values) => {
-            await register(values);
-            if (error) {
-                if ('status' in error) {
-                    // you can access all properties of `FetchBaseQueryError` here
-                    const errMsg = 'error' in error ? error.error : JSON.stringify(error.data);
-
-                    return (
-                        <div>
-                            <div>An error has occurred:</div>
-                            <div>{errMsg}</div>
-                        </div>
-                    );
-                } else {
-                    // you can access all properties of `SerializedError` here
-                    return <div>{error.message}</div>;
-                }
-            }
-            else {
-                dispatch(authSlice.actions.setIsMailSent(true));
-                dispatch(authSlice.actions.setVerificationComplete(false));
-                navigate('/verify-notify', { replace: true });
-            }
-
+            register(values);
         },
         validationSchema: validationSchema
     });

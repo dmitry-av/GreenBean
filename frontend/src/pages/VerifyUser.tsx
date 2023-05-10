@@ -3,13 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { useVerificationMutation } from "../services/authApi";
 import authSlice from "../store/slices/authSlice";
 import { useDispatch } from "react-redux";
+import { toast } from 'react-toastify';
 
 
 function VerifyUser() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const urlParams = new URLSearchParams(window.location.search);
-    const [verification, { isLoading, isError, isSuccess, data, error }] = useVerificationMutation();
+    const [verification, { isLoading, isError, isSuccess, error }] = useVerificationMutation();
 
     useEffect(() => {
         const requestData = {
@@ -33,16 +34,11 @@ function VerifyUser() {
             // you can access all properties of `FetchBaseQueryError` here
             const errMsg = 'error' in error ? error.error : JSON.stringify(error.data);
 
-            return (
-                <div>
-                    <div>An error has occurred:</div>
-                    <div>{errMsg}</div>
-                </div>
-            );
+            toast.error(errMsg);
         }
         else {
             // you can access all properties of `SerializedError` here
-            return <div>{error.message}</div>;
+            toast.error(error.message);
         }
     }
 
@@ -50,21 +46,3 @@ function VerifyUser() {
 }
 
 export default VerifyUser;
-
-
-// axios
-// .post(`${import.meta.env.VITE_API_URL}/accounts/verify-registration/`, {
-//     user_id: userId,
-//     timestamp: timestamp,
-//     signature: signature,
-// })
-// .then((response) => {
-//     console.log(response.status);
-//     // Handle the response from the server
-//     navigate("/verify-successful");
-// })
-// .catch((error) => {
-//     console.log(error);
-//     // Handle the error
-// });
-// }, [navigate]);

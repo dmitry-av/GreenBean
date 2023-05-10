@@ -8,7 +8,9 @@ import { AlbumsList } from "./pages/AlbumsList";
 import { AlbumDetailPage } from "./pages/AlbumDetail";
 import { ReviewDetailPage } from "./pages/ReviewDetail";
 import Header from "./pages/Header";
+import { ToastContainer } from 'react-toastify';
 import SearchResults from "./pages/SearchResults";
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
 
@@ -16,6 +18,7 @@ function App() {
     <Provider store={store}>
       <PersistGate persistor={persistor} loading={null}>
         <Router>
+          <ToastContainer />
           <div className='App'>
             <Header />
             <Routes>

@@ -1,5 +1,6 @@
 import { Link, useParams } from 'react-router-dom';
 import { useGetAlbumDetailQuery } from '../services/albumsApi';
+import { toast } from 'react-toastify';
 
 
 export const AlbumDetailPage = () => {
@@ -15,18 +16,13 @@ export const AlbumDetailPage = () => {
             // you can access all properties of `FetchBaseQueryError` here
             const errMsg = 'error' in error ? error.error : JSON.stringify(error.data);
 
-            return (
-                <div>
-                    <div>An error has occurred:</div>
-                    <div>{errMsg}</div>
-                </div>
-            );
-        } else {
+            toast.error(errMsg);
+        }
+        else {
             // you can access all properties of `SerializedError` here
-            return <div>{error.message}</div>;
+            toast.error(error.message);
         }
     }
-
     const album = data!;
 
     return (
