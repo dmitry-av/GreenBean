@@ -35,9 +35,10 @@ export const ReviewDetailPage = () => {
 
     return (
         <div>
-            <h2>{review.creator.first_name}{review.creator.last_name}</h2>
+            <h2>{review.creator.first_name} {review.creator.last_name}</h2>
             <h3><Link to={`/albums/${review.album.disc_id}`}>{review.album.title}</Link> - {review.album.artists.map((artist) => artist.name).join(", ")}</h3>
             <p>{review.text}</p>
+            <h3>Rating: {review.rating}</h3>
             <h4>Created: {new Date(review.created_at).toLocaleString('en-GB', {
                 year: 'numeric',
                 month: 'long',

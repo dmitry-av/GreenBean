@@ -1,11 +1,15 @@
 import { Link, useParams } from 'react-router-dom';
 import { useGetAlbumDetailQuery } from '../services/albumsApi';
 import { toast } from 'react-toastify';
+import NewReview from './NewReview';
+import { useSelector } from "react-redux";
+import { RootState } from "../store";
 
 
 export const AlbumDetailPage = () => {
     const { disc_id } = useParams();
     const { data, error, isLoading } = useGetAlbumDetailQuery(disc_id!);
+    const auth = useSelector((state: RootState) => state.auth);
 
     if (isLoading) {
         return <div>Loading...</div>;
@@ -28,10 +32,15 @@ export const AlbumDetailPage = () => {
     return (
         <div>
             <h2>{album.title}</h2>
-            <h3>{album.artists.map((artist) => artist.name).join(", ")}</h3>
+            <h3>{album.artists.map((artist) => (
+                <Link key={artist.disc_id} to={`/artists/${artist.disc_id}`}>
+                    {artist.name}
+                </Link>
+            ))}</h3>
             {album.cover ?
                 <img src={album.cover} alt={album.title} style={{ height: '400px' }} className="img-thumbnail" /> : <p></p>}
             <p>{album.notes}</p>
+            <h4>Average rating of users: {album.avg_rating}</h4>
             <h3>Tracks:</h3>
             <ul>
                 {album.tracks.map((track) => (
@@ -61,6 +70,8 @@ export const AlbumDetailPage = () => {
                     </li>
                 ))}
             </ul>
+
+            {auth.account && <NewReview album={album.id} />}
         </div>
     );
 };

@@ -13,8 +13,22 @@ export interface Review {
     created_at: string;
     modified_at: string;
     text: string;
-    rating: string;
+    rating: number;
     album: AlbumDetail;
+}
+
+export interface AddReview {
+    album: number;
+    text: string;
+    rating: number;
+}
+
+export interface Artist {
+    id: number;
+    disc_id: string;
+    name: string;
+    cover: string | null;
+    description: string;
 }
 
 export interface AlbumDetail extends Album {

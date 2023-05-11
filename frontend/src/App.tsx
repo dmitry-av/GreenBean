@@ -11,6 +11,7 @@ import Header from "./pages/Header";
 import { ToastContainer } from 'react-toastify';
 import SearchResults from "./pages/SearchResults";
 import 'react-toastify/dist/ReactToastify.css';
+import ArtistDetailPage from "./pages/ArtistDetail";
 
 function App() {
 
@@ -30,6 +31,7 @@ function App() {
               <Route path="/albums" element={<AlbumsList />} />
               <Route path="/albums/search/:term" element={<SearchResults />} />
               <Route path="/albums/:disc_id" element={<AlbumDetailPage />} />
+              <Route path="/artists/:disc_id" element={<ArtistDetailPage />} />
               <Route path="/reviews/:id" element={<ReviewDetailPage />} />
               <Route path="/" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
             </Routes>

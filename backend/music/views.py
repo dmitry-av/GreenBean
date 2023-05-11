@@ -1,7 +1,7 @@
 from rest_framework.decorators import action
 from rest_framework import generics, viewsets, status
 from rest_framework.response import Response
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import AllowAny, IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.exceptions import PermissionDenied, NotFound
 from rest_framework.authentication import TokenAuthentication
 from rest_framework_simplejwt.authentication import JWTAuthentication
@@ -107,7 +107,7 @@ class ArtistViewSet(viewsets.ModelViewSet):
 
 
 class ReviewViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAuthenticated | IsCreatorPermission]
+    permission_classes = [IsAuthenticatedOrReadOnly, IsCreatorPermission]
     serializer_class = ReviewSerializer
     queryset = Review.objects.all()
 
