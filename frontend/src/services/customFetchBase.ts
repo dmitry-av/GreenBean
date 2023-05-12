@@ -7,6 +7,7 @@ import type {
 import store, { RootState } from '../store';
 import { Mutex } from 'async-mutex';
 import { setAuthTokens, setLogout } from '../store/slices/authSlice';
+import axios from 'axios';
 
 
 
@@ -45,17 +46,17 @@ const baseQueryWithReauth: BaseQueryFn<
         if (!mutex.isLocked()) {
             const release = await mutex.acquire();
             try {
-                const refreshResult = await baseQuery(
-                    '/jwt/refresh',
-                    api,
-                    {
-                        ...extraOptions,
-                        body: {
+                const refreshResult = await axios
+                    .post(
+                        '/jwt/refresh/',
+                        {
                             refresh: refreshToken,
                         },
-                    }
-                );
-                if (refreshResult.data) {
+                        {
+                            baseURL: import.meta.env.VITE_API_URL
+                        }
+                    );
+                if ((refreshResult.status === 200) && refreshResult.data) {
                     const { access, refresh } = refreshResult.data as RefreshResponse;
                     api.dispatch(
                         setAuthTokens({

@@ -159,7 +159,7 @@ class Dev(Configuration):
     }
 
     SIMPLE_JWT = {
-        "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
+        "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
         "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
         "ROTATE_REFRESH_TOKENS": True,
         "BLACKLIST_AFTER_ROTATION": True,
@@ -187,8 +187,8 @@ class Dev(Configuration):
         "JTI_CLAIM": "jti",
 
         "SLIDING_TOKEN_REFRESH_EXP_CLAIM": "refresh_exp",
-        "SLIDING_TOKEN_LIFETIME": timedelta(minutes=30),
-        "SLIDING_TOKEN_REFRESH_LIFETIME": timedelta(days=1),
+        "SLIDING_TOKEN_LIFETIME": timedelta(minutes=3),
+        "SLIDING_TOKEN_REFRESH_LIFETIME": timedelta(days=5),
     }
 
 
