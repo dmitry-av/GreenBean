@@ -24,6 +24,15 @@ class Artist(models.Model):
     cover = models.ImageField(upload_to='band_covers', blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     is_full_record = models.BooleanField(default=False)
+    favorite = models.ManyToManyField(
+        UserModel, related_name='artist_favorite', blank=True)
+
+    @property
+    def get_favorites(self):
+        if self.favorite.all().exists():
+            favorites = self.favorite.all().count()
+            return int(favorites)
+        return None
 
     def __str__(self):
         return f"{self.name}"
@@ -44,6 +53,8 @@ class Album(models.Model):
     cover = models.ImageField(upload_to='covers', blank=True, null=True)
     notes = models.TextField(blank=True, null=True)
     is_full_record = models.BooleanField(default=False)
+    favorite = models.ManyToManyField(
+        UserModel, related_name='album_favorite', blank=True)
 
     @property
     def get_avg_rating(self):
@@ -51,6 +62,13 @@ class Album(models.Model):
             avg_rating = self.reviews.filter(
                 rating__isnull=False).aggregate(Avg('rating'))['rating__avg']
             return "{0:.2f}".format(avg_rating)
+        return None
+
+    @property
+    def get_favorites(self):
+        if self.favorite.all().exists():
+            favorites = self.favorite.all().count()
+            return int(favorites)
         return None
 
     def __str__(self):

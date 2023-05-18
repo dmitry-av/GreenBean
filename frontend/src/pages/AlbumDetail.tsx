@@ -2,6 +2,7 @@ import { Link, useParams } from 'react-router-dom';
 import { useGetAlbumDetailQuery } from '../services/albumsApi';
 import { toast } from 'react-toastify';
 import NewReview from './NewReview';
+import FavAlbum from './FavAlbum';
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
 
@@ -17,18 +18,22 @@ export const AlbumDetailPage = () => {
 
     if (error) {
         if ('status' in error) {
-            // you can access all properties of `FetchBaseQueryError` here
             const errMsg = 'error' in error ? error.error : JSON.stringify(error.data);
 
             toast.error(errMsg);
         }
         else {
-            // you can access all properties of `SerializedError` here
             toast.error(error.message);
         }
     }
-    const album = data!;
 
+    if (!data) {
+        // Handle the case where data is undefined
+        return <div>Data is unavailable</div>;
+    }
+
+    const album = data;
+    console.log(album.is_favorite);
     return (
         <div>
             <h2>{album.title}</h2>
@@ -39,8 +44,10 @@ export const AlbumDetailPage = () => {
             ))}</h3>
             {album.cover ?
                 <img src={album.cover} alt={album.title} style={{ height: '400px' }} className="img-thumbnail" /> : <p></p>}
+            {auth.account && <FavAlbum disc_id={album.disc_id} is_favorite={album.is_favorite} model="albums" />}
             <p>{album.notes}</p>
             <h4>Average rating of users: {album.avg_rating}</h4>
+            <h4>Likes: {album.favorites}</h4>
             <h3>Tracks:</h3>
             <ul>
                 {album.tracks.map((track) => (

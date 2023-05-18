@@ -27,7 +27,12 @@ export const AlbumsList = () => {
         }
     }
 
-    const { albums, count, next, previous } = data!;
+    if (!data) {
+        // Handle the case where data is undefined
+        return <div>Data is unavailable</div>;
+    }
+
+    const { albums, count, next, previous } = data;
     const totalPages = Math.ceil(count / PAGE_SIZE);
 
     const renderedAlbums = albums.map((album: Album) => (

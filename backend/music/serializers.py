@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
-
 from green_auth.serializers import UserSerializer
 from music.models import Genre, Album, Track, Artist, Review
 
@@ -14,12 +13,15 @@ class GenreField(serializers.SlugRelatedField):
 
 
 class ArtistSerializer(serializers.ModelSerializer):
+    favorites = serializers.ReadOnlyField(source='get_favorites')
+
     class Meta:
         model = Artist
-        fields = ('disc_id', 'name',)
+        fields = ('disc_id', 'name', 'favorites')
 
 
 class ArtistDetailSerializer(serializers.ModelSerializer):
+    favorites = serializers.ReadOnlyField(source='get_favorites')
 
     class Meta:
         model = Artist
@@ -53,12 +55,13 @@ class ReviewSerializer(serializers.ModelSerializer):
 
 class AlbumSerializer(serializers.ModelSerializer):
     avg_rating = serializers.ReadOnlyField(source='get_avg_rating')
+    favorites = serializers.ReadOnlyField(source='get_favorites')
     artists = ArtistSerializer(many=True)
 
     class Meta:
         model = Album
         fields = ('disc_id', 'title', 'artists', 'year',
-                  'avg_rating', 'reviews', 'is_full_record')
+                  'avg_rating', 'reviews', 'is_full_record', 'favorites')
         read_only_fields = [
             "title",
             "year",
@@ -71,14 +74,20 @@ class AlbumSerializer(serializers.ModelSerializer):
 class AlbumDetailSerializer(serializers.ModelSerializer):
     genres = GenreField(slug_field="name", many=True, read_only=True)
     avg_rating = serializers.ReadOnlyField(source='get_avg_rating')
+    favorites = serializers.ReadOnlyField(source='get_favorites')
     artists = ArtistSerializer(many=True)
     tracks = TrackSerializer(many=True)
     reviews = ReviewSerializer(many=True)
     lookup_field = 'disc_id'
+    is_favorite = serializers.SerializerMethodField()
+
+    def get_is_favorite(self, album):
+        user = self.context['request'].user
+        return album.favorite.filter(id=user.id).exists()
 
     class Meta:
         model = Album
-        fields = "__all__"
+        exclude = ('favorite', )
         read_only_fields = [
             "title",
             "year",

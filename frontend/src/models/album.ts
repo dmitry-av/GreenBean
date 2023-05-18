@@ -31,6 +31,12 @@ export interface Artist {
     description: string;
 }
 
+export interface NewFav {
+    disc_id: string;
+    is_favorite: boolean;
+    model: string;
+};
+
 export interface AlbumDetail extends Album {
     genres: string[];
     avg_rating: number | null;
@@ -39,5 +45,7 @@ export interface AlbumDetail extends Album {
     reviews: Review[];
     cover: string | null;
     notes: string | null;
+    is_favorite: boolean;
     is_full_record: boolean;
+    favorites: number;
 }

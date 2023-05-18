@@ -1,6 +1,5 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { Album, AlbumDetail, Review, Artist, AddReview } from '../models/album';
-import { RootState } from '../store';
+import { createApi } from '@reduxjs/toolkit/query/react';
+import { Album, AlbumDetail, Review, Artist, AddReview, NewFav } from '../models/album';
 import baseQueryWithReauth from './customFetchBase';
 
 interface AlbumsResponse {
@@ -76,6 +75,30 @@ export const albumsApi = createApi({
             },
             invalidatesTags: [{ type: 'Albums' }],
         }),
+        addAlbumToFav: builder.mutation<NewFav, { disc_id: string; model: string; }>({
+            query({ disc_id, model }) {
+                return {
+                    url: `/${model}/favorite/`,
+                    method: 'POST',
+                    body: {
+                        "disc_id": disc_id
+                    }
+                };
+            },
+            invalidatesTags: [{ type: 'Albums' }],
+        }),
+        delAlbumFromFav: builder.mutation<NewFav, { disc_id: string; model: string; }>({
+            query({ disc_id, model }) {
+                return {
+                    url: `/${model}/delete-favorite/`,
+                    method: 'DELETE',
+                    body: {
+                        "disc_id": disc_id
+                    }
+                };
+            },
+            invalidatesTags: [{ type: 'Albums' }],
+        }),
     }),
 });
 
@@ -85,4 +108,6 @@ export const {
     useSearchAlbumsQuery,
     useGetReviewDetailQuery,
     useGetArtistDetailQuery,
-    useAddReviewMutationMutation } = albumsApi;
+    useAddReviewMutationMutation,
+    useDelAlbumFromFavMutation,
+    useAddAlbumToFavMutation } = albumsApi;

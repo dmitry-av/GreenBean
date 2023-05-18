@@ -68,7 +68,12 @@ const baseQueryWithReauth: BaseQueryFn<
                     result = await baseQuery(args, api, extraOptions);
                 } else {
                     api.dispatch(setLogout());
+                    window.location.replace('/login');
                 }
+            } catch (e) {
+                console.log(e, "Error during token refresh attempt");
+                api.dispatch(setLogout());
+                window.location.replace('/login');
             } finally {
                 // release must be called once the mutex should be released again.
                 release();
