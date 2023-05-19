@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useAddReviewMutationMutation } from "../services/albumsApi";
+import { useAddReviewMutation } from "../services/albumsApi";
 
 
 function NewReview({ album }: { album: number; }): JSX.Element {
@@ -7,7 +7,7 @@ function NewReview({ album }: { album: number; }): JSX.Element {
     const [rating, setRating] = useState(0);
 
     const [addReview, { isLoading, isSuccess, error }] =
-        useAddReviewMutationMutation();
+        useAddReviewMutation();
 
     const submitForm = (e: React.FormEvent) => {
         e.preventDefault();

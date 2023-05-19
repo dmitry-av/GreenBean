@@ -23,6 +23,11 @@ export interface AddReview {
     rating: number;
 }
 
+export type UpdateReview = {
+    id: number;
+    body: AddReview;
+};
+
 export interface Artist {
     id: number;
     disc_id: string;

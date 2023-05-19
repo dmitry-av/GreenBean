@@ -1,5 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
-import { Album, AlbumDetail, Review, Artist, AddReview, NewFav } from '../models/album';
+import { Album, AlbumDetail, Review, Artist, AddReview, NewFav, UpdateReview } from '../models/album';
 import baseQueryWithReauth from './customFetchBase';
 
 interface AlbumsResponse {
@@ -46,7 +46,8 @@ export const albumsApi = createApi({
             query: (disc_id) => `/albums/${disc_id}`,
             providesTags: (result, error, disc_id) => [
                 { type: 'Albums', id: disc_id } as const,
-            ],
+            ]
+
         }),
         searchAlbums: builder.query({
             query: (term) => `/albums/search/?term=${term}`,
@@ -65,12 +66,31 @@ export const albumsApi = createApi({
         getArtistDetail: builder.query<Artist, string>({
             query: (disc_id) => `/artists/${disc_id}`,
         }),
-        addReviewMutation: builder.mutation<Review, AddReview>({
+        addReview: builder.mutation<Review, AddReview>({
             query(body) {
                 return {
                     url: '/reviews/',
                     method: 'POST',
                     body,
+                };
+            },
+            invalidatesTags: [{ type: 'Albums' }],
+        }),
+        delReview: builder.mutation({
+            query(id) {
+                return {
+                    url: `/reviews/${id}/`,
+                    method: 'DELETE',
+                };
+            },
+            invalidatesTags: [{ type: 'Albums' }],
+        }),
+        updateReview: builder.mutation<Review, UpdateReview>({
+            query({ id, body }) {
+                return {
+                    url: `/reviews/${id}/`,
+                    method: 'PUT',
+                    body
                 };
             },
             invalidatesTags: [{ type: 'Albums' }],
@@ -108,6 +128,8 @@ export const {
     useSearchAlbumsQuery,
     useGetReviewDetailQuery,
     useGetArtistDetailQuery,
-    useAddReviewMutationMutation,
+    useAddReviewMutation,
     useDelAlbumFromFavMutation,
-    useAddAlbumToFavMutation } = albumsApi;
+    useAddAlbumToFavMutation,
+    useDelReviewMutation,
+    useUpdateReviewMutation } = albumsApi;

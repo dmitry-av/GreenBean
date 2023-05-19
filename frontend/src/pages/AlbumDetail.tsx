@@ -3,13 +3,14 @@ import { useGetAlbumDetailQuery } from '../services/albumsApi';
 import { toast } from 'react-toastify';
 import NewReview from './NewReview';
 import FavAlbum from './FavAlbum';
+import DelReview from './DelReview';
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
 
 
 export const AlbumDetailPage = () => {
     const { disc_id } = useParams();
-    const { data, error, isLoading } = useGetAlbumDetailQuery(disc_id!);
+    const { data, error, isLoading } = useGetAlbumDetailQuery(disc_id!, { refetchOnMountOrArgChange: true });
     const auth = useSelector((state: RootState) => state.auth);
 
     if (isLoading) {
@@ -69,6 +70,7 @@ export const AlbumDetailPage = () => {
                             hour: 'numeric',
                             minute: 'numeric'
                         })}</p>
+                        {(review.creator.id === auth.account?.id) ? <DelReview id={review.id} /> : <p></p>}
                         <h3>
                             <Link to={`/reviews/${review.id}`}>
                                 Details
@@ -77,8 +79,7 @@ export const AlbumDetailPage = () => {
                     </li>
                 ))}
             </ul>
-
-            {auth.account && <NewReview album={album.id} />}
+            {auth.account && !album.reviews.map((review) => review.creator.id).includes(auth.account?.id) && <NewReview album={album.id} />}
         </div>
     );
 };
