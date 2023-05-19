@@ -1,10 +1,15 @@
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useGetReviewDetailQuery } from '../services/albumsApi';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store';
+import DelReview from './DelReview';
+import ReviewEdit from './ReviewEdit';
 
 
 export const ReviewDetailPage = () => {
     const { id } = useParams();
-    const { data, error, isLoading } = useGetReviewDetailQuery(id!);
+    const { data, error, isLoading } = useGetReviewDetailQuery(id!, { refetchOnMountOrArgChange: true });
+    const auth = useSelector((state: RootState) => state.auth);
     const navigate = useNavigate();
 
     function handleClick() {
@@ -53,6 +58,11 @@ export const ReviewDetailPage = () => {
                 hour: 'numeric',
                 minute: 'numeric'
             })}</h4>
+            {(review.creator.id === auth.account?.id) ?
+                <ReviewEdit id={review.id} isEditing={true} album={review.album.id} initialText={review.text} initialRating={review.rating}
+                /> : null}
+
+            {(review.creator.id === auth.account?.id) ? <DelReview id={review.id} /> : null}
             <div>
                 <button onClick={handleClick}>Go back</button>
             </div>

@@ -1,7 +1,8 @@
 import { useDelReviewMutation } from "../services/albumsApi";
+import { AiOutlineDelete } from 'react-icons/ai';
 
 
-function DelReview(id: number): JSX.Element {
+function DelReview({ id }: { id: number; }): JSX.Element {
     const [delReview, { isLoading, error }] = useDelReviewMutation();
 
     const handleDelReview = () => {
@@ -11,7 +12,7 @@ function DelReview(id: number): JSX.Element {
     return (
         <div>
             <button disabled={isLoading} onClick={handleDelReview}>
-                Delete the review
+                <AiOutlineDelete />
             </button>
             {error && <div>Error occurred while adding to favorites</div>}
         </div>

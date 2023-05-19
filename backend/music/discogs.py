@@ -146,7 +146,10 @@ def fill_artist_details(artist):
     dclient = get_client()
     details = dclient.artist(artist.disc_id)
     artist.name = details.name
-    save_image(details.images[0]['uri'], artist)
+    try:
+        save_image(details.images[0]['uri'], artist)
+    except:
+        artist.cover = None
     artist.description = details.profile
     artist.is_full_record = True
     artist.save()

@@ -19,7 +19,7 @@ interface SearchResponse {
 export const albumsApi = createApi({
     reducerPath: 'albumsApi',
     baseQuery: baseQueryWithReauth,
-    tagTypes: ['Albums'],
+    tagTypes: ['Albums', 'Reviews'],
     endpoints: (builder) => ({
         getAlbums: builder.query({
             query: (page) => `/albums/?page=${page}`,
@@ -62,6 +62,9 @@ export const albumsApi = createApi({
         }),
         getReviewDetail: builder.query<Review, string>({
             query: (id) => `/reviews/${id}`,
+            providesTags: (result, error, id) => [
+                { type: 'Reviews', id: id } as const,
+            ]
         }),
         getArtistDetail: builder.query<Artist, string>({
             query: (disc_id) => `/artists/${disc_id}`,
@@ -83,7 +86,7 @@ export const albumsApi = createApi({
                     method: 'DELETE',
                 };
             },
-            invalidatesTags: [{ type: 'Albums' }],
+            invalidatesTags: [{ type: 'Albums' }, { type: 'Reviews' }],
         }),
         updateReview: builder.mutation<Review, UpdateReview>({
             query({ id, body }) {
@@ -93,7 +96,7 @@ export const albumsApi = createApi({
                     body
                 };
             },
-            invalidatesTags: [{ type: 'Albums' }],
+            invalidatesTags: [{ type: 'Reviews' }],
         }),
         addAlbumToFav: builder.mutation<NewFav, { disc_id: string; model: string; }>({
             query({ disc_id, model }) {
