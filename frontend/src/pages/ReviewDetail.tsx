@@ -3,7 +3,7 @@ import { useGetReviewDetailQuery } from '../services/albumsApi';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store';
 import DelReview from './DelReview';
-import ReviewEdit from './ReviewEdit';
+import ReviewPopup from './ReviewPopup';
 
 
 export const ReviewDetailPage = () => {
@@ -59,7 +59,7 @@ export const ReviewDetailPage = () => {
                 minute: 'numeric'
             })}</h4>
             {(review.creator.id === auth.account?.id) ?
-                <ReviewEdit id={review.id} isEditing={true} album={review.album.id} initialText={review.text} initialRating={review.rating}
+                <ReviewPopup id={review.id} isEditing={true} album={review.album.id} initialText={review.text} initialRating={review.rating}
                 /> : null}
 
             {(review.creator.id === auth.account?.id) ? <DelReview id={review.id} /> : null}

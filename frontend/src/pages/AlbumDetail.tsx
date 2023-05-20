@@ -1,7 +1,7 @@
 import { Link, useParams } from 'react-router-dom';
 import { useGetAlbumDetailQuery } from '../services/albumsApi';
 import { toast } from 'react-toastify';
-import ReviewEdit from './ReviewEdit';
+import ReviewPopup from './ReviewPopup';
 import FavAlbum from './FavAlbum';
 import DelReview from './DelReview';
 import { useSelector } from "react-redux";
@@ -78,7 +78,7 @@ export const AlbumDetailPage = () => {
                     </li>
                 ))}
             </ul>
-            {auth.account && !album.reviews.map((review) => review.creator.id).includes(auth.account?.id) && (<ReviewEdit album={album.id} initialText="" initialRating={0} />)}
+            {auth.account && !album.reviews.map((review) => review.creator.id).includes(auth.account?.id) && (<ReviewPopup album={album.id} initialText="" initialRating={0} />)}
         </div>
     );
 };

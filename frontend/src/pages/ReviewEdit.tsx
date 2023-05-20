@@ -7,9 +7,10 @@ interface ReviewForm {
     initialRating: number;
     isEditing?: boolean;
     id?: number;
+    closePopup: () => void;
 }
 
-function ReviewEdit({ album, initialText, initialRating, isEditing, id }: ReviewForm): JSX.Element {
+function ReviewEdit({ album, initialText, initialRating, isEditing, id, closePopup }: ReviewForm): JSX.Element {
     const [text, setText] = useState(initialText);
     const [rating, setRating] = useState(initialRating);
 
@@ -29,7 +30,7 @@ function ReviewEdit({ album, initialText, initialRating, isEditing, id }: Review
                 // Perform add review logic using the addReview mutation
                 addReview(body);
             }
-
+            closePopup();
         }
     };
 

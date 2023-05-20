@@ -10,8 +10,9 @@ import { ReviewDetailPage } from "./pages/ReviewDetail";
 import Header from "./pages/Header";
 import { ToastContainer } from 'react-toastify';
 import SearchResults from "./pages/SearchResults";
-import 'react-toastify/dist/ReactToastify.css';
 import ArtistDetailPage from "./pages/ArtistDetail";
+import 'react-toastify/dist/ReactToastify.css';
+
 
 function App() {
 
