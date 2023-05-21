@@ -22,11 +22,16 @@ class ArtistSerializer(serializers.ModelSerializer):
 
 class ArtistDetailSerializer(serializers.ModelSerializer):
     favorites = serializers.ReadOnlyField(source='get_favorites')
+    is_favorite = serializers.SerializerMethodField()
 
     class Meta:
         model = Artist
         fields = "__all__"
         lookup_field = 'disc_id'
+
+    def get_is_favorite(self, artist):
+        user = self.context['request'].user
+        return artist.favorite.filter(id=user.id).exists()
 
 
 class GenreSerializer(serializers.ModelSerializer):

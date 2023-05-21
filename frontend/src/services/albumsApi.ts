@@ -9,17 +9,10 @@ interface AlbumsResponse {
     previous: string | null;
 }
 
-interface SearchResponse {
-    count: number;
-    next: string | null;
-    previous: string | null;
-    results: Album[];
-}
-
 export const albumsApi = createApi({
     reducerPath: 'albumsApi',
     baseQuery: baseQueryWithReauth,
-    tagTypes: ['Albums', 'Reviews'],
+    tagTypes: ['Albums', 'Reviews', 'Artists'],
     endpoints: (builder) => ({
         getAlbums: builder.query({
             query: (page) => `/albums/?page=${page}`,
@@ -36,22 +29,43 @@ export const albumsApi = createApi({
                 response
                     ? // successful query
                     [
-                        ...response.albums.map(({ disc_id }) => ({ type: 'Albums', disc_id } as const)),
+                        ...response.albums.map(({ id }) => ({ type: 'Albums', id } as const)),
                         { type: 'Albums', id: 'LIST' },
                     ]
-                    : // an error occurred, but we still want to refetch this query when `{ type: 'Posts', id: 'LIST' }` is invalidated
+                    : // an error occurred, but we still want to refetch this query when `{ type: 'Albums', id: 'LIST' }` is invalidated
                     [{ type: 'Albums', id: 'LIST' }],
+
+        }),
+        getFavoriteAlbums: builder.query<Album[], void>({
+            query: () => `/albums/favorites/`,
+            providesTags: (result) =>
+                result
+                    ? [
+                        ...result.map(({ id }) => ({ type: 'Albums' as const, id })),
+                        { type: 'Albums', id: 'LIST' },
+                    ]
+                    : [{ type: 'Albums', id: 'LIST' }],
         }),
         getAlbumDetail: builder.query<AlbumDetail, string>({
             query: (disc_id) => `/albums/${disc_id}`,
-            providesTags: (result, error, disc_id) => [
-                { type: 'Albums', id: disc_id } as const,
+            providesTags: (result, error, id) => [
+                { type: 'Albums', id } as const,
             ]
 
         }),
+        getFavoriteArtists: builder.query<Artist[], void>({
+            query: () => `/artists/favorites/`,
+            providesTags: (result) =>
+                result
+                    ? [
+                        ...result.map(({ id }) => ({ type: 'Artists' as const, id })),
+                        { type: 'Artists', id: 'LIST' },
+                    ]
+                    : [{ type: 'Artists', id: 'LIST' }],
+        }),
         searchAlbums: builder.query({
             query: (term) => `/albums/search/?term=${term}`,
-            transformResponse: (response: SearchResponse) => {
+            transformResponse: (response: AlbumsResponse) => {
                 return {
                     albums: response.results,
                     count: response.count,
@@ -63,11 +77,14 @@ export const albumsApi = createApi({
         getReviewDetail: builder.query<Review, string>({
             query: (id) => `/reviews/${id}`,
             providesTags: (result, error, id) => [
-                { type: 'Reviews', id: id } as const,
+                { type: 'Reviews', id } as const,
             ]
         }),
         getArtistDetail: builder.query<Artist, string>({
             query: (disc_id) => `/artists/${disc_id}`,
+            providesTags: (result, error, id) => [
+                { type: 'Artists', id } as const,
+            ]
         }),
         addReview: builder.mutation<Review, AddReview>({
             query(body) {
@@ -98,7 +115,7 @@ export const albumsApi = createApi({
             },
             invalidatesTags: [{ type: 'Reviews' }],
         }),
-        addAlbumToFav: builder.mutation<NewFav, { disc_id: string; model: string; }>({
+        addToFav: builder.mutation<NewFav, { disc_id: string; model: string; }>({
             query({ disc_id, model }) {
                 return {
                     url: `/${model}/favorite/`,
@@ -108,9 +125,9 @@ export const albumsApi = createApi({
                     }
                 };
             },
-            invalidatesTags: [{ type: 'Albums' }],
+            invalidatesTags: [{ type: 'Albums' }, { type: 'Artists' }]
         }),
-        delAlbumFromFav: builder.mutation<NewFav, { disc_id: string; model: string; }>({
+        delFromFav: builder.mutation<NewFav, { disc_id: string; model: string; }>({
             query({ disc_id, model }) {
                 return {
                     url: `/${model}/delete-favorite/`,
@@ -120,7 +137,7 @@ export const albumsApi = createApi({
                     }
                 };
             },
-            invalidatesTags: [{ type: 'Albums' }],
+            invalidatesTags: [{ type: 'Albums' }, { type: 'Artists' }],
         }),
     }),
 });
@@ -132,7 +149,9 @@ export const {
     useGetReviewDetailQuery,
     useGetArtistDetailQuery,
     useAddReviewMutation,
-    useDelAlbumFromFavMutation,
-    useAddAlbumToFavMutation,
+    useDelFromFavMutation,
+    useAddToFavMutation,
     useDelReviewMutation,
-    useUpdateReviewMutation } = albumsApi;
+    useUpdateReviewMutation,
+    useGetFavoriteAlbumsQuery,
+    useGetFavoriteArtistsQuery } = albumsApi;

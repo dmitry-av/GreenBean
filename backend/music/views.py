@@ -89,10 +89,12 @@ class AlbumViewSet(viewsets.ModelViewSet):
 
     @action(methods=["get"], detail=False, url_path="favorites")
     def get_favorites(self, request):
-        favorite_albums = Album.objects.filter(favorite=request.user)
-        serializer = AlbumDetailSerializer(
-            favorite_albums, many=True, context={"request": request})
-        return Response(serializer.data)
+        if request.user.is_authenticated:
+            favorite_albums = Album.objects.filter(favorite=request.user)
+            serializer = AlbumDetailSerializer(
+                favorite_albums, many=True, context={"request": request})
+            return Response(serializer.data)
+        return Response({'access': "Need to be authenticated"}, status=status.HTTP_401_UNAUTHORIZED)
 
 
 class ArtistViewSet(viewsets.ModelViewSet):
@@ -162,10 +164,12 @@ class ArtistViewSet(viewsets.ModelViewSet):
 
     @action(methods=["get"], detail=False, url_path="favorites")
     def get_favorites(self, request):
-        favorite_artists = Artist.objects.filter(favorite=request.user)
-        serializer = ArtistDetailSerializer(
-            favorite_artists, many=True, context={"request": request})
-        return Response(serializer.data)
+        if request.user.is_authenticated:
+            favorite_artists = Artist.objects.filter(favorite=request.user)
+            serializer = ArtistDetailSerializer(
+                favorite_artists, many=True, context={"request": request})
+            return Response(serializer.data)
+        return Response({'access': "Need to be authenticated"}, status=status.HTTP_401_UNAUTHORIZED)
 
 
 class ReviewViewSet(viewsets.ModelViewSet):

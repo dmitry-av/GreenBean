@@ -34,6 +34,8 @@ export interface Artist {
     name: string;
     cover: string | null;
     description: string;
+    is_favorite: boolean;
+    favorites: number;
 }
 
 export interface NewFav {

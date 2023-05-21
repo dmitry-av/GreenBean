@@ -58,7 +58,7 @@ export const AlbumsList = () => {
     };
 
     return (
-        <section className="posts-list">
+        <section className="albums-list">
             <div className="pagination">
                 <button onClick={handlePreviousPage} disabled={previous === null}>
                     Previous

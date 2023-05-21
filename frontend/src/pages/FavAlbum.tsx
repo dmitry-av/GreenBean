@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { useAddAlbumToFavMutation, useDelAlbumFromFavMutation } from "../services/albumsApi";
+import { useAddToFavMutation, useDelFromFavMutation } from "../services/albumsApi";
 import { NewFav } from "../models/album";
 
 function FavAlbum({ disc_id, is_favorite, model }: NewFav): JSX.Element {
     const [isFavorite, setIsFavorite] = useState(is_favorite); // Initial favorite state
     console.log(is_favorite);
-    const [addFav, { isLoading: addLoading, isSuccess: addSuccess, error: addError }] = useAddAlbumToFavMutation();
-    const [delFav, { isLoading: delLoading, isSuccess: delSuccess, error: delError }] = useDelAlbumFromFavMutation();
+    const [addFav, { isLoading: addLoading, isSuccess: addSuccess, error: addError }] = useAddToFavMutation();
+    const [delFav, { isLoading: delLoading, isSuccess: delSuccess, error: delError }] = useDelFromFavMutation();
 
     const handleToggleFavorite = () => {
         if (isFavorite) {

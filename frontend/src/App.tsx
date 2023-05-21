@@ -12,6 +12,8 @@ import { ToastContainer } from 'react-toastify';
 import SearchResults from "./pages/SearchResults";
 import ArtistDetailPage from "./pages/ArtistDetail";
 import 'react-toastify/dist/ReactToastify.css';
+import FavAlbumList from "./pages/FavAlbumList";
+import FavArtistList from "./pages/FavArtistList";
 
 
 function App() {
@@ -32,6 +34,8 @@ function App() {
               <Route path="/albums" element={<AlbumsList />} />
               <Route path="/albums/search/:term" element={<SearchResults />} />
               <Route path="/albums/:disc_id" element={<AlbumDetailPage />} />
+              <Route path="/albums/favorites" element={<ProtectedRoute><FavAlbumList /></ProtectedRoute>} />
+              <Route path="/artists/favorites" element={<ProtectedRoute><FavArtistList /></ProtectedRoute>} />
               <Route path="/artists/:disc_id" element={<ArtistDetailPage />} />
               <Route path="/reviews/:id" element={<ReviewDetailPage />} />
               <Route path="/" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
