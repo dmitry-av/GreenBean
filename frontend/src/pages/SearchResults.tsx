@@ -34,7 +34,7 @@ function SearchResults() {
         <article className="post-excerpt" key={album.disc_id}>
             <h3>
                 <Link to={`/albums/${album.disc_id}`}>
-                    {album.title} - {album.year}
+                    {album.full_title} - {album.year}
                 </Link>
             </h3>
         </article>

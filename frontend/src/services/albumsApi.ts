@@ -53,6 +53,16 @@ export const albumsApi = createApi({
             ]
 
         }),
+        getRelatedAlbums: builder.query<Album[], string>({
+            query: (disc_id) => `artists/${disc_id}/related-albums/`,
+            providesTags: (result) =>
+                result
+                    ? [
+                        ...result.map(({ id }) => ({ type: 'Albums' as const, id })),
+                        { type: 'Albums', id: 'LIST' },
+                    ]
+                    : [{ type: 'Albums', id: 'LIST' }],
+        }),
         getFavoriteArtists: builder.query<Artist[], void>({
             query: () => `/artists/favorites/`,
             providesTags: (result) =>
@@ -154,4 +164,5 @@ export const {
     useDelReviewMutation,
     useUpdateReviewMutation,
     useGetFavoriteAlbumsQuery,
-    useGetFavoriteArtistsQuery } = albumsApi;
+    useGetFavoriteArtistsQuery,
+    useGetRelatedAlbumsQuery } = albumsApi;

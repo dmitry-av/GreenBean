@@ -1,11 +1,10 @@
+import datetime
 import os
 import logging
 import requests
 import re
 from datetime import timedelta
-
-from django.utils.timezone import now
-
+from django.utils import timezone
 from tempfile import NamedTemporaryFile
 
 import discogs_client
@@ -46,7 +45,7 @@ def term_new(search, model):
     normalized = re.sub(r"\s+", " ", search.lower())
     search_term, created = SearchTerm.objects.get_or_create(
         term=normalized, model=model)
-    if not created and (search_term.last_search > now() - timedelta(days=1)):
+    if not created and (search_term.last_search > timezone.now() - timedelta(days=1)):
         logger.warning(
             f"Search for '{normalized}' was performed in the past 24 hours so not searching again."
         )
@@ -97,21 +96,23 @@ def album_search_and_save(search):
     if term_new(search, 'album'):
 
         dclient = get_client()
-
-        for album in dclient.search(search,
-                                    title=search, type='master'):
+        counter = 0
+        for album in dclient.search(search, type='master'):
             logger.info(
                 f"Saving album: '{album.title}' / '{album.id}'")
             album, created = Album.objects.get_or_create(
                 disc_id=album.id,
                 defaults={
                     "title": album.title,
+                    "full_title": album.title,
                     "year": int(album.year),
                 },
             )
-
             if created:
                 logger.info(f"Album created: '{album.title}'")
+            counter += 1
+            if counter >= 8:
+                break
 
         search_term = SearchTerm.objects.get(term=search, model='album')
         search_term.save()
@@ -122,7 +123,7 @@ def artist_search_and_save(search):
     if term_new(search, 'artist'):
 
         dclient = get_client()
-
+        counter = 0
         for artist in dclient.search(search,
                                      title=search, type='artist'):
             logger.info(
@@ -132,6 +133,9 @@ def artist_search_and_save(search):
 
             if created:
                 logger.info(f"Artist created: '{artist.name}'")
+            counter += 1
+            if counter >= 8:
+                break
 
         search_term = SearchTerm.objects.get(term=search, model='artist')
         search_term.save()
@@ -153,3 +157,35 @@ def fill_artist_details(artist):
     artist.description = details.profile
     artist.is_full_record = True
     artist.save()
+
+
+def find_artist_albums(artist):
+    dclient = get_client()
+    last_modified_threshold = timezone.now() - datetime.timedelta(days=21)
+
+    # Check if the last_modified date is 21 days ago or earlier
+    if artist.last_modified is None or artist.last_modified <= last_modified_threshold or not artist.albums_found:
+        try:
+            for album in dclient.search(artist=artist.name, type='master', format="album"):
+                logger.info(f"Saving album: '{album.title}' / '{album.id}'")
+                album, created = Album.objects.get_or_create(
+                    disc_id=album.id,
+                    defaults={
+                        "title": album.title,
+                        "full_title": album.title,
+                        "year": int(album.year),
+                    },
+                )
+                album.artists.add(artist)
+                if created:
+                    logger.info(f"Album created: '{album.title}'")
+
+        except Exception as e:
+            logger.error(f"Error occurred during search: {str(e)}")
+            artist.albums_found = False
+            # Handle the error here (e.g., log it or perform error-specific actions)
+            return
+
+        else:
+            artist.albums_found = True
+            artist.save()

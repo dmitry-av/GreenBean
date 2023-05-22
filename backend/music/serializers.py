@@ -65,7 +65,7 @@ class AlbumSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Album
-        fields = ('disc_id', 'title', 'artists', 'year',
+        fields = ('disc_id', 'title', 'full_title', 'artists', 'year',
                   'avg_rating', 'reviews', 'is_full_record', 'favorites')
         read_only_fields = [
             "title",

@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import FavAlbum from './FavAlbum';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store';
+import ArtistRelatedAlbums from './ArtistRelatedAlbums';
 
 
 function ArtistDetailPage() {
@@ -39,6 +40,9 @@ function ArtistDetailPage() {
                 <img src={artist.cover} alt={artist.name} style={{ height: '400px' }} className="img-thumbnail" /> : <p></p>}
             <p>{artist.description}</p>
             <button onClick={() => navigate(-1)}>Go back</button>
+            <div>
+                <ArtistRelatedAlbums disc_id={artist.disc_id} />
+            </div>
         </div>
     );
 };

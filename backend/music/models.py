@@ -24,8 +24,10 @@ class Artist(models.Model):
     cover = models.ImageField(upload_to='band_covers', blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     is_full_record = models.BooleanField(default=False)
+    albums_found = models.BooleanField(default=False)
     favorite = models.ManyToManyField(
         UserModel, related_name='artist_favorite', blank=True)
+    last_modified = models.DateTimeField(auto_now=True)
 
     @property
     def get_favorites(self):
@@ -46,6 +48,7 @@ class Album(models.Model):
         ordering = ["title", "year"]
 
     title = models.CharField(max_length=64)
+    full_title = models.CharField(max_length=256, blank=True, null=True)
     year = models.PositiveIntegerField()
     artists = models.ManyToManyField(Artist, related_name="albums")
     disc_id = models.SlugField(max_length=255, unique=True)  # unique field
@@ -88,7 +91,7 @@ class Track(models.Model):
 
 
 class SearchTerm(models.Model):
-    term = models.TextField(unique=True)
+    term = models.TextField()
     MODEL_CHOICES = (('album', 'album'),
                      ('artist', 'artist'),
                      ('track', 'track'))
@@ -99,7 +102,7 @@ class SearchTerm(models.Model):
         unique_together = ('term', 'model',)
 
     def __str__(self):
-        return self.term
+        return f"{self.term} - {self.model}"
 
 
 class Review(models.Model):

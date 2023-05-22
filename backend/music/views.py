@@ -15,7 +15,7 @@ from music.permissions import IsCreatorPermission, IsAdminUserOrReadOnly
 from rest_framework.response import Response
 
 
-from music.discogs import fill_album_details, album_search_and_save, fill_artist_details, artist_search_and_save
+from music.discogs import fill_album_details, album_search_and_save, fill_artist_details, artist_search_and_save, find_artist_albums
 from music.serializers import (AlbumSerializer, AlbumDetailSerializer,
                                GenreSerializer, SearchSerializer,
                                ReviewSerializer, ReviewDetailSerializer,
@@ -57,7 +57,7 @@ class AlbumViewSet(viewsets.ModelViewSet):
         album_search_and_save(term.lower())
 
         albums = self.get_queryset().filter(Q(title__icontains=term)
-                                            | Q(artists__name__icontains=term))
+                                            | Q(artists__name__icontains=term)).order_by('full_title')
 
         page = self.paginate_queryset(albums)
 
@@ -118,6 +118,7 @@ class ArtistViewSet(viewsets.ModelViewSet):
     def get_object(self):
         artist = super().get_object()
         fill_artist_details(artist)
+        find_artist_albums(artist)
         return artist
 
     @action(methods=["get"], detail=False)
@@ -170,6 +171,20 @@ class ArtistViewSet(viewsets.ModelViewSet):
                 favorite_artists, many=True, context={"request": request})
             return Response(serializer.data)
         return Response({'access': "Need to be authenticated"}, status=status.HTTP_401_UNAUTHORIZED)
+
+    @action(methods=["get"], detail=True, url_path="related-albums")
+    def related_albums(self, request, disc_id=None):
+        try:
+            artist = self.get_object()
+        except Artist.DoesNotExist:
+            return Response(status=404)
+
+        # Get the albums associated with the artist
+        albums = artist.albums.all().order_by("-year")
+
+        # Use your AlbumSerializer to serialize the albums
+        serializer = AlbumSerializer(albums, many=True)
+        return Response(serializer.data)
 
 
 class ReviewViewSet(viewsets.ModelViewSet):

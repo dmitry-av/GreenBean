@@ -4,7 +4,6 @@ import { NewFav } from "../models/album";
 
 function FavAlbum({ disc_id, is_favorite, model }: NewFav): JSX.Element {
     const [isFavorite, setIsFavorite] = useState(is_favorite); // Initial favorite state
-    console.log(is_favorite);
     const [addFav, { isLoading: addLoading, isSuccess: addSuccess, error: addError }] = useAddToFavMutation();
     const [delFav, { isLoading: delLoading, isSuccess: delSuccess, error: delError }] = useDelFromFavMutation();
 

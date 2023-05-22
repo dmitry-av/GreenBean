@@ -5,6 +5,7 @@ export interface Album {
     disc_id: string;
     title: string;
     year: number;
+    full_title: string;
 }
 
 export interface Review {
