@@ -1,5 +1,5 @@
-import { useGetFavoriteArtistsQuery } from "../services/albumsApi";
-import { Artist } from "../models/album";
+import { useGetFavoriteArtistsQuery } from "../../services/albumsApi";
+import { Artist } from "../../models/album";
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 

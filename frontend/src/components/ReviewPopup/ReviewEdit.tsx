@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useAddReviewMutation, useUpdateReviewMutation } from "../services/albumsApi";
+import { useAddReviewMutation, useUpdateReviewMutation } from "../../services/albumsApi";
 
 interface ReviewForm {
     album: number;

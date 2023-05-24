@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useVerificationMutation } from "../services/authApi";
-import authSlice from "../store/slices/authSlice";
+import { useVerificationMutation } from "../../services/authApi";
+import authSlice from "../../store/slices/authSlice";
 import { useDispatch } from "react-redux";
 import { toast } from 'react-toastify';
 

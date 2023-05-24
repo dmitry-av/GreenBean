@@ -1,16 +1,19 @@
 import { useState } from "react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import { useDispatch } from "react-redux";
-import authSlice from "../store/slices/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+import authSlice from "../../store/slices/authSlice";
 import axios from "axios";
 import { useNavigate } from "react-router";
+import { RootState } from "../../store";
+import { Link } from "react-router-dom";
 
 function Login() {
     const [message, setMessage] = useState("");
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const auth = useSelector((state: RootState) => state.auth);
 
     const handleLogin = (username: string, password: string) => {
         axios
@@ -50,10 +53,10 @@ function Login() {
 
     return (
         <div className="d-flex align-items-center justify-content-center vh-100">
-            <div className="card p-4">
-                <h1 className="text-center mb-4">Log in to your account 🔐</h1>
+            <div className="card p-5">
+                <h2 className="text-center mb-4">Log in to your account</h2>
                 <form onSubmit={formik.handleSubmit}>
-                    <div className="mb-3">
+                    <div className="form-floating mb-3">
                         <label htmlFor="username" className="form-label">Username</label>
                         <input
                             className="form-control"
@@ -67,7 +70,7 @@ function Login() {
                         />
                         <div className="text-danger">{formik.errors.username ? formik.errors.username : null}</div>
                     </div>
-                    <div className="mb-3">
+                    <div className="form-floating mb-3">
                         <label htmlFor="password" className="form-label">Password</label>
                         <input
                             className="form-control"
@@ -94,6 +97,7 @@ function Login() {
                         </button>
                     </div>
                 </form>
+                <span>Already have an account? {!auth.account && <Link to="/register">Sign up</Link>}</span>
             </div>
         </div>
     );

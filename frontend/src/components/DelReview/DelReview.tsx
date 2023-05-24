@@ -1,4 +1,4 @@
-import { useDelReviewMutation } from "../services/albumsApi";
+import { useDelReviewMutation } from "../../services/albumsApi";
 import { AiOutlineDelete } from 'react-icons/ai';
 
 

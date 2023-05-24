@@ -1,14 +1,14 @@
 import { Link, useParams } from 'react-router-dom';
-import { useGetAlbumDetailQuery } from '../services/albumsApi';
+import { useGetAlbumDetailQuery } from '../../services/albumsApi';
 import { toast } from 'react-toastify';
-import ReviewPopup from './ReviewPopup';
-import FavAlbum from './FavAlbum';
-import DelReview from './DelReview';
+import ReviewPopup from '../ReviewPopup/ReviewPopup';
+import FavAlbum from '../FavAlbum/FavAlbum';
+import DelReview from '../DelReview/DelReview';
 import { useSelector } from "react-redux";
-import { RootState } from "../store";
+import { RootState } from "../../store";
 
 
-export const AlbumDetailPage = () => {
+function AlbumDetailPage() {
     const { disc_id } = useParams();
     const { data, error, isLoading } = useGetAlbumDetailQuery(disc_id!, { refetchOnMountOrArgChange: true });
     const auth = useSelector((state: RootState) => state.auth);
@@ -82,3 +82,5 @@ export const AlbumDetailPage = () => {
         </div>
     );
 };
+
+export default AlbumDetailPage;

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useAddToFavMutation, useDelFromFavMutation } from "../services/albumsApi";
-import { NewFav } from "../models/album";
+import { useAddToFavMutation, useDelFromFavMutation } from "../../services/albumsApi";
+import { NewFav } from "../../models/album";
 
 function FavAlbum({ disc_id, is_favorite, model }: NewFav): JSX.Element {
     const [isFavorite, setIsFavorite] = useState(is_favorite); // Initial favorite state

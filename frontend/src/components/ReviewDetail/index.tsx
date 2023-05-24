@@ -1,12 +1,12 @@
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { useGetReviewDetailQuery } from '../services/albumsApi';
+import { useGetReviewDetailQuery } from '../../services/albumsApi';
 import { useSelector } from 'react-redux';
-import { RootState } from '../store';
-import DelReview from './DelReview';
-import ReviewPopup from './ReviewPopup';
+import { RootState } from '../../store';
+import DelReview from '../DelReview/DelReview';
+import ReviewPopup from '../ReviewPopup/ReviewPopup';
 
 
-export const ReviewDetailPage = () => {
+function ReviewDetailPage() {
     const { id } = useParams();
     const { data, error, isLoading } = useGetReviewDetailQuery(id!, { refetchOnMountOrArgChange: true });
     const auth = useSelector((state: RootState) => state.auth);
@@ -69,3 +69,5 @@ export const ReviewDetailPage = () => {
         </div>
     );
 };
+
+export default ReviewDetailPage;

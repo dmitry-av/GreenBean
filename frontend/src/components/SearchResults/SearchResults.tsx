@@ -1,14 +1,16 @@
-import { useGetAlbumsQuery } from "../services/albumsApi";
-import { Album } from "../models/album";
+import { Link, useParams } from "react-router-dom";
+import { useSearchAlbumsQuery } from "../../services/albumsApi";
+import { Album } from "../../models/album";
 import { useState } from "react";
-import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 const PAGE_SIZE = 100;
 
-export const AlbumsList = () => {
+
+function SearchResults() {
+    const { term } = useParams();
     const [page, setPage] = useState<number>(1);
-    const { data, error, isLoading } = useGetAlbumsQuery(page);
+    const { data, error, isLoading } = useSearchAlbumsQuery(term);
 
     if (isLoading) {
         return <div>Loading...</div>;
@@ -16,23 +18,16 @@ export const AlbumsList = () => {
 
     if (error) {
         if ('status' in error) {
-            // you can access all properties of `FetchBaseQueryError` here
             const errMsg = 'error' in error ? error.error : JSON.stringify(error.data);
 
             toast.error(errMsg);
         }
         else {
-            // you can access all properties of `SerializedError` here
             toast.error(error.message);
         }
     }
 
-    if (!data) {
-        // Handle the case where data is undefined
-        return <div>Data is unavailable</div>;
-    }
-
-    const { albums, count, next, previous } = data;
+    const { albums, count, next, previous } = data!;
     const totalPages = Math.ceil(count / PAGE_SIZE);
 
     const renderedAlbums = albums.map((album: Album) => (
@@ -58,7 +53,8 @@ export const AlbumsList = () => {
     };
 
     return (
-        <section className="albums-list">
+        <section className="posts-list">
+            <h2>Albums</h2>
             <div className="pagination">
                 <button onClick={handlePreviousPage} disabled={previous === null}>
                     Previous
@@ -70,7 +66,6 @@ export const AlbumsList = () => {
                     Next
                 </button>
             </div>
-            <h2>Albums</h2>
             {renderedAlbums}
             <div className="pagination">
                 <button onClick={handlePreviousPage} disabled={previous === null}>
@@ -86,3 +81,5 @@ export const AlbumsList = () => {
         </section>
     );
 };
+
+export default SearchResults;

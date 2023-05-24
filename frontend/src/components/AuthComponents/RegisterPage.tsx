@@ -1,7 +1,7 @@
-import { useRegisterMutation } from '../services/authApi';
+import { useRegisterMutation } from '../../services/authApi';
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from "formik";
-import authSlice from "../store/slices/authSlice";
+import authSlice from "../../store/slices/authSlice";
 import { useDispatch } from "react-redux";
 import * as Yup from "yup";
 import { useEffect } from "react";

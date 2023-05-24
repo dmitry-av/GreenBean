@@ -1,11 +1,11 @@
-import { useGetRelatedAlbumsQuery } from "../services/albumsApi";
-import { Album } from "../models/album";
+import { useGetFavoriteAlbumsQuery } from "../../services/albumsApi";
+import { Album } from "../../models/album";
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 
-function ArtistRelatedAlbums({ disc_id }: { disc_id: string; }) {
-    const { data: albums, error, isLoading, isSuccess } = useGetRelatedAlbumsQuery(disc_id!, { refetchOnMountOrArgChange: true });
+function FavAlbumList() {
+    const { data: albums, error, isLoading, isSuccess } = useGetFavoriteAlbumsQuery();
     let content;
     if (isLoading) {
         content = <div>Loading...</div>;
@@ -44,5 +44,4 @@ function ArtistRelatedAlbums({ disc_id }: { disc_id: string; }) {
     );
 };
 
-
-export default ArtistRelatedAlbums;
+export default FavAlbumList;

@@ -1,10 +1,10 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { useGetArtistDetailQuery } from '../services/albumsApi';
+import { useGetArtistDetailQuery } from '../../services/albumsApi';
 import { toast } from 'react-toastify';
-import FavAlbum from './FavAlbum';
+import FavAlbum from '../FavAlbum/FavAlbum';
 import { useSelector } from 'react-redux';
-import { RootState } from '../store';
-import ArtistRelatedAlbums from './ArtistRelatedAlbums';
+import { RootState } from '../../store';
+import ArtistRelatedAlbums from '../ArtistRelatedAlbums';
 
 
 function ArtistDetailPage() {
