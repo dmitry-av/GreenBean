@@ -6,6 +6,7 @@ export interface Album {
     title: string;
     year: number;
     full_title: string;
+    cover_ext_url: string;
 }
 
 export interface Review {

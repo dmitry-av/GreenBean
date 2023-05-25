@@ -9,8 +9,8 @@ import ArtistDetailPage from "./components/ArtistDetail";
 import ReviewDetailPage from "./components/ReviewDetail";
 import Header from "./components/Header";
 import { ToastContainer } from 'react-toastify';
-import SearchResults from "./components/SearchResults/SearchResults";
-import FavAlbumList from "./components/FavAlbumList/FavAlbumList";
+import SearchResults from "./components/SearchResults";
+import FavAlbumList from "./components/FavAlbumList";
 import FavArtistList from "./components/FavArtistList/FavArtistList";
 import 'react-toastify/dist/ReactToastify.css';
 

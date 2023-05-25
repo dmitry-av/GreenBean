@@ -86,6 +86,7 @@ def fill_album_details(album):
         record.duration = track.duration
         record.save()
     album.notes = album_details.fetch('notes')
+    album.cover_ext_url = album_details.images[0]['uri']
     album.is_full_record = True
     album.save()
 
@@ -106,6 +107,7 @@ def album_search_and_save(search):
                     "title": album.title,
                     "full_title": album.title,
                     "year": int(album.year),
+                    "cover_ext_url": album.images[0]['uri']
                 },
             )
             if created:
@@ -129,7 +131,7 @@ def artist_search_and_save(search):
             logger.info(
                 f"Saving album: '{artist.name}' / '{artist.id}'")
             artist, created = Artist.objects.get_or_create(
-                disc_id=artist.id, name=artist.name)
+                disc_id=artist.id, name=artist.name, cover_ext_url=artist.images[0]['uri'])
 
             if created:
                 logger.info(f"Artist created: '{artist.name}'")
@@ -155,6 +157,7 @@ def fill_artist_details(artist):
     except:
         artist.cover = None
     artist.description = details.profile
+    artist.cover_ext_url = details.images[0]['uri']
     artist.is_full_record = True
     artist.save()
 

@@ -7,6 +7,8 @@ import axios from "axios";
 import { useNavigate } from "react-router";
 import { RootState } from "../../store";
 import { Link } from "react-router-dom";
+import "./Login.css";
+
 
 function Login() {
     const [message, setMessage] = useState("");
@@ -53,10 +55,10 @@ function Login() {
 
     return (
         <div className="d-flex align-items-center justify-content-center vh-100">
-            <div className="card p-5">
+            <div className="card p-4">
                 <h2 className="text-center mb-4">Log in to your account</h2>
                 <form onSubmit={formik.handleSubmit}>
-                    <div className="form-floating mb-3">
+                    <div className="mb-3">
                         <label htmlFor="username" className="form-label">Username</label>
                         <input
                             className="form-control"
@@ -70,7 +72,7 @@ function Login() {
                         />
                         <div className="text-danger">{formik.errors.username ? formik.errors.username : null}</div>
                     </div>
-                    <div className="form-floating mb-3">
+                    <div className="mb-3">
                         <label htmlFor="password" className="form-label">Password</label>
                         <input
                             className="form-control"

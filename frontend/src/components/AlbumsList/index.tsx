@@ -16,19 +16,16 @@ export const AlbumsList = () => {
 
     if (error) {
         if ('status' in error) {
-            // you can access all properties of `FetchBaseQueryError` here
             const errMsg = 'error' in error ? error.error : JSON.stringify(error.data);
 
             toast.error(errMsg);
         }
         else {
-            // you can access all properties of `SerializedError` here
             toast.error(error.message);
         }
     }
 
     if (!data) {
-        // Handle the case where data is undefined
         return <div>Data is unavailable</div>;
     }
 

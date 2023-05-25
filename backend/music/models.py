@@ -22,6 +22,7 @@ class Artist(models.Model):
     name = models.CharField(max_length=64)
     disc_id = models.SlugField(max_length=255, unique=True)  # unique field
     cover = models.ImageField(upload_to='band_covers', blank=True, null=True)
+    cover_ext_url = models.TextField(blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     is_full_record = models.BooleanField(default=False)
     albums_found = models.BooleanField(default=False)
@@ -54,6 +55,7 @@ class Album(models.Model):
     disc_id = models.SlugField(max_length=255, unique=True)  # unique field
     genres = models.ManyToManyField(Genre, related_name="albums")
     cover = models.ImageField(upload_to='covers', blank=True, null=True)
+    cover_ext_url = models.TextField(blank=True, null=True)
     notes = models.TextField(blank=True, null=True)
     is_full_record = models.BooleanField(default=False)
     favorite = models.ManyToManyField(

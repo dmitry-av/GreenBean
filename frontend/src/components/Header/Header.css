@@ -1,0 +1,52 @@
+.main-header {
+    background-color: #35223e;
+  }
+  
+.main-links a {
+    color: #ffffff;
+    text-decoration: none;
+  }
+.main-links a:hover {
+    color: #767676;
+  }
+
+.main-links span {
+  color: #ffffff;
+}
+
+.header-image {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center the container horizontally */
+  justify-content: center; /* Center the container vertically */
+}
+
+.main-header .dropdown-menu {
+  background-color: rgb(53, 34, 62);
+  transition-delay: 0.3s;
+  z-index: 1000;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  transition: all 1s ease-in;
+}
+
+.dropdown-toggle:hover {
+  color: #767676;
+}
+
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.dropdown-menu .dropdown-item {
+  height: 1.5rem;
+  line-height: 0.5rem;
+  font-size: 0.9rem;
+  align-items: center;
+}
+
+.dropdown-menu .dropdown-item:hover {
+  background-color: rgb(53, 34, 62); /* Custom background color for hovered items */
+  color: rgb(103, 98, 105); /* Custom text color for hovered items */
+}
+

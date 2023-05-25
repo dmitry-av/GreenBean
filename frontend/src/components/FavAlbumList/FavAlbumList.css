@@ -1,0 +1,45 @@
+.album-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+  
+  .album-card {
+    display: flex;
+    height:11rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+  
+  .album-card a {
+    transform: translateY(-5px);
+    text-decoration: none;
+  }
+
+  .album-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .album-card a .album-image {
+    margin-top: 2rem;
+    width: 50%;
+    height: auto;
+    border-radius: 6px;
+  }
+  
+  .album-card a .album-title {
+    margin-top: 0.25rem;
+    font-size: 1rem;
+    color: #35223e;
+  }
+  
+  .album-card a .album-year {
+    color: gray;
+  }
