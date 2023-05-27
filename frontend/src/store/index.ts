@@ -11,13 +11,14 @@ import {
   REHYDRATE,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import authSlice from "./slices/authSlice";
+import { authSlice, popupSlice } from "./slices";
 import { albumsApi } from '../services/albumsApi';
 import { authApi } from '../services/authApi';
 
 
 const rootReducer = combineReducers({
   auth: authSlice.reducer,
+  popup: popupSlice.reducer,
   [authApi.reducerPath]: authApi.reducer,
   [albumsApi.reducerPath]: albumsApi.reducer
 });

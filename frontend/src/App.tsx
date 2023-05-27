@@ -13,6 +13,7 @@ import SearchResults from "./components/SearchResults";
 import FavAlbumList from "./components/FavAlbumList";
 import FavArtistList from "./components/FavArtistList/FavArtistList";
 import 'react-toastify/dist/ReactToastify.css';
+import HomePage from "./components/HomePage";
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
               <Route path="/verify-notify" element={<VerifyMail><VerificationEmailSent /></VerifyMail>} />
               <Route path="/verify-user/" element={<VerifyUser />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/albums/" element={<HomePage />} />
               <Route path="/albums/search/:term" element={<SearchResults />} />
               <Route path="/albums/:disc_id" element={<AlbumDetailPage />} />
               <Route path="/albums/favorites" element={<ProtectedRoute><FavAlbumList /></ProtectedRoute>} />

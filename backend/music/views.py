@@ -71,6 +71,19 @@ class AlbumViewSet(viewsets.ModelViewSet):
                             "request": request}).data
         )
 
+    @action(methods=["get"], detail=False, url_path="random")
+    def random(self, request):
+        random_list = Album.objects.order_by('?')
+        page = self.paginate_queryset(random_list)
+        if page is not None:
+            serializer = AlbumSerializer(
+                page, many=True, context={"request": request})
+            return self.get_paginated_response(serializer.data)
+        return Response(
+            AlbumSerializer(random_list, many=True, context={
+                "request": request}).data
+        )
+
     @action(methods=["post"], detail=False, url_path="favorite")
     def favorite(self, request):
         album = get_object_or_404(Album, disc_id=request.data.get('disc_id'))

@@ -1,5 +1,5 @@
 .main-header {
-    background-color: #35223e;
+    background-color: #162a1a;
   }
   
 .main-links a {
@@ -22,7 +22,7 @@
 }
 
 .main-header .dropdown-menu {
-  background-color: rgb(53, 34, 62);
+  background-color: #0d1a10;
   transition-delay: 0.3s;
   z-index: 1000;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);

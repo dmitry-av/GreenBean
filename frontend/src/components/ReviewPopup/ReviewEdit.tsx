@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useAddReviewMutation, useUpdateReviewMutation } from "../../services/albumsApi";
+import { useDispatch } from "react-redux";
+import { popupSlice } from "../../store/slices";
 
 interface ReviewForm {
     album: number;
@@ -7,10 +9,10 @@ interface ReviewForm {
     initialRating: number;
     isEditing?: boolean;
     id?: number;
-    closePopup: () => void;
 }
 
-function ReviewEdit({ album, initialText, initialRating, isEditing, id, closePopup }: ReviewForm): JSX.Element {
+function ReviewEdit({ album, initialText, initialRating, isEditing, id }: ReviewForm): JSX.Element {
+    const dispatch = useDispatch();
     const [text, setText] = useState(initialText);
     const [rating, setRating] = useState(initialRating);
 
@@ -30,7 +32,7 @@ function ReviewEdit({ album, initialText, initialRating, isEditing, id, closePop
                 // Perform add review logic using the addReview mutation
                 addReview(body);
             }
-            closePopup();
+            dispatch(popupSlice.actions.setIsPopup(false));
         }
     };
 

@@ -177,6 +177,7 @@ def find_artist_albums(artist):
                         "title": album.title,
                         "full_title": album.title,
                         "year": int(album.year),
+                        "cover_ext_url": album.images[0]['uri']
                     },
                 )
                 album.artists.add(artist)

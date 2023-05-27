@@ -54,11 +54,11 @@ function Login() {
     });
 
     return (
-        <div className="d-flex align-items-center justify-content-center vh-100">
+        <div className="login-popup-container">
             <div className="card p-4">
                 <h2 className="text-center mb-4">Log in to your account</h2>
                 <form onSubmit={formik.handleSubmit}>
-                    <div className="mb-3">
+                    <div className="login-inputs mb-3">
                         <label htmlFor="username" className="form-label">Username</label>
                         <input
                             className="form-control"
@@ -70,9 +70,9 @@ function Login() {
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                         />
-                        <div className="text-danger">{formik.errors.username ? formik.errors.username : null}</div>
+                        <div className="text-dangers">{formik.errors.username ? formik.errors.username : null}</div>
                     </div>
-                    <div className="mb-3">
+                    <div className="login-inputs mb-3">
                         <label htmlFor="password" className="form-label">Password</label>
                         <input
                             className="form-control"
@@ -84,7 +84,7 @@ function Login() {
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                         />
-                        <div className="text-danger">{formik.errors.password ? formik.errors.password : null}</div>
+                        <div className="text-dangers">{formik.errors.password ? formik.errors.password : null}</div>
                     </div>
                     <div className="text-danger text-center my-2" hidden={false}>
                         {message}
@@ -99,7 +99,7 @@ function Login() {
                         </button>
                     </div>
                 </form>
-                <span>Already have an account? {!auth.account && <Link to="/register">Sign up</Link>}</span>
+                <span>Do not have an account? {!auth.account && <Link to="/register">Sign up</Link>}</span>
             </div>
         </div>
     );

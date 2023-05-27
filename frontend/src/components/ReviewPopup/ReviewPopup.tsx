@@ -28,7 +28,7 @@ const ReviewPopup: React.FC<ReviewPopupProps> = ({ album, initialText, initialRa
                 <div className="popup-container">
                     <div className="popup-content">
                         <button onClick={closePopup}>Close</button>
-                        <ReviewEdit album={album} closePopup={closePopup} initialRating={initialRating} initialText={initialText} isEditing={isEditing} id={id} />
+                        <ReviewEdit album={album} initialRating={initialRating} initialText={initialText} isEditing={isEditing} id={id} />
                     </div>
                 </div>
             )}

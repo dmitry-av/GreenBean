@@ -36,6 +36,17 @@ export const albumsApi = createApi({
                     [{ type: 'Albums', id: 'LIST' }],
 
         }),
+        getRandomAlbums: builder.query({
+            query: (page) => `/albums/random/?page=${page}`,
+            transformResponse: (response: AlbumsResponse) => {
+                return {
+                    albums: response.results,
+                    count: response.count,
+                    next: response.next,
+                    previous: response.previous,
+                };
+            },
+        }),
         getFavoriteAlbums: builder.query<Album[], void>({
             query: () => `/albums/favorites/`,
             providesTags: (result) =>
@@ -165,4 +176,5 @@ export const {
     useUpdateReviewMutation,
     useGetFavoriteAlbumsQuery,
     useGetFavoriteArtistsQuery,
-    useGetRelatedAlbumsQuery } = albumsApi;
+    useGetRelatedAlbumsQuery,
+    useGetRandomAlbumsQuery, } = albumsApi;

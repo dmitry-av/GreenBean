@@ -1,0 +1,10 @@
+.fav-button {
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+  }
+
+  .heart-icon {
+    text-shadow:3px 6px rgba(52, 46, 35, 0.75)
+  }

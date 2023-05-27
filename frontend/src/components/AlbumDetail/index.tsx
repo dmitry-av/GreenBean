@@ -1,17 +1,28 @@
 import { Link, useParams } from 'react-router-dom';
 import { useGetAlbumDetailQuery } from '../../services/albumsApi';
 import { toast } from 'react-toastify';
-import ReviewPopup from '../ReviewPopup/ReviewPopup';
 import FavAlbum from '../FavAlbum/FavAlbum';
 import DelReview from '../DelReview/DelReview';
-import { useSelector } from "react-redux";
+import { Login } from '../AuthComponents';
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
+import { PopupWindow } from '../AuthComponents';
+import ReviewEdit from '../ReviewPopup/ReviewEdit';
+import { popupSlice } from '../../store/slices';
 
 
 function AlbumDetailPage() {
     const { disc_id } = useParams();
-    const { data, error, isLoading } = useGetAlbumDetailQuery(disc_id!, { refetchOnMountOrArgChange: true });
+    const dispatch = useDispatch();
+    const { data, error, isLoading } = useGetAlbumDetailQuery(disc_id, { refetchOnMountOrArgChange: true });
     const auth = useSelector((state: RootState) => state.auth);
+    const popup = useSelector((state: RootState) => state.popup);
+    const album = data!;
+
+    const handleReviewButton = () => {
+        dispatch(popupSlice.actions.setIsPopup(true));
+    };
+
 
     if (isLoading) {
         return <div>Loading...</div>;
@@ -29,11 +40,10 @@ function AlbumDetailPage() {
     }
 
     if (!data) {
-        // Handle the case where data is undefined
         return <div>Data is unavailable</div>;
     }
 
-    const album = data;
+
     return (
         <div>
             <h2>{album.title}</h2>
@@ -44,7 +54,7 @@ function AlbumDetailPage() {
             ))}</h3>
             {album.cover ?
                 <img src={album.cover} alt={album.title} style={{ height: '400px' }} className="img-thumbnail" /> : <p></p>}
-            {auth.account && <FavAlbum disc_id={album.disc_id} is_favorite={album.is_favorite} model="albums" />}
+            <FavAlbum disc_id={album.disc_id} is_favorite={album.is_favorite} model="albums" />
             <p>{album.notes}</p>
             <h4>Average rating of users: {album.avg_rating}</h4>
             <h4>Likes: {album.favorites}</h4>
@@ -78,7 +88,17 @@ function AlbumDetailPage() {
                     </li>
                 ))}
             </ul>
-            {auth.account && !album.reviews.map((review) => review.creator.id).includes(auth.account?.id) && (<ReviewPopup album={album.id} initialText="" initialRating={0} />)}
+
+            {!(album.reviews?.map((review) => review.creator.id).includes(auth.account?.id)) && <button onClick={handleReviewButton}>Add a Review</button>}
+            {popup.isPopupOpen && (
+                <PopupWindow>
+                    {auth.account ? (
+                        <ReviewEdit album={album.id} initialRating={0} initialText="" />
+                    ) : (
+                        <Login />
+                    )}
+                </PopupWindow>
+            )}
         </div>
     );
 };
