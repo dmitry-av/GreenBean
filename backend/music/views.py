@@ -193,7 +193,7 @@ class ArtistViewSet(viewsets.ModelViewSet):
             return Response(status=404)
 
         # Get the albums associated with the artist
-        albums = artist.albums.all().order_by("-year")
+        albums = artist.albums.select_related().all().order_by("-year")
 
         # Use your AlbumSerializer to serialize the albums
         serializer = AlbumSerializer(albums, many=True)
