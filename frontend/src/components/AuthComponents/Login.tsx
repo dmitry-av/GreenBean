@@ -54,53 +54,51 @@ function Login() {
     });
 
     return (
-        <div className="login-popup-container">
-            <div className="card p-4">
-                <h2 className="text-center mb-4">Log in to your account</h2>
-                <form onSubmit={formik.handleSubmit}>
-                    <div className="login-inputs mb-3">
-                        <label htmlFor="username" className="form-label">Username</label>
-                        <input
-                            className="form-control"
-                            id="username"
-                            type="text"
-                            placeholder="Enter your username"
-                            name="username"
-                            value={formik.values.username}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                        />
-                        <div className="text-dangers">{formik.errors.username ? formik.errors.username : null}</div>
-                    </div>
-                    <div className="login-inputs mb-3">
-                        <label htmlFor="password" className="form-label">Password</label>
-                        <input
-                            className="form-control"
-                            id="password"
-                            type="password"
-                            placeholder="Enter your password"
-                            name="password"
-                            value={formik.values.password}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                        />
-                        <div className="text-dangers">{formik.errors.password ? formik.errors.password : null}</div>
-                    </div>
-                    <div className="text-danger text-center my-2" hidden={false}>
-                        {message}
-                    </div>
-                    <div className="d-grid gap-2 mt-4">
-                        <button
-                            type="submit"
-                            disabled={loading}
-                            className="btn btn-primary btn-block"
-                        >
-                            Login
-                        </button>
-                    </div>
-                </form>
-                <span>Do not have an account? {!auth.account && <Link to="/register">Sign up</Link>}</span>
-            </div>
+        <div className="login-card p-4">
+            <h3 className="text-center mb-4">Log in to your account</h3>
+            <form onSubmit={formik.handleSubmit}>
+                <div className="login-inputs mb-3">
+                    <label htmlFor="username" className="form-label">Username</label>
+                    <input
+                        className="form-control"
+                        id="username"
+                        type="text"
+                        placeholder="Enter your username"
+                        name="username"
+                        value={formik.values.username}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                    />
+                    <div className="text-dangers">{formik.errors.username ? formik.errors.username : null}</div>
+                </div>
+                <div className="login-inputs mb-3">
+                    <label htmlFor="password" className="form-label">Password</label>
+                    <input
+                        className="form-control"
+                        id="password"
+                        type="password"
+                        placeholder="Enter your password"
+                        name="password"
+                        value={formik.values.password}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                    />
+                    <div className="text-dangers">{formik.errors.password ? formik.errors.password : null}</div>
+                </div>
+                <div className="text-danger text-center my-2" hidden={false}>
+                    {message}
+                </div>
+                <div className="d-grid gap-2 mt-4">
+                    <button
+                        type="submit"
+                        disabled={loading}
+                        className="btn btn-primary btn-block"
+                    >
+                        Login
+                    </button>
+                </div>
+            </form>
+            <div className="login-info">Do not have an account? {!auth.account && <Link to="/register">Sign up</Link>}</div>
         </div>
     );
 }

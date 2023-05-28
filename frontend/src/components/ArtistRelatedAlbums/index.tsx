@@ -5,26 +5,22 @@ import { toast } from 'react-toastify';
 
 
 function ArtistRelatedAlbums({ disc_id }: { disc_id: string; }) {
-    const { data: albums, error, isLoading, isSuccess } = useGetRelatedAlbumsQuery(disc_id!, { refetchOnMountOrArgChange: true });
-    let content;
-    if (isLoading) {
-        content = <div>Loading...</div>;
-    }
+    const { data: albums, error, isLoading, isFetching, isSuccess } = useGetRelatedAlbumsQuery(
+        disc_id!,
+        { refetchOnMountOrArgChange: true }
+    );
 
     if (error) {
         if ('status' in error) {
-            content = 'error' in error ? error.error : JSON.stringify(error.data);
-
+            const content = 'error' in error ? error.error : JSON.stringify(error.data);
             toast.error(content);
-        }
-        else {
-            content = error.message;
+        } else {
             toast.error(error.message);
         }
     }
 
     if (isSuccess) {
-        content = albums.map((album: Album) => (
+        const content = albums.map((album: Album) => (
             <article className="post-excerpt" key={album.disc_id}>
                 <h3>
                     <Link to={`/albums/${album.disc_id}`}>
@@ -33,16 +29,21 @@ function ArtistRelatedAlbums({ disc_id }: { disc_id: string; }) {
                 </h3>
             </article>
         ));
-    }
 
+        return (
+            <section className="albums-list">
+                <h2>Albums</h2>
+                {content}
+            </section>
+        );
+    }
 
     return (
         <section className="albums-list">
             <h2>Albums</h2>
-            {content}
+            {isFetching ? <div>Loading...</div> : <div>No albums found.</div>}
         </section>
     );
-};
-
+}
 
 export default ArtistRelatedAlbums;

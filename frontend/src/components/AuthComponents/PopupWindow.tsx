@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import { AiFillCloseSquare } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { popupSlice } from "../../store/slices";
+import "./PopupWindow.css";
 
 interface PopupWindowProps {
     children: ReactNode;
@@ -13,8 +14,8 @@ function PopupWindow({ children }: PopupWindowProps) {
         dispatch(popupSlice.actions.setIsPopup(false));
     };
     return (
-        <div className="popup-container">
-            <div className="popup-content">
+        <div className="pop-container">
+            <div className="pop-content">
                 <button onClick={closePopup}><AiFillCloseSquare /></button>
                 {children}
             </div>

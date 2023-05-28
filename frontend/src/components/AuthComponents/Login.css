@@ -1,22 +1,19 @@
-/* Center the login card vertically and horizontally */
-.login-popup-container {
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-  
+
   /* Style the login card */
-  .card {
-    color: #030303;
-    width: 50%;
-    padding: 20px;
+  .login-card {
+    color: #f9f9f9;
+    background-color: #1f3a27;
+    width: 100%;
     border: 1px solid #ccc;
     border-radius: 5px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-color: black;
   }
   
+  .form-control:focus {
+    box-shadow: 0 0 0 0.2rem #ffffff !important;
+    border: 1px solid #2b5431;
+  }
   /* Center the login card title */
   .text-center {
     text-align: center;
@@ -33,16 +30,10 @@
     height:6rem;
   }
   
-  /* Style the form labels */
-  .form-label {
-    display: block;
-    margin-bottom: 5px;
-  }
-  
   /* Style the form inputs */
 .login-inputs .form-control {
     height:2rem;
-    width: 12rem;
+    width: 100%;
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -51,10 +42,15 @@
 .mb-3 .form-control::placeholder {
     font-size: 0.9rem;
   }
+
+.login-inputs{
+  margin: auto;
+  width: 50%;
+}
   
   /* Style the error messages */
 .login-inputs .text-dangers {
-    color: rgb(214, 2, 2);
+    color: #ea966f;
     margin-top: 3px;
     font-size: 0.8rem;
   }
@@ -66,12 +62,18 @@
   
   /* Style the login button */
   .btn-primary {
-    background-color: rgb(53, 34, 62);
+    background-color: rgb(50, 93, 50)  !important;
     color: #fff;
     border: none;
     border-radius: 4px;
     padding: 10px;
     cursor: pointer;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-color: black  !important;
+    width: 60%;
+    margin: auto;
+  
   }
 
   .btn-primary:disabled {
