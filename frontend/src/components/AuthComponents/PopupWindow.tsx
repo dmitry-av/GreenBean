@@ -14,7 +14,7 @@ function PopupWindow({ children }: PopupWindowProps) {
         dispatch(popupSlice.actions.setIsPopup(false));
     };
     return (
-        <div className="pop-container">
+        <div className="pop-container" style={{ zIndex: 9999 }}>
             <div className="pop-content">
                 <button onClick={closePopup}><AiFillCloseSquare /></button>
                 {children}

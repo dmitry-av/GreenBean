@@ -1,7 +1,7 @@
-import { Login, Profile, RegisterPage, VerifyUser, VerifySuccess, VerificationEmailSent } from "./components/AuthComponents";
-import store, { persistor } from "./store";
+import { Login, Profile, RegisterPage, VerifyUser, VerifySuccess, VerificationEmailSent, PopupWindow } from "./components/AuthComponents";
+import store, { RootState, persistor } from "./store";
 import { PersistGate } from "redux-persist/integration/react";
-import { Provider } from "react-redux";
+import { Provider, useSelector } from "react-redux";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ProtectedRoute, SuccessVerification, VerifyMail } from "./routes";
 import AlbumDetailPage from "./components/AlbumDetail";
@@ -14,15 +14,16 @@ import FavAlbumList from "./components/FavAlbumList";
 import FavArtistList from "./components/FavArtistList/FavArtistList";
 import 'react-toastify/dist/ReactToastify.css';
 import HomePage from "./components/HomePage";
+import PopupContainer from "./routes/PopupContainer";
 
 
 function App() {
-
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor} loading={null}>
         <Router>
           <ToastContainer />
+          <PopupContainer />
           <div className='App'>
             <Header />
             <Routes>
@@ -30,15 +31,14 @@ function App() {
               <Route path="/verify-successful" element={<SuccessVerification><VerifySuccess /></SuccessVerification>} />
               <Route path="/verify-notify" element={<VerifyMail><VerificationEmailSent /></VerifyMail>} />
               <Route path="/verify-user/" element={<VerifyUser />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/albums/" element={<HomePage />} />
+              <Route path="/" element={<HomePage />} />
               <Route path="/albums/search/:term" element={<SearchResults />} />
               <Route path="/albums/:disc_id" element={<AlbumDetailPage />} />
               <Route path="/albums/favorites" element={<ProtectedRoute><FavAlbumList /></ProtectedRoute>} />
               <Route path="/artists/favorites" element={<ProtectedRoute><FavArtistList /></ProtectedRoute>} />
               <Route path="/artists/:disc_id" element={<ArtistDetailPage />} />
               <Route path="/reviews/:id" element={<ReviewDetailPage />} />
-              <Route path="/" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+              <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
             </Routes>
           </div>
         </Router>
@@ -48,6 +48,3 @@ function App() {
 }
 
 export default App;
-
-/**    <Route path="/albums" element={<Albums />} />           <NewAlbum onAddAlbum={addAlbum} />
-            <ProtectedRoute path="/" element={<Profile />} /> */

@@ -1,3 +1,5 @@
+import random
+
 from django.shortcuts import get_object_or_404
 from rest_framework.decorators import action
 from rest_framework import generics, viewsets, status
@@ -13,7 +15,6 @@ from django.contrib.auth.models import User
 
 from music.permissions import IsCreatorPermission, IsAdminUserOrReadOnly
 from rest_framework.response import Response
-
 
 from music.discogs import fill_album_details, album_search_and_save, fill_artist_details, artist_search_and_save, find_artist_albums
 from music.serializers import (AlbumSerializer, AlbumDetailSerializer,
@@ -73,16 +74,16 @@ class AlbumViewSet(viewsets.ModelViewSet):
 
     @action(methods=["get"], detail=False, url_path="random")
     def random(self, request):
-        random_list = Album.objects.order_by('?')
-        page = self.paginate_queryset(random_list)
-        if page is not None:
-            serializer = AlbumSerializer(
-                page, many=True, context={"request": request})
-            return self.get_paginated_response(serializer.data)
-        return Response(
-            AlbumSerializer(random_list, many=True, context={
-                "request": request}).data
-        )
+        album_ids = Album.objects.values_list('pk', flat=True)
+        count = Album.objects.count()
+        if count <= 48:
+            random_ids = random.sample(list(album_ids), count)
+        else:
+            random_ids = random.sample(list(album_ids), 48)
+        random_albums = Album.objects.filter(pk__in=random_ids).order_by('?')
+        serializer = AlbumSerializer(
+            random_albums, many=True, context={"request": request})
+        return Response(serializer.data)
 
     @action(methods=["post"], detail=False, url_path="favorite")
     def favorite(self, request):

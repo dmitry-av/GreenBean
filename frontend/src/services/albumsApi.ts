@@ -1,6 +1,7 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { Album, AlbumDetail, Review, Artist, AddReview, NewFav, UpdateReview } from '../models/album';
 import baseQueryWithReauth from './customFetchBase';
+import { BaseQueryArg, BaseQueryFn } from '@reduxjs/toolkit/dist/query/baseQueryTypes';
 
 interface AlbumsResponse {
     results: Album[];
@@ -9,9 +10,12 @@ interface AlbumsResponse {
     previous: string | null;
 }
 
+
 export const albumsApi = createApi({
     reducerPath: 'albumsApi',
     baseQuery: baseQueryWithReauth,
+    refetchOnMountOrArgChange: 120,
+    keepUnusedDataFor: 30,
     tagTypes: ['Albums', 'Reviews', 'Artists'],
     endpoints: (builder) => ({
         getAlbums: builder.query({
@@ -36,16 +40,8 @@ export const albumsApi = createApi({
                     [{ type: 'Albums', id: 'LIST' }],
 
         }),
-        getRandomAlbums: builder.query({
-            query: (page) => `/albums/random/?page=${page}`,
-            transformResponse: (response: AlbumsResponse) => {
-                return {
-                    albums: response.results,
-                    count: response.count,
-                    next: response.next,
-                    previous: response.previous,
-                };
-            },
+        getRandomAlbums: builder.query<Album[], BaseQueryArg<BaseQueryFn>>({
+            query: () => `/albums/random/`
         }),
         getFavoriteAlbums: builder.query<Album[], void>({
             query: () => `/albums/favorites/`,

@@ -1,125 +1,96 @@
 import { useGetRandomAlbumsQuery } from "../../services/albumsApi";
 import { Album } from "../../models/album";
-import { useEffect, useRef, useState } from "react";
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import searchLoader from '../../assets/loader.gif';
+import { useState } from "react";
 import "./HomePage.css";
 
-const PAGE_SIZE = 100;
 
 function RandomList() {
-    const [page, setPage] = useState<number>(1);
-    const { data, error, isLoading } = useGetRandomAlbumsQuery(page, { refetchOnMountOrArgChange: true });
+    const pageSize = 12; // Number of albums per page
+    const [currentPage, setCurrentPage] = useState(1);
+    const [slideDirection, setSlideDirection] = useState("");
+    const { data: albums, error, isLoading, isFetching, isSuccess } = useGetRandomAlbumsQuery({ refetchOnMountOrArgChange: true });
 
-    const observer = useRef<IntersectionObserver | null>(null);
-    const lastAlbumRef = useRef<HTMLDivElement | null>(null);
-    const [albums, setAlbums] = useState<Album[]>([]);
+    let content;
 
-    useEffect(() => {
-        if (isLoading || error || !data) return;
-
-        setAlbums((prevAlbums) => [...prevAlbums, ...data.albums]);
-    }, [data, isLoading, error]);
-
-    useEffect(() => {
-        if (isLoading || error || !data) return;
-
-        const options = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.5,
-        };
-
-        const handleObserver: IntersectionObserverCallback = (entries) => {
-            const target = entries[0];
-            if (target.isIntersecting && data.next) {
-                setPage((prevPage) => prevPage + 1);
-            }
-        };
-
-        observer.current = new IntersectionObserver(handleObserver, options);
-
-        if (lastAlbumRef.current) {
-            observer.current.observe(lastAlbumRef.current);
-        }
-
-        return () => {
-            if (observer.current) {
-                observer.current.disconnect();
-            }
-        };
-    }, [data, isLoading, error]);
-
-    if (isLoading) {
-        return <div>Loading...</div>;
+    if (isLoading || isFetching) {
+        return (
+            <img
+                src={searchLoader}
+                alt="search-loader"
+                height="75"
+            />
+        );
     }
 
     if (error) {
         if ('status' in error) {
-            const errMsg = 'error' in error ? error.error : JSON.stringify(error.data);
-            toast.error(errMsg);
+            content = 'error' in error ? error.error : JSON.stringify(error.data);
+            toast.error(content);
         } else {
+            content = error.message;
             toast.error(error.message);
         }
     }
 
-    if (!data) {
-        return <div>Data is unavailable</div>;
+    if (isSuccess) {
+        const totalPages = Math.ceil(albums.length / pageSize);
+
+        const handleNextPage = () => {
+            setCurrentPage((prevPage) => (prevPage === totalPages ? 1 : prevPage + 1));
+            setSlideDirection("slide-next");
+        };
+
+        const handlePreviousPage = () => {
+            setCurrentPage((prevPage) => (prevPage === 1 ? totalPages : prevPage - 1));
+            setSlideDirection("slide-previous");
+        };
+        const getPageAlbums = () => {
+            const startIndex = (currentPage - 1) * pageSize;
+            const endIndex = startIndex + pageSize;
+            return albums.slice(startIndex, endIndex);
+        };
+        const pageAlbums = getPageAlbums();
+        content = (
+            <div>
+                <h2>Albums</h2>
+                <div className="pagination-buttons">
+                    <button onClick={handlePreviousPage}>Previous</button>
+                    <button onClick={handleNextPage}>Next</button>
+                </div>
+                <div className={`album-grid-ran ${slideDirection}`}>
+                    {pageAlbums.map((album: Album, index: number) => (
+                        <article className={`album-card fade-in ${index < pageSize ? '' : 'hidden'}`} key={album.disc_id}>
+                            <Link to={`/albums/${album.disc_id}`}>
+                                <img
+                                    src={album.cover ? album.cover : album.cover_ext_url}
+                                    alt={album.title}
+                                    width="95"
+                                    height="95"
+                                    className="album-image"
+                                />
+                                <h3 className="album-title">{album.title}<span className="p-2 album-year">{album.year}</span></h3>
+                            </Link>
+                        </article>
+                    ))}
+
+                </div>
+                <div className="pagination-buttons">
+                    <button onClick={handlePreviousPage}>Previous</button>
+                    <button onClick={handleNextPage}>Next</button>
+                </div>
+            </div>
+        );
     }
-
-    const { count, next, previous } = data;
-    const totalPages = Math.ceil(count / PAGE_SIZE);
-
-    const renderedAlbums = albums.map((album: Album, index: number) => {
-        if (index === albums.length - 1) {
-            return (
-                <article className="album-card" key={album.disc_id} ref={lastAlbumRef}>
-                    <Link to={`/albums/${album.disc_id}`}>
-                        <img
-                            src={album.cover_ext_url}
-                            alt={album.title}
-                            width="95"
-                            height="95"
-                            className="album-image"
-                        />
-                        <h3 className="album-title">{album.title}<span className="p-2 album-year">{album.year}</span></h3>
-
-                    </Link>
-                </article>
-            );
-        } else {
-            return (
-                <article className="album-card" key={album.disc_id}>
-                    <Link to={`/albums/${album.disc_id}`}>
-                        <img
-                            src={album.cover_ext_url}
-                            alt={album.title}
-                            width="95"
-                            height="95"
-                            className="album-image"
-                        />
-                        <h3 className="album-title">{album.title}<span className="p-2 album-year">{album.year}</span></h3>
-
-                    </Link>
-                </article>
-            );
-        }
-    });
 
     return (
         <section className="albums-list">
-            <div className="album-grid-ran">
-                {renderedAlbums}
-            </div>
-            {(isLoading) && <img
-                src={searchLoader}
-                alt="search-loader"
-                height="75"
-                className="loader-image"
-            />}
+
+            {content}
         </section>
     );
-};
+}
 
 export default RandomList;

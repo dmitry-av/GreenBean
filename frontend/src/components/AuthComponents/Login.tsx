@@ -4,18 +4,21 @@ import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import authSlice from "../../store/slices/authSlice";
 import axios from "axios";
-import { useNavigate } from "react-router";
 import { RootState } from "../../store";
 import { Link } from "react-router-dom";
 import "./Login.css";
+import popupSlice from "../../store/slices/popupSlice";
 
 
 function Login() {
     const [message, setMessage] = useState("");
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     const auth = useSelector((state: RootState) => state.auth);
+
+    if (auth.account) {
+        return null;
+    }
 
     const handleLogin = (username: string, password: string) => {
         axios
@@ -29,7 +32,8 @@ function Login() {
                 );
                 dispatch(authSlice.actions.setAccount(res.data.user));
                 setLoading(false);
-                navigate("/", { state: { userId: res.data.id } });
+                dispatch(popupSlice.actions.setIsPopup(false));
+                window.location.reload();
             })
             .catch((err) => {
                 setMessage(err.response.data.detail.toString());
@@ -63,6 +67,7 @@ function Login() {
                         className="form-control"
                         id="username"
                         type="text"
+                        autoComplete="username"
                         placeholder="Enter your username"
                         name="username"
                         value={formik.values.username}
@@ -77,6 +82,7 @@ function Login() {
                         className="form-control"
                         id="password"
                         type="password"
+                        autoComplete="current-password"
                         placeholder="Enter your password"
                         name="password"
                         value={formik.values.password}

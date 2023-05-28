@@ -74,7 +74,7 @@ def fill_album_details(album):
     album.artists.clear()
     for artist in album_details.fetch('artists'):
         record, created = Artist.objects.get_or_create(
-            name=artist['name'], disc_id=artist['id'])
+            disc_id=artist['id'], name=artist['name'])
         album.artists.add(record)
     album.genres.clear()
     for genre in get_or_create_record(album_details.genres, Genre):

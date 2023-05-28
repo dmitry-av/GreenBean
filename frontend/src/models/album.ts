@@ -7,6 +7,7 @@ export interface Album {
     year: number;
     full_title: string;
     cover_ext_url: string;
+    cover: string | null;
 }
 
 export interface Review {
@@ -52,7 +53,6 @@ export interface AlbumDetail extends Album {
     artists: { disc_id: string; name: string; }[];
     tracks: { position: number; title: string; duration: string; }[];
     reviews: Review[];
-    cover: string | null;
     notes: string | null;
     is_favorite: boolean;
     is_full_record: boolean;

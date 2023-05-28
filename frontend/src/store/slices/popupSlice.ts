@@ -14,7 +14,6 @@ const popupSlice = createSlice({
         setIsPopup(state: State, action: PayloadAction<boolean>) {
             state.isPopupOpen = action.payload;
         },
-
     }
 });
 

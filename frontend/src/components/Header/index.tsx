@@ -1,25 +1,28 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { RootState } from '../../store';
 import SearchBar from '../SearchBar';
 import authSlice from "../../store/slices/authSlice";
 import { useDispatch, useSelector } from 'react-redux';
 import invLogo from "../../assets/logo-inverted.png";
 import "./Header.css";
+import { popupSlice } from '../../store/slices';
 
 const Header = () => {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     const auth = useSelector((state: RootState) => state.auth);
+    const handleLoginClick = () => {
+        dispatch(popupSlice.actions.setIsPopup(true));
+    };
     const handleLogout = () => {
         dispatch(authSlice.actions.setLogout());
-        navigate("/login");
+        window.location.reload();
     };
     return (
         <header className="main-header p-2">
             <div className="container-fluid">
                 <div className="main-links d-flex flex-column flex-sm-row justify-content-between">
                     <div className='header-item'>
-                        <span className="p-2">{!auth.account && <Link to="/login">Sign in</Link>}</span>
+                        <span className="p-2">{!auth.account && <a href="#" onClick={handleLoginClick}>Sign in</a>}</span>
                         <span className="p-2">{!auth.account && <Link to="/register">Sign up</Link>}</span>
                     </div>
                     <div className='header-image'>
@@ -52,7 +55,7 @@ const Header = () => {
                                 <ul className="dropdown-menu text-small" aria-labelledby="dropdownUser1">
                                     <li><Link className="dropdown-item" to="/">Profile</Link></li>
                                     <li><hr className="dropdown-divider" /></li>
-                                    <li><a className="dropdown-item" onClick={handleLogout}>Log out</a></li>
+                                    <li><a href="#" className="dropdown-item" onClick={handleLogout}>Log out</a></li>
                                 </ul>
                             </div>
                         )}
