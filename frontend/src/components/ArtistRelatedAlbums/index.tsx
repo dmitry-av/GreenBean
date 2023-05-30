@@ -1,26 +1,19 @@
 import { useGetRelatedAlbumsQuery } from "../../services/albumsApi";
 import { Album } from "../../models/album";
 import { Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import searchSpinner from '../../assets/Spinner-1s-200px.gif';
 
 
 function ArtistRelatedAlbums({ disc_id }: { disc_id: string; }) {
-    const { data: albums, error, isLoading, isFetching, isSuccess } = useGetRelatedAlbumsQuery(
+    const { data: albums, isLoading, isFetching, isSuccess } = useGetRelatedAlbumsQuery(
         disc_id!,
         { refetchOnMountOrArgChange: true }
     );
 
-    if (error) {
-        if ('status' in error) {
-            const content = 'error' in error ? error.error : JSON.stringify(error.data);
-            toast.error(content);
-        } else {
-            toast.error(error.message);
-        }
-    }
+    let content;
 
     if (isSuccess) {
-        const content = albums.map((album: Album) => (
+        content = albums.map((album: Album) => (
             <article className="post-excerpt" key={album.disc_id}>
                 <h3>
                     <Link to={`/albums/${album.disc_id}`}>
@@ -29,19 +22,21 @@ function ArtistRelatedAlbums({ disc_id }: { disc_id: string; }) {
                 </h3>
             </article>
         ));
+    }
 
-        return (
-            <section className="albums-list">
-                <h2>Albums</h2>
-                {content}
-            </section>
-        );
+    if (isLoading || isFetching) {
+        content = <img
+            src={searchSpinner}
+            alt="searching"
+            height="75"
+            className="search-loader"
+        />;
     }
 
     return (
         <section className="albums-list">
             <h2>Albums</h2>
-            {isFetching ? <div>Loading...</div> : <div>No albums found.</div>}
+            {content}
         </section>
     );
 }

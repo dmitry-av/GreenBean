@@ -27,6 +27,12 @@
   flex-direction: row;
 }
 
+.album-link:hover {
+  text-decoration: none;
+  display: flex;
+  flex-direction: row;
+}
+
 .result-content {
   display: flex;
   flex-direction: row;
@@ -49,7 +55,7 @@
 }
 
 .result-content .album-details .album-title {
-  color: #35223e;
+  color: #223b20;
   font-size: 0.9rem;
   margin-bottom: 0.5rem;
 }

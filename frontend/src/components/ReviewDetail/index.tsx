@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import DelReview from '../DelReview/DelReview';
 import ReviewPopup from '../ReviewPopup/ReviewPopup';
+import searchSpinner from '../../assets/Spinner-1s-200px.gif';
 
 
 function ReviewDetailPage() {
@@ -16,7 +17,14 @@ function ReviewDetailPage() {
         navigate(-1); // go back one page
     }
     if (isLoading) {
-        return <div>Loading...</div>;
+        return (
+            <img
+                src={searchSpinner}
+                alt="loading"
+                height="75"
+                className="search-loader"
+            />
+        );
     }
 
     if (error) {

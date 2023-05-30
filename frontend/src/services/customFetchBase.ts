@@ -21,7 +21,7 @@ const baseQuery = fetchBaseQuery({
     baseUrl: import.meta.env.VITE_API_URL,
     prepareHeaders: (headers, { getState }) => {
         const token = (getState() as RootState).auth.token;
-        // If we have a token set in state, let's assume that we should be passing it.
+        // if we have a token set in state, let's assume that we should be passing it.
         if (token) {
             headers.set('authorization', `Bearer ${token}`);
         }
@@ -37,7 +37,7 @@ const baseQueryWithReauth: BaseQueryFn<
     // wait until the mutex is available without locking it
     await mutex.waitForUnlock();
 
-    // Retrieve the refresh token from your Redux store
+    // retrieve the refresh token from your Redux store
     const refreshToken = store.getState().auth.refreshToken;
 
     let result = await baseQuery(args, api, extraOptions);

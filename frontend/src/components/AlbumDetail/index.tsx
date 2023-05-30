@@ -6,8 +6,10 @@ import DelReview from '../DelReview/DelReview';
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { PopupWindow } from '../AuthComponents';
+import searchSpinner from '../../assets/Spinner-1s-200px.gif';
 import ReviewEdit from '../ReviewPopup/ReviewEdit';
 import { popupSlice } from '../../store/slices';
+import "./AlbumDetail.css";
 
 
 function AlbumDetailPage() {
@@ -24,7 +26,14 @@ function AlbumDetailPage() {
 
 
     if (isLoading) {
-        return <div>Loading...</div>;
+        return <div>
+            <img
+                src={searchSpinner}
+                alt="searching"
+                height="75"
+                className="search-loader"
+            />
+        </div>;
     }
 
     if (error) {
@@ -44,52 +53,56 @@ function AlbumDetailPage() {
 
 
     return (
-        <div>
-            <h2>{album.title}</h2>
-            <h3>{album.artists.map((artist) => (
+        <div className="album-detail">
+            <h2 className='album-detail__title'>{album.title}</h2>
+            <h3 className='album-detail__artist'>{album.artists.map((artist) => (
                 <Link key={artist.disc_id} to={`/artists/${artist.disc_id}`}>
                     {artist.name}
                 </Link>
             ))}</h3>
-            {album.cover ?
-                <img src={album.cover} alt={album.title} style={{ height: '400px' }} className="img-thumbnail" /> : <p></p>}
-            <FavAlbum disc_id={album.disc_id} is_favorite={album.is_favorite} model="albums" />
-            <p>{album.notes}</p>
+            <div className="like-block"><FavAlbum disc_id={album.disc_id} is_favorite={album.is_favorite} model="albums" /><span>{album.favorites}</span></div>
+            <div className='album-detail__cont1'>
+                {album.cover && <img src={album.cover} alt={album.title} style={{ height: '400px' }} className="album-detail__cont1__cover" />}
+                <div className='album-detail__cont1__tracklist'>
+                    <h3>Tracks:</h3>
+                    <ul className='album-detail__cont1__tracklist__tracks'>
+                        {album.tracks.map((track) => (
+                            <li key={track.position}>
+                                {track.position}. {track.title} ({track.duration})
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            </div>
+            <p className='album-notes'>{album.notes}</p>
             <h4>Average rating of users: {album.avg_rating}</h4>
-            <h4>Likes: {album.favorites}</h4>
-            <h3>Tracks:</h3>
-            <ul>
-                {album.tracks.map((track) => (
-                    <li key={track.position}>
-                        {track.position}. {track.title} ({track.duration})
-                    </li>
-                ))}
-            </ul>
-            <h3>Reviews:</h3>
-            <ul>
-                {album.reviews.map((review) => (
-                    <li key={review.id}>
-                        <p>{review.creator.first_name} {review.creator.last_name}:</p>
-                        <p>{review.text}</p>
-                        <p>Created at: {new Date(review.created_at).toLocaleString('en-GB', {
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric',
-                            hour: 'numeric',
-                            minute: 'numeric'
-                        })}</p>
-                        {(review.creator.id === auth.account?.id) ? <DelReview id={review.id} /> : <p></p>}
-                        <h3>
-                            <Link to={`/reviews/${review.id}`}>
-                                Details
-                            </Link>
-                        </h3>
-                    </li>
-                ))}
-            </ul>
+            <div className="review-block">
+                <h3>Reviews:</h3>
+                <ul>
+                    {album.reviews.map((review) => (
+                        <li key={review.id}>
+                            <p>{review.creator.first_name} {review.creator.last_name}:</p>
+                            <p>{review.text}</p>
+                            <p>Created at: {new Date(review.created_at).toLocaleString('en-GB', {
+                                year: 'numeric',
+                                month: 'long',
+                                day: 'numeric',
+                                hour: 'numeric',
+                                minute: 'numeric'
+                            })}</p>
+                            {(review.creator.id === auth.account?.id) ? <DelReview id={review.id} /> : <p></p>}
+                            <h3>
+                                <Link to={`/reviews/${review.id}`}>
+                                    Details
+                                </Link>
+                            </h3>
+                        </li>
+                    ))}
+                </ul>
 
-            {!(album.reviews?.map((review) => review.creator.id).includes(auth.account?.id)) && <button onClick={handleReviewButton}>Add a Review</button>}
-            {popup.isPopupOpen && auth.account && <PopupWindow><ReviewEdit album={album.id} initialRating={0} initialText="" /></PopupWindow>}
+                {!(album.reviews?.map((review) => review.creator.id).includes(auth.account?.id)) && <button onClick={handleReviewButton}>Add a Review</button>}
+                {popup.isPopupOpen && auth.account && <PopupWindow><ReviewEdit album={album.id} initialRating={0} initialText="" /></PopupWindow>}
+            </div>
         </div>
     );
 };

@@ -98,26 +98,31 @@ def album_search_and_save(search):
 
         dclient = get_client()
         counter = 0
-        for album in dclient.search(search, type='master'):
-            logger.info(
-                f"Saving album: '{album.title}' / '{album.id}'")
-            album, created = Album.objects.get_or_create(
-                disc_id=album.id,
-                defaults={
-                    "title": album.title,
-                    "full_title": album.title,
-                    "year": int(album.year),
-                    "cover_ext_url": album.images[0]['uri']
-                },
-            )
-            if created:
-                logger.info(f"Album created: '{album.title}'")
-            counter += 1
-            if counter >= 8:
-                break
-
-        search_term = SearchTerm.objects.get(term=search, model='album')
-        search_term.save()
+        try:
+            for result in dclient.search(search, type='master'):
+                logger.info(
+                    f"Saving album: '{result.title}' / '{result.id}'")
+                album, created = Album.objects.get_or_create(
+                    disc_id=result.id,
+                    defaults={
+                        "title": result.title,
+                        "full_title": result.title,
+                        "year": int(result.year),
+                    },
+                )
+                if result.images[0]['uri']:
+                    album.cover_ext_url = result.images[0]['uri']
+                album.save()
+                if created:
+                    logger.info(f"Album created: '{album.title}'")
+                counter += 1
+                if counter >= 8:
+                    break
+        except:
+            return
+        else:
+            search_term = SearchTerm.objects.get(term=search, model='album')
+            search_term.save()
 
 
 def artist_search_and_save(search):
@@ -169,20 +174,25 @@ def find_artist_albums(artist):
     # Check if the last_modified date is 21 days ago or earlier
     if artist.last_modified is None or artist.last_modified <= last_modified_threshold or not artist.albums_found:
         try:
-            for album in dclient.search(artist=artist.name, type='master', format="album"):
-                logger.info(f"Saving album: '{album.title}' / '{album.id}'")
+            for result in dclient.search(artist=artist.name, type='master', format="album"):
+                logger.info(f"Saving album: '{result.title}' / '{result.id}'")
                 album, created = Album.objects.get_or_create(
-                    disc_id=album.id,
+                    disc_id=result.id,
                     defaults={
-                        "title": album.title,
-                        "full_title": album.title,
-                        "year": int(album.year),
-                        "cover_ext_url": album.images[0]['uri']
+                        "title": result.title,
+                        "full_title": result.title,
+                        "year": int(result.year)
                     },
                 )
-                album.artists.add(artist)
                 if created:
-                    logger.info(f"Album created: '{album.title}'")
+                    if result.images[0]['uri']:
+                        album.cover_ext_url = result.images[0]['uri']
+                    list_names = [artist['name']
+                                  for artist in result.fetch('artists')]
+                    if artist.name in list_names:
+                        album.artists.add(artist)
+                if created:
+                    logger.warning(f"Album created: '{album.title}'")
 
         except Exception as e:
             logger.error(f"Error occurred during search: {str(e)}")

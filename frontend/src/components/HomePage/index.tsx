@@ -2,8 +2,9 @@ import { useGetRandomAlbumsQuery } from "../../services/albumsApi";
 import { Album } from "../../models/album";
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import searchLoader from '../../assets/loader.gif';
+import searchSpinner from '../../assets/Spinner-1s-200px.gif';
 import { useState } from "react";
+import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from "react-icons/fa";
 import "./HomePage.css";
 
 
@@ -18,9 +19,10 @@ function RandomList() {
     if (isLoading || isFetching) {
         return (
             <img
-                src={searchLoader}
-                alt="search-loader"
+                src={searchSpinner}
+                alt="loading"
                 height="75"
+                className="search-loader"
             />
         );
     }
@@ -55,10 +57,10 @@ function RandomList() {
         const pageAlbums = getPageAlbums();
         content = (
             <div>
-                <h2>Albums</h2>
+                <h2 className="home-title">Explore musical releases and share your musical preferences</h2>
                 <div className="pagination-buttons">
-                    <button onClick={handlePreviousPage}>Previous</button>
-                    <button onClick={handleNextPage}>Next</button>
+                    <FaArrowAltCircleLeft className="direction-icon" onClick={handlePreviousPage} size={35} />
+                    <FaArrowAltCircleRight className="direction-icon" onClick={handleNextPage} size={35} />
                 </div>
                 <div className={`album-grid-ran ${slideDirection}`}>
                     {pageAlbums.map((album: Album, index: number) => (
@@ -78,8 +80,10 @@ function RandomList() {
 
                 </div>
                 <div className="pagination-buttons">
-                    <button onClick={handlePreviousPage}>Previous</button>
-                    <button onClick={handleNextPage}>Next</button>
+                    <FaArrowAltCircleLeft className="direction-icon" onClick={handlePreviousPage} size={35} />
+                    <FaArrowAltCircleRight className="direction-icon" onClick={handleNextPage} size={35} />
+                    {/* <button onClick={handlePreviousPage}>Previous</button>
+                    <button onClick={handleNextPage}>Next</button> */}
                 </div>
             </div>
         );

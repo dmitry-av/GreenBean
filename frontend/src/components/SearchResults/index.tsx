@@ -3,7 +3,7 @@ import { useSearchAlbumsQuery } from "../../services/albumsApi";
 import { Album } from "../../models/album";
 import { useState } from "react";
 import { toast } from 'react-toastify';
-import searchLoader from '../../assets/loader.gif';
+import searchSpinner from '../../assets/Spinner-1s-200px.gif';
 import "./SeachResults.css";
 
 
@@ -16,11 +16,14 @@ function SearchResults() {
     const { data, error, isLoading, isFetching } = useSearchAlbumsQuery(term, { refetchOnMountOrArgChange: true });
 
     if (isLoading || isFetching) {
-        return <img
-            src={searchLoader}
-            alt="search-loader"
-            height="75"
-        />;
+        return <div>
+            <img
+                src={searchSpinner}
+                alt="searching"
+                height="75"
+                className="search-loader"
+            />
+        </div>;
     }
 
     if (error) {

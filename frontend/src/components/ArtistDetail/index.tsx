@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useGetArtistDetailQuery } from '../../services/albumsApi';
-import { toast } from 'react-toastify';
+import searchSpinner from '../../assets/Spinner-1s-200px.gif';
 import FavAlbum from '../FavAlbum/FavAlbum';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
@@ -11,28 +11,22 @@ function ArtistDetailPage() {
     const auth = useSelector((state: RootState) => state.auth);
     const navigate = useNavigate();
     const { disc_id } = useParams();
-    const { data, error, isLoading } = useGetArtistDetailQuery(disc_id!, { refetchOnMountOrArgChange: true });
-
-    if (isLoading) {
-        return <div>Loading...</div>;
-    }
-
-    if (error) {
-        if ('status' in error) {
-            // you can access all properties of `FetchBaseQueryError` here
-            const errMsg = 'error' in error ? error.error : JSON.stringify(error.data);
-
-            toast.error(errMsg);
-        }
-        else {
-            // you can access all properties of `SerializedError` here
-            toast.error(error.message);
-        }
-    }
+    const { data, isLoading, isFetching, isSuccess } = useGetArtistDetailQuery(disc_id!, { refetchOnMountOrArgChange: true });
     const artist = data!;
 
-    return (
-        <div>
+    let content;
+
+    if (isLoading || isFetching) {
+        content = <img
+            src={searchSpinner}
+            alt="searching"
+            height="75"
+            className="search-loader"
+        />;
+    }
+
+    if (isSuccess) {
+        content = <div>
             <h2>{artist.name}</h2>
             {auth.account && <FavAlbum disc_id={artist.disc_id} is_favorite={artist.is_favorite} model="artists" />}
             <h4>Likes: {artist.favorites}</h4>
@@ -43,7 +37,12 @@ function ArtistDetailPage() {
             <div>
                 <ArtistRelatedAlbums disc_id={artist.disc_id} />
             </div>
-        </div>
+        </div>;
+    }
+
+
+    return (
+        <div>{content}</div>
     );
 };
 

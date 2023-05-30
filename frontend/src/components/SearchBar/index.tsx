@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { FaSearch } from 'react-icons/fa';
 import './SearchBar.css';
 
 

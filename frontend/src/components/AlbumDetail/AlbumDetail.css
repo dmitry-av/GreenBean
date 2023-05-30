@@ -1,0 +1,87 @@
+.search-loader {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 15%;
+    justify-content: center;
+    height: 10rem;
+    }
+
+.album-detail {
+    white-space: nowrap;
+    margin: 3% 15% 15% 15% !important;
+}
+
+.album-detail__artist a {
+    color: #4c524d;
+    text-decoration:dashed;
+}
+
+.album-detail__artist a:hover {
+    color: #32593c;
+}
+
+.like-block {
+    display: flex;
+    align-items:baseline  
+}
+.like-block span {
+    font-size: 1.2rem;
+}
+
+.album-detail__cont1 {
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.album-detail__cont1__tracklist {
+    margin-left: 2rem;
+    max-width: 400px;
+}
+    .album-detail__cont1__tracklist__tracks {
+        list-style-type: none;
+        margin: -1;
+        padding: 0;
+        }
+        
+        .album-detail__cont1__tracklist__tracks li {
+            white-space: normal;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            }
+
+
+.album-detail__cont1__cover {
+    position: relative;
+    height: 100%;
+    object-fit: contain;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.681);
+}
+
+
+
+p.album-notes {
+    margin-top: 2rem;
+    white-space: normal;
+}
+
+@media only screen and (max-width: 600px) {
+    .album-detail {
+        white-space: nowrap;
+        margin: 3% 3% 3% 3% !important;
+    }
+        .album-detail__cont1 {
+            display: flex;
+            flex-wrap: wrap;
+        }
+}
+
+
+@media only screen and (max-width: 1064px) {
+    .album-detail {
+        white-space: nowrap;
+        margin: 5% 1% 5% 5% !important;
+    }
+}
+

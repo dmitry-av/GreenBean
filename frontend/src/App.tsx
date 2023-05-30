@@ -15,6 +15,7 @@ import FavArtistList from "./components/FavArtistList/FavArtistList";
 import 'react-toastify/dist/ReactToastify.css';
 import HomePage from "./components/HomePage";
 import PopupContainer from "./routes/PopupContainer";
+import "./App.css";
 
 
 function App() {
