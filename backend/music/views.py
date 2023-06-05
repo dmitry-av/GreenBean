@@ -132,7 +132,6 @@ class ArtistViewSet(viewsets.ModelViewSet):
     def get_object(self):
         artist = super().get_object()
         fill_artist_details(artist)
-        find_artist_albums(artist)
         return artist
 
     @action(methods=["get"], detail=False)
@@ -187,14 +186,12 @@ class ArtistViewSet(viewsets.ModelViewSet):
         return Response({'access': "Need to be authenticated"}, status=status.HTTP_401_UNAUTHORIZED)
 
     @action(methods=["get"], detail=True, url_path="related-albums")
-    def related_albums(self, request, disc_id):
+    def related_albums(self, request, disc_id=None):
         try:
-            artist = Artist.objects.prefetch_related(
-                'albums').get(disc_id=disc_id)
+            artist = self.get_object()
         except Artist.DoesNotExist:
             return Response(status=404)
-
-        # Get the albums associated with the artist
+        find_artist_albums(artist)
         albums = artist.albums.all().order_by("-year")
 
         # Use your AlbumSerializer to serialize the albums

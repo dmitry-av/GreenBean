@@ -1,0 +1,93 @@
+.review-detail {
+    margin: 3% 15% 15% 15%;
+    justify-content: left;
+    padding: 1rem;
+    background-color: #d7d6d6;
+    border-radius: 10px;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.168);
+    transition: transform 0.3s ease;
+    padding-left: 3.5%;
+    padding-top: 4%;
+    padding-bottom: 2rem;
+}
+.review-detail__creator{
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+}
+
+.review-detail___title_cont {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 3rem;
+}
+
+
+.review-detail__title a,
+.review-detail__artist a {
+    color: #254b26;
+    text-decoration: none;
+    text-decoration-thickness: 0.01rem;
+    text-underline-offset: 3px;
+}
+
+.review-detail__artist a {
+    font-size: smaller;
+}
+
+.review-detail__title a:hover,
+.review-detail__artist a:hover {
+    color: #6e6e6e;
+    text-decoration: none;
+    text-decoration-thickness: 0.01rem;
+    text-underline-offset: 3px;
+}
+
+
+
+.review-detail__rating{
+    font-size: 1.35rem;
+}
+
+.review-detail__date{
+    font-size: smaller;
+}
+
+.review-detail__text {
+    margin-top: 2rem;
+    text-indent: 2rem;
+    margin-right: 1.6rem;
+    white-space: pre-wrap;
+}
+
+.review-detail__icons-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+}
+
+.review-detail__icons-container__edit-block {
+    display: flex;
+}
+
+.review-detail__edit-button {
+
+}
+
+.review-detail__edit-button:hover {
+    color: rgb(255, 255, 255);
+    transform: scale(1.2);
+}
+
+
+
+.review-detail__back-button:hover {
+    color: rgb(255, 255, 255);
+    transform: scale(1.2);
+}
+
+@media only screen and (max-width: 900px) {
+    .review-detail {
+        white-space: nowrap;
+        margin: 2% 2% 1% 2%;
+    }
+}

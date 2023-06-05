@@ -66,7 +66,7 @@ class Album(models.Model):
         if self.reviews.all().exists():
             avg_rating = self.reviews.filter(
                 rating__isnull=False).aggregate(Avg('rating'))['rating__avg']
-            return "{0:.2f}".format(avg_rating)
+            return "{0:.1f}".format(avg_rating)
         return None
 
     @property

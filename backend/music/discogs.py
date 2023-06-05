@@ -181,12 +181,11 @@ def find_artist_albums(artist):
                     defaults={
                         "title": result.title,
                         "full_title": result.title,
-                        "year": int(result.year)
+                        "year": int(result.year),
+                        "cover_ext_url": result.images[0]['uri']
                     },
                 )
-                if created:
-                    if result.images[0]['uri']:
-                        album.cover_ext_url = result.images[0]['uri']
+                if result.fetch('artists'):
                     list_names = [artist['name']
                                   for artist in result.fetch('artists')]
                     if artist.name in list_names:

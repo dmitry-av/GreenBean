@@ -1,80 +1,77 @@
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useGetReviewDetailQuery } from '../../services/albumsApi';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import DelReview from '../DelReview/DelReview';
-import ReviewPopup from '../ReviewPopup/ReviewPopup';
-import searchSpinner from '../../assets/Spinner-1s-200px.gif';
+import DelReview from '../DelReview';
+import LoadingIndicator from '../LoadingIndicator';
+import { FaEdit } from "react-icons/fa";
+import { AiOutlineRollback } from "react-icons/ai";
+import { popupSlice } from '../../store/slices';
+import { PopupWindow } from '../AuthComponents';
+import ReviewEdit from '../ReviewEdit/ReviewEdit';
+import { BsFillStarFill } from 'react-icons/bs';
+import "./ReviewDetail.css";
 
 
 function ReviewDetailPage() {
     const { id } = useParams();
-    const { data, error, isLoading } = useGetReviewDetailQuery(id!, { refetchOnMountOrArgChange: true });
+    const dispatch = useDispatch();
+    const { data, error, isLoading, isSuccess } = useGetReviewDetailQuery(id!, { refetchOnMountOrArgChange: true });
     const auth = useSelector((state: RootState) => state.auth);
+    const popup = useSelector((state: RootState) => state.popup);
     const navigate = useNavigate();
-
-    function handleClick() {
-        navigate(-1); // go back one page
-    }
-    if (isLoading) {
-        return (
-            <img
-                src={searchSpinner}
-                alt="loading"
-                height="75"
-                className="search-loader"
-            />
-        );
-    }
-
-    if (error) {
-        if ('status' in error) {
-            // you can access all properties of `FetchBaseQueryError` here
-            const errMsg = 'error' in error ? error.error : JSON.stringify(error.data);
-
-            return (
-                <div>
-                    <div>An error has occurred:</div>
-                    <div>{errMsg}</div>
-                </div>
-            );
-        } else {
-            // you can access all properties of `SerializedError` here
-            return <div>{error.message}</div>;
-        }
-    }
-
     const review = data!;
 
-    return (
-        <div>
-            <h2>{review.creator.first_name} {review.creator.last_name}</h2>
-            <h3><Link to={`/albums/${review.album.disc_id}`}>{review.album.title}</Link> - {review.album.artists.map((artist) => artist.name).join(", ")}</h3>
-            <p>{review.text}</p>
-            <h3>Rating: {review.rating}</h3>
-            <h4>Created: {new Date(review.created_at).toLocaleString('en-GB', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-                hour: 'numeric',
-                minute: 'numeric'
-            })}</h4>
-            <h4>Updated: {new Date(review.modified_at).toLocaleString('en-GB', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-                hour: 'numeric',
-                minute: 'numeric'
-            })}</h4>
-            {(review.creator.id === auth.account?.id) ?
-                <ReviewPopup id={review.id} isEditing={true} album={review.album.id} initialText={review.text} initialRating={review.rating}
-                /> : null}
+    const handleReviewButton = () => {
+        dispatch(popupSlice.actions.setIsPopup(true));
+    };
 
-            {(review.creator.id === auth.account?.id) ? <DelReview id={review.id} /> : null}
-            <div>
-                <button onClick={handleClick}>Go back</button>
+    let content;
+    if (error) {
+        content = <p>An error occured</p>;
+    }
+
+    if (isSuccess) {
+        content = <div className='review-detail'>
+            <h2 className='review-detail__creator'>{review.creator.first_name} {review.creator.last_name}</h2>
+            <div className='review-detail___title_cont flex-column flex-md-row'>
+                <h4 className='review-detail__title'>
+                    <Link to={`/albums/${review.album.disc_id}`} className='review-detail__album-link'>{review.album.title}</Link>
+                </h4>
+                <h4 className='review-detail__artist'>{review.album.artists.map((artist) => (
+                    <Link key={artist.disc_id} to={`/artists/${artist.disc_id}`}>
+                        {artist.name}
+                    </Link>
+                ))}</h4>
             </div>
-        </div>
+            <p className='review-detail__text'>{review.text}</p>
+            <h3 className='review-detail__rating'>Rating: {review.rating} <BsFillStarFill className="review-item__rating__star-icon" /></h3>
+            <h4 className='review-detail__date'>Modified: {new Date(review.modified_at).toLocaleString('en-GB', {
+                year: 'numeric',
+                month: 'numeric',
+                day: 'numeric',
+                hour: 'numeric',
+                minute: 'numeric'
+            })}</h4>
+            <div className='review-detail__icons-container'>
+                <div className='review-detail__icons-container__edit-block'>
+                    {(review.creator.id === auth.account?.id) && <FaEdit className="review-detail__edit-button" onClick={handleReviewButton} size={25} />}
+                    {popup.isPopupOpen && auth.account &&
+                        <PopupWindow>
+                            <ReviewEdit id={review.id} album={review.album.id} initialText={review.text} initialRating={review.rating} isEditing={true} />
+                        </PopupWindow>
+                    }
+                    {(review.creator.id === auth.account?.id) ? <DelReview id={review.id} /> : null}
+                </div>
+                <div>
+                    <AiOutlineRollback onClick={() => navigate(-1)} size={25} className="review-detail__back-button" />
+                </div>
+            </div>
+        </div>;
+    }
+
+    return (
+        <div>{(isLoading) ? <LoadingIndicator /> : content}</div>
     );
 };
 

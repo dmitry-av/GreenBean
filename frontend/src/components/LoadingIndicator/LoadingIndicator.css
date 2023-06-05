@@ -1,0 +1,10 @@
+.loader-indicator {
+    display: block;
+    height: 10rem;
+    }
+
+.loader-container{
+    margin-top: 15%;
+    margin-left: auto;
+    margin-right: auto;
+}

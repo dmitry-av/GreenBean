@@ -1,29 +1,20 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useGetArtistDetailQuery } from '../../services/albumsApi';
-import searchSpinner from '../../assets/Spinner-1s-200px.gif';
-import FavAlbum from '../FavAlbum/FavAlbum';
+import FavAlbum from '../FavAlbum';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import ArtistRelatedAlbums from '../ArtistRelatedAlbums';
+import LoadingIndicator from '../LoadingIndicator';
 
 
 function ArtistDetailPage() {
     const auth = useSelector((state: RootState) => state.auth);
     const navigate = useNavigate();
     const { disc_id } = useParams();
-    const { data, isLoading, isFetching, isSuccess } = useGetArtistDetailQuery(disc_id!, { refetchOnMountOrArgChange: true });
+    const { data, isLoading, error, isFetching, isSuccess } = useGetArtistDetailQuery(disc_id!, { refetchOnMountOrArgChange: true });
     const artist = data!;
 
     let content;
-
-    if (isLoading || isFetching) {
-        content = <img
-            src={searchSpinner}
-            alt="searching"
-            height="75"
-            className="search-loader"
-        />;
-    }
 
     if (isSuccess) {
         content = <div>
@@ -40,9 +31,13 @@ function ArtistDetailPage() {
         </div>;
     }
 
+    if (error) {
+        content = <p>An error occured</p>;
+    }
+
 
     return (
-        <div>{content}</div>
+        <div>{(isLoading || isFetching) ? <LoadingIndicator /> : content}</div>
     );
 };
 

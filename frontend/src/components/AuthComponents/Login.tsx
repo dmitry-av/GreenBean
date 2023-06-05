@@ -8,6 +8,7 @@ import { RootState } from "../../store";
 import { Link } from "react-router-dom";
 import "./Login.css";
 import popupSlice from "../../store/slices/popupSlice";
+import { AiOutlineCloseCircle } from "react-icons/ai";
 
 
 function Login() {
@@ -16,6 +17,9 @@ function Login() {
     const dispatch = useDispatch();
     const auth = useSelector((state: RootState) => state.auth);
 
+    const closePopup = () => {
+        dispatch(popupSlice.actions.setIsPopup(false));
+    };
     if (auth.account) {
         return null;
     }
@@ -58,53 +62,56 @@ function Login() {
     });
 
     return (
-        <div className="login-card p-4">
-            <h3 className="text-center mb-4">Log in to your account</h3>
-            <form onSubmit={formik.handleSubmit}>
-                <div className="login-inputs mb-3">
-                    <label htmlFor="username" className="form-label">Username</label>
-                    <input
-                        className="form-control"
-                        id="username"
-                        type="text"
-                        autoComplete="username"
-                        placeholder="Enter your username"
-                        name="username"
-                        value={formik.values.username}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                    />
-                    <div className="text-dangers">{formik.errors.username ? formik.errors.username : null}</div>
-                </div>
-                <div className="login-inputs mb-3">
-                    <label htmlFor="password" className="form-label">Password</label>
-                    <input
-                        className="form-control"
-                        id="password"
-                        type="password"
-                        autoComplete="current-password"
-                        placeholder="Enter your password"
-                        name="password"
-                        value={formik.values.password}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                    />
-                    <div className="text-dangers">{formik.errors.password ? formik.errors.password : null}</div>
-                </div>
-                <div className="text-danger text-center my-2" hidden={false}>
-                    {message}
-                </div>
-                <div className="d-grid gap-2 mt-4">
-                    <button
-                        type="submit"
-                        disabled={loading}
-                        className="btn btn-primary btn-block"
-                    >
-                        Login
-                    </button>
-                </div>
-            </form>
-            <div className="login-info">Do not have an account? {!auth.account && <Link to="/register">Sign up</Link>}</div>
+        <div className="login-pop-content">
+            <div className="login-card p-4">
+                <AiOutlineCloseCircle className="close-popup" onClick={closePopup} color="white" size={30} />
+                <h3 className="text-center mb-4">Log in to your account</h3>
+                <form onSubmit={formik.handleSubmit}>
+                    <div className="login-inputs mb-3">
+                        <label htmlFor="username" className="form-label">Username</label>
+                        <input
+                            className="form-control"
+                            id="username"
+                            type="text"
+                            autoComplete="username"
+                            placeholder="Enter your username"
+                            name="username"
+                            value={formik.values.username}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                        />
+                        <div className="text-dangers">{formik.errors.username ? formik.errors.username : null}</div>
+                    </div>
+                    <div className="login-inputs mb-3">
+                        <label htmlFor="password" className="form-label">Password</label>
+                        <input
+                            className="form-control"
+                            id="password"
+                            type="password"
+                            autoComplete="current-password"
+                            placeholder="Enter your password"
+                            name="password"
+                            value={formik.values.password}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                        />
+                        <div className="text-dangers">{formik.errors.password ? formik.errors.password : null}</div>
+                    </div>
+                    <div className="text-danger text-center my-2" hidden={false}>
+                        {message}
+                    </div>
+                    <div className="d-grid gap-2 mt-4">
+                        <button
+                            type="submit"
+                            disabled={loading}
+                            className="login-button"
+                        >
+                            Login
+                        </button>
+                    </div>
+                </form>
+                <div className="login-info">Do not have an account? {!auth.account && <Link to="/register">Sign up</Link>}</div>
+            </div>
         </div>
     );
 }

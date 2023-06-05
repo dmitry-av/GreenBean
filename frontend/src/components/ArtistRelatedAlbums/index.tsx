@@ -1,11 +1,11 @@
 import { useGetRelatedAlbumsQuery } from "../../services/albumsApi";
 import { Album } from "../../models/album";
 import { Link } from 'react-router-dom';
-import searchSpinner from '../../assets/Spinner-1s-200px.gif';
+import LoadingIndicator from "../LoadingIndicator";
 
 
 function ArtistRelatedAlbums({ disc_id }: { disc_id: string; }) {
-    const { data: albums, isLoading, isFetching, isSuccess } = useGetRelatedAlbumsQuery(
+    const { data: albums, error, isLoading, isFetching, isSuccess } = useGetRelatedAlbumsQuery(
         disc_id!,
         { refetchOnMountOrArgChange: true }
     );
@@ -24,19 +24,14 @@ function ArtistRelatedAlbums({ disc_id }: { disc_id: string; }) {
         ));
     }
 
-    if (isLoading || isFetching) {
-        content = <img
-            src={searchSpinner}
-            alt="searching"
-            height="75"
-            className="search-loader"
-        />;
+    if (error) {
+        content = <p>No albums found</p>;
     }
 
     return (
         <section className="albums-list">
             <h2>Albums</h2>
-            {content}
+            {(isLoading || isFetching) ? <LoadingIndicator /> : content}
         </section>
     );
 }
