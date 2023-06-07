@@ -1,0 +1,32 @@
+.confirmation-window {
+    background-color: #253625;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 1px 1px 10px rgb(0, 0, 0);
+}
+
+.confirmation-text {
+    font-size: medium;
+    color: white;
+}
+
+
+.buttons-container {
+    display: flex;
+    justify-content: center;
+}
+
+.confirm-button {
+    background-color: #3a693a;
+    color: white;
+    border-radius: 20%;
+    margin: 1rem;
+    border: none;
+    padding: 0.5rem;
+}
+
+.confirm-button:hover {
+    background-color: #467646;
+    transform: translateY(-1px);
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.43);
+}

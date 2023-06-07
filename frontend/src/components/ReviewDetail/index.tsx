@@ -22,6 +22,7 @@ function ReviewDetailPage() {
     const navigate = useNavigate();
     const review = data!;
 
+    let children;
     const handleReviewButton = () => {
         dispatch(popupSlice.actions.setIsPopup(true));
     };
@@ -58,7 +59,7 @@ function ReviewDetailPage() {
                     {(review.creator.id === auth.account?.id) && <FaEdit className="review-detail__edit-button" onClick={handleReviewButton} size={25} />}
                     {popup.isPopupOpen && auth.account &&
                         <PopupWindow>
-                            <ReviewEdit id={review.id} album={review.album.id} initialText={review.text} initialRating={review.rating} isEditing={true} />
+                            <ReviewEdit id={review.id} album={review.album.id} initialText={review.text} initialRating={review.rating} isEditing={true} />;
                         </PopupWindow>
                     }
                     {(review.creator.id === auth.account?.id) ? <DelReview id={review.id} /> : null}
@@ -67,7 +68,7 @@ function ReviewDetailPage() {
                     <AiOutlineRollback onClick={() => navigate(-1)} size={25} className="review-detail__back-button" />
                 </div>
             </div>
-        </div>;
+        </div >;
     }
 
     return (

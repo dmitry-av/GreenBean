@@ -64,10 +64,10 @@ function Login() {
     return (
         <div className="login-pop-content">
             <div className="login-card p-4">
-                <AiOutlineCloseCircle className="close-popup" onClick={closePopup} color="white" size={30} />
-                <h3 className="text-center mb-4">Log in to your account</h3>
-                <form onSubmit={formik.handleSubmit}>
-                    <div className="login-inputs mb-3">
+                <AiOutlineCloseCircle className="close-icon" onClick={closePopup} color="white" size={30} />
+                <h3 className="text-center">Log in to your account</h3>
+                <form onSubmit={formik.handleSubmit} className="login-form">
+                    <div className="login-inputs">
                         <label htmlFor="username" className="form-label">Username</label>
                         <input
                             className="form-control"
@@ -81,8 +81,6 @@ function Login() {
                             onBlur={formik.handleBlur}
                         />
                         <div className="text-dangers">{formik.errors.username ? formik.errors.username : null}</div>
-                    </div>
-                    <div className="login-inputs mb-3">
                         <label htmlFor="password" className="form-label">Password</label>
                         <input
                             className="form-control"
@@ -97,10 +95,10 @@ function Login() {
                         />
                         <div className="text-dangers">{formik.errors.password ? formik.errors.password : null}</div>
                     </div>
-                    <div className="text-danger text-center my-2" hidden={false}>
+                    <div className="login-text-danger">
                         {message}
                     </div>
-                    <div className="d-grid gap-2 mt-4">
+                    <div className="login-button-container">
                         <button
                             type="submit"
                             disabled={loading}
