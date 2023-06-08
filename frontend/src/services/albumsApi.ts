@@ -10,6 +10,12 @@ interface AlbumsResponse {
     previous: string | null;
 }
 
+interface ArtistsResponse {
+    results: Artist[];
+    count: number;
+    next: string | null;
+    previous: string | null;
+}
 
 export const albumsApi = createApi({
     reducerPath: 'albumsApi',
@@ -85,6 +91,17 @@ export const albumsApi = createApi({
             transformResponse: (response: AlbumsResponse) => {
                 return {
                     albums: response.results,
+                    count: response.count,
+                    next: response.next,
+                    previous: response.previous,
+                };
+            },
+        }),
+        searchArtists: builder.query({
+            query: (term) => `/artists/search/?term=${term}`,
+            transformResponse: (response: ArtistsResponse) => {
+                return {
+                    artists: response.results,
                     count: response.count,
                     next: response.next,
                     previous: response.previous,
@@ -173,4 +190,5 @@ export const {
     useGetFavoriteAlbumsQuery,
     useGetFavoriteArtistsQuery,
     useGetRelatedAlbumsQuery,
-    useGetRandomAlbumsQuery, } = albumsApi;
+    useGetRandomAlbumsQuery,
+    useSearchArtistsQuery } = albumsApi;

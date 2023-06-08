@@ -3,6 +3,12 @@
     margin: 3% 15% 3% 15% !important;
 }
 
+.album-detail__title{
+    display: flex;
+    align-items: center;
+    font-size: 1.8rem;
+    margin-bottom: 0.75rem;
+}
 .album-detail__artist a {
     color: #29662a;
     text-decoration: underline;
@@ -16,8 +22,10 @@
 
 .like-block {
     display: flex;
-    align-items:baseline  
+    align-items:baseline;
+    margin-left: 1rem;
 }
+
 .like-block span {
     font-size: 1.2rem;
 }
@@ -79,13 +87,14 @@
 .add-review-container .btn-primary {
     background-color:#4c674c;
     border: none;
-    width: 16rem !important; 
+    width: 16rem !important;
+    transition: transform 0.3s ease;
 }
 
 .add-review-container .btn-primary:hover {
     background-color:#5b785b;
     transform: translateY(-2px);
-    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.681);
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.499);
 }
 
 @media only screen and (max-width: 600px) {

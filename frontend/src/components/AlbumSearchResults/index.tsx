@@ -4,13 +4,14 @@ import { Album } from "../../models/album";
 import { useState } from "react";
 import { toast } from 'react-toastify';
 import LoadingIndicator from "../LoadingIndicator";
-import "./SeachResults.css";
+import genericAlbumPic from "../../assets/generic-album.jpeg";
+import "./AlbumSeachResults.css";
 
 
 const PAGE_SIZE = 100;
 
 
-function SearchResults() {
+function AlbumSearchResults() {
     const { term } = useParams();
     const [page, setPage] = useState<number>(1);
     const { data, error, isLoading, isFetching } = useSearchAlbumsQuery(term, { refetchOnMountOrArgChange: true });
@@ -39,8 +40,8 @@ function SearchResults() {
                 <div className="result-content">
                     <div className="album-image-container">
                         <img
-                            src={album.cover_ext_url}
-                            alt={album.title}
+                            src={(album.cover || album.cover_ext_url) ?? genericAlbumPic}
+                            alt={genericAlbumPic}
                             width="95"
                             height="95"
                             className="album-image"
@@ -89,4 +90,4 @@ function SearchResults() {
     );
 };
 
-export default SearchResults;
+export default AlbumSearchResults;

@@ -3,6 +3,7 @@ import { Album } from "../../models/album";
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import searchLoader from '../../assets/loader.gif';
+import genericAlbumPic from "../../assets/generic-album.jpeg";
 import "./FavAlbumList.css";
 
 
@@ -35,8 +36,8 @@ function FavAlbumList() {
                     <article className="album-card" key={album.disc_id}>
                         <Link to={`/albums/${album.disc_id}`}>
                             <img
-                                src={album.cover_ext_url}
-                                alt={album.title}
+                                src={(album.cover || album.cover_ext_url) ?? genericAlbumPic}
+                                alt={genericAlbumPic}
                                 width="95"
                                 height="95"
                                 className="album-image"

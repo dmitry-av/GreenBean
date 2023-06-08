@@ -1,5 +1,5 @@
 .delete-button {
-
+    transition: transform 0.3s ease;
 }
 
 .delete-button:hover {

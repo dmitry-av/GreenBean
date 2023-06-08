@@ -65,7 +65,7 @@ function Login() {
         <div className="login-pop-content">
             <div className="login-card p-4">
                 <AiOutlineCloseCircle className="close-icon" onClick={closePopup} color="white" size={30} />
-                <h3 className="text-center">Log in to your account</h3>
+                <h3 className="login-text-center">Log in to your account</h3>
                 <form onSubmit={formik.handleSubmit} className="login-form">
                     <div className="login-inputs">
                         <label htmlFor="username" className="form-label">Username</label>

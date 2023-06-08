@@ -8,6 +8,7 @@ import ReviewEdit from '../ReviewEdit/ReviewEdit';
 import FavAlbum from '../FavAlbum';
 import { popupSlice } from '../../store/slices';
 import { BsFillStarFill } from "react-icons/bs";
+import genericAlbumPic from "../../assets/generic-album.jpeg";
 import "./AlbumDetail.css";
 
 
@@ -34,15 +35,14 @@ function AlbumDetailPage() {
 
     if (isSuccess) {
         content = (<div className="album-detail">
-            <h2 className='album-detail__title'>{album.title}</h2>
+            <div className='album-detail__title'>{album.title}<span className="like-block"><FavAlbum disc_id={album.disc_id} is_favorite={album.is_favorite} model="albums" /><span>{album.favorites}</span></span></div>
             <h3 className='album-detail__artist'>{album.artists.map((artist) => (
                 <Link key={artist.disc_id} to={`/artists/${artist.disc_id}`}>
                     {artist.name}
                 </Link>
             ))}</h3>
-            <div className="like-block"><FavAlbum disc_id={album.disc_id} is_favorite={album.is_favorite} model="albums" /><span>{album.favorites}</span></div>
             <div className='album-detail__cont1'>
-                {album.cover && <img src={album.cover} alt={album.title} className="album-detail__cont1__cover" />}
+                <img src={album.cover ?? genericAlbumPic} alt={genericAlbumPic} className="album-detail__cont1__cover" />
                 <div className='album-detail__cont1__tracklist'>
                     <h3>Tracklist</h3>
                     <ul className='album-detail__cont1__tracklist__tracks'>

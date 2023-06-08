@@ -5,39 +5,44 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import ArtistRelatedAlbums from '../ArtistRelatedAlbums';
 import LoadingIndicator from '../LoadingIndicator';
+import ErrorPage from '../ErrorPage/ErrorPage';
+import genericArtistPic from "../../assets/generic-artist.png";
+import "./ArtistDetail.css";
+import { AiOutlineRollback } from 'react-icons/ai';
 
 
 function ArtistDetailPage() {
     const auth = useSelector((state: RootState) => state.auth);
     const navigate = useNavigate();
     const { disc_id } = useParams();
-    const { data, isLoading, error, isFetching, isSuccess } = useGetArtistDetailQuery(disc_id!, { refetchOnMountOrArgChange: true });
+    const { data, isLoading, error, isSuccess } = useGetArtistDetailQuery(disc_id!, { refetchOnMountOrArgChange: true });
     const artist = data!;
 
     let content;
 
     if (isSuccess) {
-        content = <div>
-            <h2>{artist.name}</h2>
-            {auth.account && <FavAlbum disc_id={artist.disc_id} is_favorite={artist.is_favorite} model="artists" />}
-            <h4>Likes: {artist.favorites}</h4>
-            {artist.cover ?
-                <img src={artist.cover} alt={artist.name} style={{ height: '400px' }} className="img-thumbnail" /> : <p></p>}
-            <p>{artist.description}</p>
-            <button onClick={() => navigate(-1)}>Go back</button>
-            <div>
-                <ArtistRelatedAlbums disc_id={artist.disc_id} />
+        content = (
+            <div className='artist-detail'>
+                <div className='artist-detail-name'>{artist.name}<span className="like-block"><FavAlbum disc_id={artist.disc_id} is_favorite={artist.is_favorite} model="artists" /><span>{artist.favorites}</span></span></div>
+                <img src={(artist.cover || artist.cover_ext_url) ?? genericArtistPic} alt={genericArtistPic} className="artist-detail-cover" />
+                <p className='artist-detail-description'>{artist.description}</p>
+                <div>
+                    <AiOutlineRollback onClick={() => navigate(-1)} size={25} className="artist-detail__back-button" />
+                </div>
+                <div className='related-albums-section'>
+                    <ArtistRelatedAlbums disc_id={artist.disc_id} />
+                </div>
             </div>
-        </div>;
+        );
     }
 
     if (error) {
-        content = <p>An error occured</p>;
+        content = <ErrorPage />;
     }
 
 
     return (
-        <div>{(isLoading || isFetching) ? <LoadingIndicator /> : content}</div>
+        <div>{(isLoading) ? <LoadingIndicator /> : content}</div>
     );
 };
 

@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import searchSpinner from '../../assets/Spinner-1s-200px.gif';
 import { useState } from "react";
 import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from "react-icons/fa";
+import genericAlbumPic from "../../assets/generic-album.jpeg";
 import "./HomePage.css";
 
 
@@ -67,8 +68,8 @@ function RandomList() {
                         <article className={`album-card fade-in ${index < pageSize ? '' : 'hidden'}`} key={album.disc_id}>
                             <Link to={`/albums/${album.disc_id}`}>
                                 <img
-                                    src={album.cover ? album.cover : album.cover_ext_url}
-                                    alt={album.title}
+                                    src={(album.cover || album.cover_ext_url) ?? genericAlbumPic}
+                                    alt={genericAlbumPic}
                                     width="95"
                                     height="95"
                                     className="album-image"

@@ -17,6 +17,12 @@
 
   }
 
+  .login-text-center {
+    margin-top: 1rem;
+    text-align: center;
+    font-size: smaller;
+  }
+
   .close-icon:hover{
     color: grey !important;
   }
@@ -25,6 +31,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    font-size: small;
   }
   
   .form-control:focus {
@@ -107,7 +114,7 @@ color: #ececec;
   }
 
   .login-info {
-    font-size: smaller;
+    font-size: small;
   }
   
   

@@ -2,6 +2,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 1rem;
+    margin: 3rem;
   }
   
   .album-card {
@@ -11,7 +12,7 @@
     align-items: center;
     justify-content: center;
     padding: 1rem;
-    background-color: #f0f0f0;
+    background-color: #e9e9e9 !important;
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     text-align: center;
@@ -28,8 +29,7 @@
   }
   
   .album-card a .album-image {
-    margin-top: 2rem;
-    width: 50%;
+    margin-top: 1rem;
     height: auto;
     border-radius: 6px;
   }

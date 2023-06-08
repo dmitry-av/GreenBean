@@ -43,7 +43,6 @@
 }
 
 
-
 .review-detail__rating{
     font-size: 1.35rem;
 }
@@ -70,7 +69,7 @@
 }
 
 .review-detail__edit-button {
-
+    transition: transform 0.3s ease;
 }
 
 .review-detail__edit-button:hover {
@@ -79,10 +78,13 @@
 }
 
 
+.review-detail__back-button {
+    transition: transform 0.3s ease;
+}
 
 .review-detail__back-button:hover {
     color: rgb(255, 255, 255);
-    transform: scale(1.2);
+    transform: scale(1.5);
 }
 
 @media only screen and (max-width: 900px) {

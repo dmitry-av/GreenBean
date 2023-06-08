@@ -1,24 +1,54 @@
 .main-header {
-    background-color: #162a1a;
-  }
+  background-color: #1d3421;
+  display: flex;
+  flex-wrap: wrap;
+  color: #ffffff;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.7rem;
+}
   
-.main-links a {
+.main-header a {
     color: #ffffff;
     text-decoration: none;
   }
-.main-links a:hover {
+  
+.main-header a:hover {
     color: #767676;
   }
 
-.main-links span {
+.main-header span {
   color: #ffffff;
 }
 
 .header-image {
-  display: flex;
+  margin-left: 2rem;
   flex-direction: column;
-  align-items: center; /* Center the container horizontally */
-  justify-content: center; /* Center the container vertically */
+  transition: transform 0.3s ease;
+}
+
+.header-image:hover {
+  transform: translateX(7px);
+}
+
+
+
+.header-item{
+  margin-left: 1rem;
+}
+.authsection {
+  margin: 1rem;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.authsection a {
+  margin-left: 1rem;
+}
+
+.searchbar {
+  width: 18rem;
+  float: right;
 }
 
 .main-header .dropdown-menu {
@@ -29,13 +59,11 @@
   transition: all 1s ease-in;
 }
 
-.dropdown-toggle:hover {
-  color: #767676;
-}
 
 
 .dropdown:hover .dropdown-menu {
   display: block;
+  background-color: #1d3421;
 }
 
 .dropdown-menu .dropdown-item {
@@ -46,7 +74,7 @@
 }
 
 .dropdown-menu .dropdown-item:hover {
-  background-color: rgb(53, 34, 62); /* Custom background color for hovered items */
-  color: rgb(103, 98, 105); /* Custom text color for hovered items */
+  background-color: #233f28; /* Custom background color for hovered items */
+  color: rgb(196, 191, 199); /* Custom text color for hovered items */
 }
 

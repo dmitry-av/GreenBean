@@ -110,7 +110,7 @@ def album_search_and_save(search):
                         "year": int(result.year),
                     },
                 )
-                if result.images[0]['uri']:
+                if result.images:
                     album.cover_ext_url = result.images[0]['uri']
                 album.save()
                 if created:
@@ -131,21 +131,30 @@ def artist_search_and_save(search):
 
         dclient = get_client()
         counter = 0
-        for artist in dclient.search(search,
-                                     title=search, type='artist'):
-            logger.info(
-                f"Saving album: '{artist.name}' / '{artist.id}'")
-            artist, created = Artist.objects.get_or_create(
-                disc_id=artist.id, name=artist.name, cover_ext_url=artist.images[0]['uri'])
-
-            if created:
-                logger.info(f"Artist created: '{artist.name}'")
-            counter += 1
-            if counter >= 8:
-                break
-
-        search_term = SearchTerm.objects.get(term=search, model='artist')
-        search_term.save()
+        logger.warning(search)
+        try:
+            for result in dclient.search(title=search, type='artist'):
+                logger.warning(
+                    f"Search term {search} Saving artist: '{result.name}' / '{result.id}'")
+                artist, created = Artist.objects.get_or_create(disc_id=result.id, defaults={
+                    "name": result.name}
+                )
+                if result.images:
+                    logger.warning(f"image - {result.images[0]['uri']}")
+                    artist.cover_ext_url = result.images[0]['uri']
+                artist.save()
+                if created:
+                    logger.info(f"Artist created: '{result.name}'")
+                counter += 1
+                if counter >= 8:
+                    break
+        except Exception as e:
+            logger.error(f"Error occurred during search: {str(e)}")
+            SearchTerm.objects.get(term=search, model='artist').delete()
+            return
+        else:
+            search_term = SearchTerm.objects.get(term=search, model='artist')
+            search_term.save()
 
 
 def fill_artist_details(artist):

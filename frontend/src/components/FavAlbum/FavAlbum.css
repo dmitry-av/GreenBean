@@ -6,10 +6,10 @@
   }
 
   .heart-icon {
-    text-shadow:3px 6px rgba(52, 46, 35, 0.75)
+    text-shadow:3px 6px rgba(52, 46, 35, 0.75);
+    transition: transform 0.3s ease;
   }
 
   .heart-icon:hover {
     transform: scale(1.2);
-    
   }

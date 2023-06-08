@@ -1,0 +1,10 @@
+.related-album-title {
+    margin-top: 0.25rem;
+    font-size: 0.8rem;
+    color: #162a1a;
+  }
+
+.related-album-image {
+    width: 60%;
+    border-radius: 7px;
+}

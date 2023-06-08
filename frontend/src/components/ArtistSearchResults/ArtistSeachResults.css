@@ -1,23 +1,25 @@
-.search-results{
+.artist-search-results {
+  margin-top: 2rem;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center the container horizontally */
-  justify-content: center; /* Center the container vertically */
+  align-items: center;
 }
-
-.album-search-card {
-  height: 7rem;
+.results-heading{
+  text-align: center;
+}
+.artist-search-card {
   display: flex;
+  width: 50%;
   justify-content: left;
   padding: 1rem;
-  background-color: #f0f0f0;
+  background-color: #eeeeee;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease;
   margin-bottom: 0.5rem;
 }
 
-.album-search-card:hover {
+.artist-search-card:hover {
   transform: translateX(7px);
 }
 
@@ -33,33 +35,36 @@
   flex-direction: row;
 }
 
-.result-content {
+.artist-result-content {
   display: flex;
-  flex-direction: row;
   align-items: center;
 }
 
-.result-content .album-image-container {
-  margin-right: 1rem;
+.artist-image-container {
+  height: 8rem;
 }
 
-.result-content .album-image-container .album-image {
-  height: 5rem;
-  width: 5rem;
-  border-radius: 10px;
+.artist-image{
+  border-radius: 5px;
+  height: 100%;
 }
 
-.result-content .album-details {
+
+.artist-details{
   display: flex;
   flex-direction: column;
 }
 
-.result-content .album-details .album-title {
+.artist-result-content .artist-details .artist-title {
+  margin-left: 2rem;
   color: #223b20;
   font-size: 0.9rem;
   margin-bottom: 0.5rem;
 }
 
-.result-content .album-details .album-year {
-  color: #888;
+
+@media only screen and (max-width: 700px) {
+  .artist-search-card {
+    width: 80%;
+}
 }

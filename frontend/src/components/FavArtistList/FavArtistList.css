@@ -1,0 +1,11 @@
+.favorite-artists-list {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.favorite-artists-header {
+    text-align: center;
+    color: rgb(28, 52, 34);
+}

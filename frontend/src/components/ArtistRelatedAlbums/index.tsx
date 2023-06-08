@@ -2,6 +2,8 @@ import { useGetRelatedAlbumsQuery } from "../../services/albumsApi";
 import { Album } from "../../models/album";
 import { Link } from 'react-router-dom';
 import LoadingIndicator from "../LoadingIndicator";
+import genericAlbumPic from "../../assets/generic-album.jpeg";
+import "./ArtistRelatedAlbums.css";
 
 
 function ArtistRelatedAlbums({ disc_id }: { disc_id: string; }) {
@@ -13,15 +15,21 @@ function ArtistRelatedAlbums({ disc_id }: { disc_id: string; }) {
     let content;
 
     if (isSuccess) {
-        content = albums.map((album: Album) => (
-            <article className="post-excerpt" key={album.disc_id}>
-                <h3>
-                    <Link to={`/albums/${album.disc_id}`}>
-                        {album.title} - {album.year}
-                    </Link>
-                </h3>
-            </article>
-        ));
+        content =
+            <div className="album-grid">
+                {albums.map((album: Album) => (
+                    <article className="album-card" key={album.disc_id}>
+                        <Link to={`/albums/${album.disc_id}`}>
+                            <img
+                                src={album.cover_ext_url ?? genericAlbumPic}
+                                alt={genericAlbumPic}
+                                className="related-album-image"
+                            />
+                            <h3 className="related-album-title">{album.title}<span className="p-2 album-year">{album.year}</span></h3>
+                        </Link>
+                    </article>
+                ))}
+            </div>;
     }
 
     if (error) {
@@ -30,7 +38,7 @@ function ArtistRelatedAlbums({ disc_id }: { disc_id: string; }) {
 
     return (
         <section className="albums-list">
-            <h2>Albums</h2>
+            <h2 className="related-albums-header">Discography</h2>
             {(isLoading || isFetching) ? <LoadingIndicator /> : content}
         </section>
     );

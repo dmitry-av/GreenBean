@@ -6,7 +6,7 @@ export interface Album {
     title: string;
     year: number;
     full_title: string;
-    cover_ext_url: string;
+    cover_ext_url: string | null;
     cover: string | null;
 }
 
@@ -35,6 +35,7 @@ export interface Artist {
     id: number;
     disc_id: string;
     name: string;
+    cover_ext_url: string;
     cover: string | null;
     description: string;
     is_favorite: boolean;

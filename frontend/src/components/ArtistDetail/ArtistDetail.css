@@ -2,3 +2,50 @@
     height: 5rem !important;
     margin-top: 5% !important;
 }
+
+.artist-detail {
+    margin: 3% 15% 3% 15% !important;
+    position: relative;
+}
+
+.artist-detail-name {
+    display: flex;
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+    justify-content: center;
+}
+
+.artist-detail-cover {
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.681);
+    float: right;
+    margin-bottom: 1rem;
+    margin-left: 1rem;
+    max-width: 50%;
+}
+
+.artist-detail-description {
+    white-space: normal;
+}
+
+.artist-detail__back-button{
+    float: right;
+}
+.artist-detail__back-button:hover{
+    transform: translateY(-5px);
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.458);
+    border-radius: 3px;
+}
+
+.related-albums-section {
+    margin-top: 3rem;
+}
+
+.related-albums-header{
+    text-align: center;
+}
+
+@media only screen and (max-width: 900px) {
+    .artist-detail {
+        margin: 5% 5% 3% 5% !important;
+    }
+}
