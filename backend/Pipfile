@@ -15,6 +15,7 @@ spotipy = "*"
 python3-discogs-client = "*"
 openai = "*"
 django-rest-registration = "*"
+psycopg2 = "*"
 
 [dev-packages]
 ipykernel = "*"

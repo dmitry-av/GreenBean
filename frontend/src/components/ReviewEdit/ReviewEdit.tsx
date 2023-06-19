@@ -19,9 +19,9 @@ function ReviewEdit({ album, initialText, initialRating, isEditing, id }: Review
     const [text, setText] = useState(initialText);
     const [rating, setRating] = useState(initialRating);
 
-    const [addReview, { isLoading: isAdding, isSuccess: addSuccess, error: addError }] =
+    const [addReview, { isLoading: isAdding, error: addError }] =
         useAddReviewMutation();
-    const [updateReview, { isLoading: isUpdating, isSuccess: updateSuccess, error: updateError }] =
+    const [updateReview, { isLoading: isUpdating, error: updateError }] =
         useUpdateReviewMutation();
 
     const closePopup = () => {

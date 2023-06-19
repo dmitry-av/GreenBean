@@ -61,6 +61,7 @@ export const albumsApi = createApi({
         }),
         getAlbumDetail: builder.query<AlbumDetail, string>({
             query: (disc_id) => `/albums/${disc_id}`,
+            // @ts-ignore
             providesTags: (result, error, id) => [
                 { type: 'Albums', id } as const,
             ]
@@ -110,12 +111,14 @@ export const albumsApi = createApi({
         }),
         getReviewDetail: builder.query<Review, string>({
             query: (id) => `/reviews/${id}`,
+            // @ts-ignore
             providesTags: (result, error, id) => [
                 { type: 'Reviews', id } as const,
             ]
         }),
         getArtistDetail: builder.query<Artist, string>({
             query: (disc_id) => `/artists/${disc_id}`,
+            // @ts-ignore
             providesTags: (result, error, id) => [
                 { type: 'Artists', id } as const,
             ]

@@ -22,7 +22,6 @@ function ReviewDetailPage() {
     const navigate = useNavigate();
     const review = data!;
 
-    let children;
     const handleReviewButton = () => {
         dispatch(popupSlice.actions.setIsPopup(true));
     };

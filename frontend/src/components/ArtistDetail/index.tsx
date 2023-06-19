@@ -1,8 +1,6 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useGetArtistDetailQuery } from '../../services/albumsApi';
 import FavAlbum from '../FavAlbum';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../store';
 import ArtistRelatedAlbums from '../ArtistRelatedAlbums';
 import LoadingIndicator from '../LoadingIndicator';
 import ErrorPage from '../ErrorPage/ErrorPage';
@@ -12,7 +10,6 @@ import { AiOutlineRollback } from 'react-icons/ai';
 
 
 function ArtistDetailPage() {
-    const auth = useSelector((state: RootState) => state.auth);
     const navigate = useNavigate();
     const { disc_id } = useParams();
     const { data, isLoading, error, isSuccess } = useGetArtistDetailQuery(disc_id!, { refetchOnMountOrArgChange: true });
