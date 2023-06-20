@@ -14,39 +14,23 @@ services:
           - media_volume:/app/backend/media
       expose:
           - 8000
-  frontend:
+  nginx:
     restart: unless-stopped
     build:
         context: .
-        dockerfile: ./docker/frontend/Dockerfile.dev
-    volumes:
-        - ./frontend:/app
-    command: sh -c "npm rebuild esbuild && npm run dev -- --host"
-    ports:
-        - 5173:5173
-    depends_on: 
-        - backend
-  nginx: 
-    restart: unless-stopped
-    build:
-        context: .
-        dockerfile: ./docker/nginx/Dockerfile.dev
-    env_file:
-      - ./frontend/docker.env
+        dockerfile: ./docker/nginx/Dockerfile.prod
     ports:
         - 80:80
     volumes:
         - static_volume:/app/backend/static
         - media_volume:/app/backend/media
-        - ./docker/nginx/development:/etc/nginx/conf.d
+        - ./docker/nginx/production:/etc/nginx/conf.d
     depends_on: 
         - backend
 
   db:
     image: postgres:15.2-alpine
     restart: unless-stopped
-    env_file:
-      - ./docker/backend/docker.env
     environment:
       - POSTGRES_USER=${DB_USERNAME}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
