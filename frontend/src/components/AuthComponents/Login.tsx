@@ -108,7 +108,7 @@ function Login() {
                         </button>
                     </div>
                 </form>
-                <div className="login-info">Do not have an account? {!auth.account && <Link to="/register">Sign up</Link>}</div>
+                <div className="login-info">Do not have an account? {!auth.account && <Link onClick={closePopup} to="/register">Sign up</Link>}</div>
             </div>
         </div>
     );

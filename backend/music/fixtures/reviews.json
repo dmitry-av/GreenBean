@@ -1,0 +1,470 @@
+[
+  {
+    "model": "music.review",
+    "pk": null,
+    "fields": {
+      "creator": 13,
+      "album": 248,
+      "created_at": "2023-06-20T09:45:12.000Z",
+      "modified_at": "2023-06-20T09:45:12.000Z",
+      "text": "When We All Fall Asleep, Where Do We Go? is an amazing album by Billie Eilish. It showcases her unique style and captivating vocals. The songs are hauntingly beautiful, and the lyrics are deep and introspective. I can't stop listening to it!",
+      "rating": 9
+    }
+  },
+  {
+    "model": "music.review",
+    "pk": null,
+    "fields": {
+      "creator": 14,
+      "album": 275,
+      "created_at": "2023-06-20T12:30:05.000Z",
+      "modified_at": "2023-06-20T12:30:05.000Z",
+      "text": "Call Me If You Get Lost is a masterpiece by Tyler, The Creator. The album is a blend of different genres and has a unique storytelling approach. Tyler's creativity and lyricism shine throughout the tracks. It's definitely a must-listen!",
+      "rating": 10
+    }
+  },
+  {
+    "model": "music.review",
+    "pk": null,
+    "fields": {
+      "creator": 15,
+      "album": 246,
+      "created_at": "2023-06-20T15:20:22.000Z",
+      "modified_at": "2023-06-20T15:20:22.000Z",
+      "text": "Music To Be Murdered By is another incredible album by Eminem. His lyrical prowess and wordplay are unmatched. The album features a mix of intense tracks and introspective songs. Eminem proves once again why he's a rap legend.",
+      "rating": 9
+    }
+  },
+  {
+    "model": "music.review",
+    "pk": null,
+    "fields": {
+      "creator": 16,
+      "album": 28,
+      "created_at": "2023-06-20T18:05:57.000Z",
+      "modified_at": "2023-06-20T18:05:57.000Z",
+      "text": "Quadrophenia by The Who is a classic rock album that tells a captivating story. The music is energetic, and the lyrics are deeply meaningful. It's an immersive experience that every rock fan should have.",
+      "rating": 8
+    }
+  },
+  {
+    "model": "music.review",
+    "pk": null,
+    "fields": {
+      "creator": 17,
+      "album": 272,
+      "created_at": "2023-06-21T09:15:39.000Z",
+      "modified_at": "2023-06-21T09:15:39.000Z",
+      "text": "Igor by Tyler, The Creator is a groundbreaking album that pushes boundaries. The production is top-notch, and Tyler's artistry shines through every track. It's a sonic journey that I can't recommend enough.",
+      "rating": 10
+    }
+  },
+  {
+    "model": "music.review",
+    "pk": null,
+    "fields": {
+      "creator": 18,
+      "album": 115,
+      "created_at": "2023-06-21T12:40:18.000Z",
+      "modified_at": "2023-06-21T12:40:18.000Z",
+      "text": "Invasion Of Privacy by Cardi B is a fierce and empowering album. Cardi B's confident delivery and catchy beats make this album a hit. It's a perfect blend of rap and pop that will get you hyped up.",
+      "rating": 8
+    }
+  },
+  {
+    "model": "music.review",
+    "pk": null,
+    "fields": {
+      "creator": 19,
+      "album": 300,
+      "created_at": "2023-06-21T15:25:04.000Z",
+      "modified_at": "2023-06-21T15:25:04.000Z",
+      "text": "Hollywood's Bleeding by Post Malone is a fantastic album that showcases his versatility. The songs range from introspective to upbeat, and Post Malone's vocals are captivating. It's definitely worth a listen.",
+      "rating": 9
+    }
+  },
+  {
+    "model": "music.review",
+    "pk": null,
+    "fields": {
+      "creator": 20,
+      "album": 106,
+      "created_at": "2023-06-21T18:55:30.000Z",
+      "modified_at": "2023-06-21T18:55:30.000Z",
+      "text": "Villains by Queens Of The Stone Age is a rock album that packs a punch. The guitar riffs are powerful, and the vocals are gritty. It's a headbanger from start to finish!",
+      "rating": 8
+    }
+  },
+  {
+    "model": "music.review",
+    "pk": null,
+    "fields": {
+      "creator": 12,
+      "album": 175,
+      "created_at": "2023-06-22T10:10:55.000Z",
+      "modified_at": "2023-06-22T10:10:55.000Z",
+      "text": "Goodbye & Good Riddance by Juice WRLD is an emotional and raw album. The lyrics are relatable, and Juice WRLD's melodies are catchy. It's a bittersweet listening experience.",
+      "rating": 7
+    }
+  },
+  {
+    "model": "music.review",
+    "pk": null,
+    "fields": {
+      "creator": 13,
+      "album": 180,
+      "created_at": "2023-06-22T13:40:28.000Z",
+      "modified_at": "2023-06-22T13:40:28.000Z",
+      "text": "Ungodly Hour by Chloe x Halle is a stunning R&B album. The harmonies are mesmerizing, and the production is top-notch. Chloe x Halle's talent shines through every track.",
+      "rating": 9
+    }
+  },
+  {
+    "model": "music.review",
+    "pk": null,
+    "fields": {
+      "creator": 14,
+      "album": 188,
+      "created_at": "2023-06-22T16:15:37.000Z",
+      "modified_at": "2023-06-22T16:15:37.000Z",
+      "text": "Fetch The Bolt Cutters by Fiona Apple is a bold and experimental album. Fiona's vocals are powerful, and the lyrics are thought-provoking. It's an album that demands your attention.",
+      "rating": 9
+    }
+  },
+  {
+    "model": "music.review",
+    "pk": null,
+    "fields": {
+      "creator": 15,
+      "album": 264,
+      "created_at": "2023-06-22T19:30:12.000Z",
+      "modified_at": "2023-06-22T19:30:12.000Z",
+      "text": "Kiwanuka by Michael Kiwanuka is a soulful and introspective album. The songs are beautifully crafted, and Michael's voice is captivating. It's a perfect album to relax and unwind to.",
+      "rating": 8
+    }
+  },
+  {
+    "model": "music.review",
+    "pk": null,
+    "fields": {
+      "creator": 16,
+      "album": 201,
+      "created_at": "2023-06-22T22:05:49.000Z",
+      "modified_at": "2023-06-22T22:05:49.000Z",
+      "text": "Agüita by Gabriel Garzón-Montano is a mesmerizing album that blends different genres seamlessly. The music is rich and layered, and Gabriel's vocals are soothing. It's a hidden gem worth exploring.",
+      "rating": 9
+    }
+  },
+  {
+    "model": "music.review",
+    "pk": null,
+    "fields": {
+      "creator": 13,
+      "album": 248,
+      "created_at": "2023-06-20T09:45:22.000Z",
+      "modified_at": "2023-06-20T09:45:22.000Z",
+      "text": "When We All Fall Asleep, Where Do We Go? is a captivating album by Billie Eilish. It showcases her unique style and powerful vocals. The songs are hauntingly beautiful and the production is top-notch. Highly recommended!",
+      "rating": 9
+    }
+  },
+  {
+    "model": "music.review",
+    "pk": null,
+    "fields": {
+      "creator": 14,
+      "album": 275,
+      "created_at": "2023-06-20T12:20:15.000Z",
+      "modified_at": "2023-06-20T12:20:15.000Z",
+      "text": "Call Me If You Get Lost by Tyler, The Creator is a masterpiece. The album takes you on a journey with its seamless blend of different genres and clever storytelling. Tyler's lyrics are raw and honest. A must-listen for any music enthusiast.",
+      "rating": 10
+    }
+  },
+  {
+    "model": "music.review",
+    "pk": null,
+    "fields": {
+      "creator": 15,
+      "album": 246,
+      "created_at": "2023-06-20T14:55:07.000Z",
+      "modified_at": "2023-06-20T14:55:07.000Z",
+      "text": "Music To Be Murdered By by Eminem, Slim Shady is a rap masterpiece. Eminem's lyrical prowess is on full display, and the album's production is fantastic. It's intense, thought-provoking, and showcases Eminem's growth as an artist.",
+      "rating": 9
+    }
+  },
+  {
+    "model": "music.review",
+    "pk": null,
+    "fields": {
+      "creator": 16,
+      "album": 28,
+      "created_at": "2023-06-20T17:30:55.000Z",
+      "modified_at": "2023-06-20T17:30:55.000Z",
+      "text": "Quadrophenia by The Who is a classic rock album that stands the test of time. The band's musical talent shines through, and the storytelling is engaging. It's a must-listen for any rock music lover.",
+      "rating": 8
+    }
+  },
+  {
+    "model": "music.review",
+    "pk": null,
+    "fields": {
+      "creator": 17,
+      "album": 272,
+      "created_at": "2023-06-21T10:15:41.000Z",
+      "modified_at": "2023-06-21T10:15:41.000Z",
+      "text": "Igor by Tyler, The Creator is a groundbreaking album. It pushes the boundaries of hip-hop and showcases Tyler's artistic evolution. The production is outstanding, and the album has a unique and cohesive sound.",
+      "rating": 9
+    }
+  },
+  {
+    "model": "music.review",
+    "pk": null,
+    "fields": {
+      "creator": 18,
+      "album": 115,
+      "created_at": "2023-06-21T13:05:32.000Z",
+      "modified_at": "2023-06-21T13:05:32.000Z",
+      "text": "Invasion Of Privacy by Cardi B is a powerful and confident debut album. Cardi B's charisma shines through her music, and the album features catchy beats and strong lyrical delivery. Highly recommended for fans of hip-hop and rap.",
+      "rating": 8
+    }
+  },
+  {
+    "model": "music.review",
+    "pk": null,
+    "fields": {
+      "creator": 19,
+      "album": 300,
+      "created_at": "2023-06-21T15:50:28.000Z",
+      "modified_at": "2023-06-21T15:50:28.000Z",
+      "text": "Hollywood's Bleeding by Post Malone is a genre-blending album that showcases his versatility as an artist. The album features a mix of catchy pop tracks and introspective songs. Post Malone's melodic hooks are incredibly infectious.",
+      "rating": 9
+    }
+  },
+  {
+    "model": "music.review",
+    "pk": null,
+    "fields": {
+      "creator": 20,
+      "album": 106,
+      "created_at": "2023-06-21T18:25:19.000Z",
+      "modified_at": "2023-06-21T18:25:19.000Z",
+      "text": "Villains by Queens Of The Stone Age is a hard-hitting rock album that delivers a punch. The band's energy is infectious, and the guitar riffs are killer. It's a must-listen for fans of rock and roll.",
+      "rating": 9
+    }
+  },
+  {
+    "model": "music.review",
+    "pk": null,
+    "fields": {
+      "creator": 12,
+      "album": 175,
+      "created_at": "2023-06-22T09:10:57.000Z",
+      "modified_at": "2023-06-22T09:10:57.000Z",
+      "text": "Goodbye & Good Riddance by Juice WRLD is a powerful and emotionally charged album. Juice WRLD's lyrics resonate with listeners, and the album showcases his talent as a rapper and singer. A heartfelt and impactful project.",
+      "rating": 8
+    }
+  },
+  {
+    "model": "music.review",
+    "pk": null,
+    "fields": {
+      "creator": 13,
+      "album": 180,
+      "created_at": "2023-06-22T12:45:42.000Z",
+      "modified_at": "2023-06-22T12:45:42.000Z",
+      "text": "Ungodly Hour by Chloe x Halle is a refreshing and empowering R&B album. The duo's vocals are angelic, and the production is top-notch. The album has a cohesive sound and delivers meaningful messages.",
+      "rating": 9
+    }
+  },
+  {
+    "model": "music.review",
+    "pk": null,
+    "fields": {
+      "creator": 14,
+      "album": 188,
+      "created_at": "2023-06-22T15:20:35.000Z",
+      "modified_at": "2023-06-22T15:20:35.000Z",
+      "text": "Fetch The Bolt Cutters by Fiona Apple is a bold and experimental album. Fiona Apple's vocals are captivating, and the album's lyrics are introspective and thought-provoking. A truly unique musical experience.",
+      "rating": 9
+    }
+  },
+  {
+    "model": "music.review",
+    "pk": null,
+    "fields": {
+      "creator": 15,
+      "album": 264,
+      "created_at": "2023-06-22T17:55:28.000Z",
+      "modified_at": "2023-06-22T17:55:28.000Z",
+      "text": "Kiwanuka by Michael Kiwanuka is a soulful and powerful album. Michael's voice is rich and emotive, and the album's instrumentation is superb. Each track tells a story and leaves a lasting impact.",
+      "rating": 8
+    }
+  },
+  {
+    "model": "music.review",
+    "pk": null,
+    "fields": {
+      "creator": 16,
+      "album": 201,
+      "created_at": "2023-06-22T20:30:14.000Z",
+      "modified_at": "2023-06-22T20:30:14.000Z",
+      "text": "Agüita by Gabriel Garzón-Montano is a mesmerizing blend of R&B, funk, and soul. The album is beautifully crafted, and Gabriel's vocals are smooth and captivating. A must-listen for fans of soulful music.",
+      "rating": 9
+    }
+  },
+  {
+    "model": "music.review",
+    "pk": null,
+    "fields": {
+      "creator": 13,
+      "album": 197,
+      "created_at": "2023-06-20T10:15:00.000Z",
+      "modified_at": "2023-06-20T10:15:00.000Z",
+      "text": "Eternal Atake is a fantastic album by Lil Uzi Vert. It showcases his unique style and captivating beats. Each track has its own charm, making it a must-listen for hip-hop fans.",
+      "rating": 9
+    }
+  },
+  {
+    "model": "music.review",
+    "pk": null,
+    "fields": {
+      "creator": 14,
+      "album": 139,
+      "created_at": "2023-06-20T11:30:00.000Z",
+      "modified_at": "2023-06-20T11:30:00.000Z",
+      "text": "Honestly, Nevermind by Drake is a solid release. The album has a great mix of catchy beats and introspective lyrics. It's definitely worth a listen.",
+      "rating": 7
+    }
+  },
+  {
+    "model": "music.review",
+    "pk": null,
+    "fields": {
+      "creator": 15,
+      "album": 250,
+      "created_at": "2023-06-20T12:45:00.000Z",
+      "modified_at": "2023-06-20T12:45:00.000Z",
+      "text": "Jaime by Brittany Howard is a masterpiece. The album showcases her powerful vocals and raw emotions. It's a soulful journey that shouldn't be missed.",
+      "rating": 10
+    }
+  },
+  {
+    "model": "music.review",
+    "pk": null,
+    "fields": {
+      "creator": 16,
+      "album": 217,
+      "created_at": "2023-06-20T14:00:00.000Z",
+      "modified_at": "2023-06-20T14:00:00.000Z",
+      "text": "Notes On A Conditional Form is a unique album by The 1975. It explores various musical styles and themes, showcasing the band's versatility. The album features catchy hooks and thought-provoking lyrics that leave a lasting impression. I highly recommend giving it a listen.",
+      "rating": 8
+    }
+  },
+  {
+    "model": "music.review",
+    "pk": null,
+    "fields": {
+      "creator": 17,
+      "album": 177,
+      "created_at": "2023-06-20T15:15:00.000Z",
+      "modified_at": "2023-06-20T15:15:00.000Z",
+      "text": "Folklore by Taylor Swift is a mesmerizing album. It showcases her storytelling ability and mature songwriting. The melodies are hauntingly beautiful, making it a standout release.",
+      "rating": 9
+    }
+  },
+  {
+    "model": "music.review",
+    "pk": null,
+    "fields": {
+      "creator": 18,
+      "album": 161,
+      "created_at": "2023-06-21T10:30:00.000Z",
+      "modified_at": "2023-06-21T10:30:00.000Z",
+      "text": "El Dorado by Shakira is a vibrant album with infectious beats. It's a perfect blend of Latin and pop influences that will get you dancing. Highly recommended for fans of catchy music.",
+      "rating": 8
+    }
+  },
+  {
+    "model": "music.review",
+    "pk": null,
+    "fields": {
+      "creator": 19,
+      "album": 257,
+      "created_at": "2023-06-21T11:45:00.000Z",
+      "modified_at": "2023-06-21T11:45:00.000Z",
+      "text": "Athena by Sudan Archives is a refreshing and experimental album. It pushes boundaries with its unique blend of electronic and traditional sounds. Prepare to be captivated by this musical journey.",
+      "rating": 9
+    }
+  },
+  {
+    "model": "music.review",
+    "pk": null,
+    "fields": {
+      "creator": 20,
+      "album": 123,
+      "created_at": "2023-06-21T13:00:00.000Z",
+      "modified_at": "2023-06-21T13:00:00.000Z",
+      "text": "Nothing Was The Same by Drake is a classic hip-hop album. It showcases his lyrical prowess and smooth flow. This album is a must-have for any Drake fan.",
+      "rating": 8
+    }
+  },
+  {
+    "model": "music.review",
+    "pk": null,
+    "fields": {
+      "creator": 12,
+      "album": 220,
+      "created_at": "2023-06-22T09:15:00.000Z",
+      "modified_at": "2023-06-22T09:15:00.000Z",
+      "text": "Eminem Is Back by Eminem is a powerful comeback. The album showcases his technical skills and hard-hitting lyrics. It's a must-listen for fans of rap music.",
+      "rating": 7
+    }
+  },
+  {
+    "model": "music.review",
+    "pk": null,
+    "fields": {
+      "creator": 13,
+      "album": 199,
+      "created_at": "2023-06-22T10:30:00.000Z",
+      "modified_at": "2023-06-22T10:30:00.000Z",
+      "text": "Set My Heart On Fire Immediately by Perfume Genius is a hauntingly beautiful album. It's filled with introspective lyrics and atmospheric melodies that will leave you mesmerized.",
+      "rating": 9
+    }
+  },
+  {
+    "model": "music.review",
+    "pk": null,
+    "fields": {
+      "creator": 14,
+      "album": 189,
+      "created_at": "2023-06-22T11:45:00.000Z",
+      "modified_at": "2023-06-22T11:45:00.000Z",
+      "text": "Gaslighter by Dixie Chicks is a powerful and empowering album. The songs are filled with emotion and meaningful lyrics. It's a must-listen for anyone who appreciates great storytelling through music.",
+      "rating": 8
+    }
+  },
+  {
+    "model": "music.review",
+    "pk": null,
+    "fields": {
+      "creator": 15,
+      "album": 282,
+      "created_at": "2023-06-22T13:00:00.000Z",
+      "modified_at": "2023-06-22T13:00:00.000Z",
+      "text": "Endless Summer Vacation by Miley Cyrus is a fun and upbeat album. It's perfect for the sunny days and will make you want to hit the beach. Enjoy the carefree vibes of this release.",
+      "rating": 7
+    }
+  },
+  {
+    "model": "music.review",
+    "pk": null,
+    "fields": {
+      "creator": 16,
+      "album": 215,
+      "created_at": "2023-06-22T14:15:00.000Z",
+      "modified_at": "2023-06-22T14:15:00.000Z",
+      "text": "Karma by Kamelot is a symphonic metal masterpiece. The album combines powerful vocals, intricate instrumentals, and epic storytelling. Prepare to be blown away by this epic release.",
+      "rating": 10
+    }
+  }
+]

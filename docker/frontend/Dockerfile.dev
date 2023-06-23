@@ -9,5 +9,6 @@ COPY ./frontend/package-lock.json ./
 RUN npm ci --silent
 COPY ./frontend .
 ENV VITE_API_URL=http://localhost:80/api
+ENV CHOKIDAR_USEPOLLING=true
 # CMD npm start
 # more efficient way of executing commands without usage of shell process:

@@ -44,7 +44,7 @@ function AlbumDetailPage() {
             <div className='album-detail__cont1'>
                 <img src={album.cover ?? genericAlbumPic} alt={genericAlbumPic} className="album-detail__cont1__cover" />
                 <div className='album-detail__cont1__tracklist'>
-                    <h3>Tracklist</h3>
+                    <h3>Track listing</h3>
                     <ul className='album-detail__cont1__tracklist__tracks'>
                         {album.tracks.map((track) => (
                             <li key={track.position}>

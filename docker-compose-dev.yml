@@ -10,6 +10,7 @@ services:
       env_file:
           - ./docker/backend/docker.env
       volumes:
+          - ./backend:/app/backend
           - static_volume:/app/backend/static
           - media_volume:/app/backend/media
       expose:
@@ -21,7 +22,7 @@ services:
         dockerfile: ./docker/frontend/Dockerfile.dev
     volumes:
         - ./frontend:/app
-    command: sh -c "npm rebuild esbuild && npm run dev -- --host"
+    command: sh -c "npm run dev -- --host"
     ports:
         - 5173:5173
     depends_on: 
